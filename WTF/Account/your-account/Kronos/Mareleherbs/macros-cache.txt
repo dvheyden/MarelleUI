@@ -1,0 +1,4 @@
+MACRO 16777217 "Conjure Water" Spell_Misc_Drink
+/cast Conjure Water(Rank 7)
+/script UIErrorsFrame:Hide()
+END
