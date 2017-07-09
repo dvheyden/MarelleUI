@@ -4,23 +4,23 @@ pfUI_config = {
 		["other"] = {
 			["minimap"] = "zone",
 		},
-		["left"] = {
-			["center"] = "durability",
-			["right"] = "friends",
-			["left"] = "guild",
-		},
-		["micro"] = {
-			["enable"] = "1",
+		["use_unitfonts"] = "0",
+		["xp"] = {
+			["showalways"] = "0",
 		},
 		["right"] = {
 			["center"] = "time",
 			["right"] = "gold",
 			["left"] = "fps",
 		},
-		["xp"] = {
-			["showalways"] = "0",
+		["micro"] = {
+			["enable"] = "1",
 		},
-		["use_unitfonts"] = "0",
+		["left"] = {
+			["center"] = "durability",
+			["right"] = "friends",
+			["left"] = "guild",
+		},
 	},
 	["appearance"] = {
 		["infight"] = {
@@ -40,12 +40,12 @@ pfUI_config = {
 			["mincolor"] = ".2,1,1,1",
 		},
 		["castbar"] = {
-			["castbarcolor"] = "0.1,0.5,0.7,0.8",
 			["channelcolor"] = "0.4,0.4,0.4,0.8",
+			["castbarcolor"] = "0.1,0.5,0.7,0.8",
 		},
 		["bags"] = {
-			["borderlimit"] = "1",
 			["borderonlygear"] = "0",
+			["borderlimit"] = "1",
 		},
 		["border"] = {
 			["groupframes"] = "-1",
@@ -54,10 +54,10 @@ pfUI_config = {
 			["panels"] = "-1",
 			["actionbars"] = "-1",
 			["default"] = "3",
-			["raidframes"] = "-1",
+			["chat"] = "-1",
 			["background"] = "0,0,0,1",
 			["unitframes"] = "-1",
-			["chat"] = "-1",
+			["raidframes"] = "-1",
 		},
 		["minimap"] = {
 			["mouseoverzone"] = "0",
@@ -86,8 +86,8 @@ pfUI_config = {
 	},
 	["disabled"] = {
 		["pixelperfect"] = "0",
-		["autovendor"] = "0",
-		["loot"] = "0",
+		["buff"] = "1",
+		["uf_tukui"] = "0",
 		["skin"] = "0",
 		["target"] = "0",
 		["rangecheck"] = "0",
@@ -102,24 +102,24 @@ pfUI_config = {
 		["eqcompare"] = "0",
 		["group"] = "0",
 		["bags"] = "0",
-		["minimap"] = "0",
+		["chat"] = "0",
 		["autoshift"] = "0",
 		["focus"] = "0",
 		["raid"] = "0",
 		["panel"] = "0",
-		["map"] = "0",
-		["chat"] = "0",
+		["pet"] = "0",
+		["minimap"] = "0",
 		["hoverbind"] = "0",
-		["uf_tukui"] = "0",
-		["buff"] = "1",
+		["roll"] = "0",
+		["autovendor"] = "0",
 		["targettarget"] = "0",
 		["sellvalue"] = "0",
-		["pet"] = "0",
-		["roll"] = "0",
+		["loot"] = "0",
+		["castbar"] = "0",
 		["firstrun"] = "0",
 		["actionbar"] = "0",
 		["nameplates"] = "0",
-		["castbar"] = "0",
+		["map"] = "0",
 		["cooldown"] = "0",
 		["combopoints"] = "0",
 	},
@@ -142,17 +142,17 @@ pfUI_config = {
 			["healthcolor"] = "1",
 			["classcolor"] = "0",
 			["clickcast"] = "0",
-			["buff_indicator"] = "0",
+			["debufflimit"] = "16",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "120",
 			["visible"] = "1",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
 			["faderange"] = "1",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "16",
 			["buffs"] = "off",
-			["debufflimit"] = "16",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["target"] = {
@@ -172,19 +172,19 @@ pfUI_config = {
 			["buffsize"] = "24",
 			["healthcolor"] = "1",
 			["debufflimit"] = "32",
-			["buff_indicator"] = "0",
 			["animation"] = "0",
+			["clickcast"] = "0",
 			["classcolor"] = "0",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "241",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
-			["faderange"] = "0",
 			["visible"] = "1",
+			["faderange"] = "0",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "40",
 			["buffs"] = "top",
-			["clickcast"] = "0",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["ttarget"] = {
@@ -205,17 +205,17 @@ pfUI_config = {
 			["healthcolor"] = "1",
 			["classcolor"] = "0",
 			["clickcast"] = "0",
-			["buff_indicator"] = "0",
+			["debufflimit"] = "16",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "115",
 			["visible"] = "1",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
 			["faderange"] = "0",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "20",
 			["buffs"] = "off",
-			["debufflimit"] = "16",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["pastel"] = "1",
@@ -241,17 +241,17 @@ pfUI_config = {
 			["healthcolor"] = "1",
 			["classcolor"] = "0",
 			["clickcast"] = "0",
-			["buff_indicator"] = "0",
+			["debufflimit"] = "16",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "115",
 			["visible"] = "1",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
 			["faderange"] = "0",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "16",
 			["buffs"] = "off",
-			["debufflimit"] = "16",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["show_hots"] = "0",
@@ -261,8 +261,8 @@ pfUI_config = {
 			["txthpcenter"] = "none",
 			["pheight"] = "14",
 			["debuffsize"] = "24",
-			["powercolor"] = "1",
-			["levelcolor"] = "1",
+			["txtpowerleft"] = "none",
+			["showPVPMinimap"] = "0",
 			["txthpleft"] = "unit",
 			["bufflimit"] = "32",
 			["invert_healthbar"] = "0",
@@ -274,7 +274,7 @@ pfUI_config = {
 			["buffs"] = "off",
 			["energy"] = "1",
 			["txtpowercenter"] = "none",
-			["txthpright"] = "healthdyn",
+			["visible"] = "1",
 			["buff_indicator"] = "0",
 			["debuff_indicator"] = "0",
 			["txtpowerright"] = "none",
@@ -284,9 +284,9 @@ pfUI_config = {
 			["faderange"] = "0",
 			["pspace"] = "-3",
 			["width"] = "241",
-			["visible"] = "1",
-			["txtpowerleft"] = "none",
-			["showPVPMinimap"] = "0",
+			["txthpright"] = "healthdyn",
+			["powercolor"] = "1",
+			["levelcolor"] = "1",
 			["debufflimit"] = "16",
 		},
 		["portraitalpha"] = "0.1",
@@ -294,12 +294,12 @@ pfUI_config = {
 		["all_hots"] = "0",
 		["abbrevnum"] = "1",
 		["group"] = {
-			["debuffs"] = "off",
+			["hide_in_raid"] = "1",
 			["portrait"] = "off",
 			["txthpcenter"] = "none",
 			["pheight"] = "4",
 			["debuffsize"] = "8",
-			["powercolor"] = "1",
+			["txtpowerleft"] = "none",
 			["levelcolor"] = "1",
 			["txthpleft"] = "unit",
 			["bufflimit"] = "16",
@@ -311,7 +311,7 @@ pfUI_config = {
 			["height"] = "32",
 			["buffs"] = "off",
 			["txtpowercenter"] = "none",
-			["txthpright"] = "healthmiss",
+			["visible"] = "1",
 			["buff_indicator"] = "0",
 			["debuff_indicator"] = "0",
 			["txtpowerright"] = "none",
@@ -322,9 +322,9 @@ pfUI_config = {
 			["pspace"] = "-3",
 			["width"] = "164",
 			["raid_debuffs"] = "0",
-			["visible"] = "1",
-			["hide_in_raid"] = "1",
-			["txtpowerleft"] = "none",
+			["txthpright"] = "healthmiss",
+			["debuffs"] = "off",
+			["powercolor"] = "1",
 			["buffperrow"] = "8",
 		},
 		["fallback"] = {
@@ -345,17 +345,17 @@ pfUI_config = {
 			["healthcolor"] = "1",
 			["classcolor"] = "0",
 			["clickcast"] = "0",
-			["buff_indicator"] = "0",
+			["debufflimit"] = "16",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "200",
 			["visible"] = "1",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
 			["faderange"] = "0",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "50",
 			["buffs"] = "top",
-			["debufflimit"] = "16",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["rangechecki"] = ".5",
@@ -378,17 +378,17 @@ pfUI_config = {
 			["healthcolor"] = "1",
 			["classcolor"] = "0",
 			["clickcast"] = "0",
-			["buff_indicator"] = "0",
+			["debufflimit"] = "32",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "120",
 			["visible"] = "0",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
 			["faderange"] = "0",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "34",
 			["buffs"] = "top",
-			["debufflimit"] = "32",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["clickcast_ctrl"] = "",
@@ -398,7 +398,7 @@ pfUI_config = {
 			["txthpcenter"] = "name",
 			["pheight"] = "4",
 			["debuffsize"] = "16",
-			["powercolor"] = "1",
+			["txtpowerleft"] = "none",
 			["levelcolor"] = "1",
 			["txthpleft"] = "none",
 			["bufflimit"] = "16",
@@ -424,10 +424,10 @@ pfUI_config = {
 			["show_missing"] = "0",
 			["pspace"] = "-4",
 			["width"] = "58",
-			["txtpowerleft"] = "none",
+			["powercolor"] = "1",
 			["debuffs_enable"] = "1",
-			["visible"] = "1",
 			["debufflimit"] = "16",
+			["visible"] = "1",
 			["buffs_buffs"] = "1",
 		},
 		["show_procs"] = "0",
@@ -449,125 +449,103 @@ pfUI_config = {
 			["healthcolor"] = "1",
 			["classcolor"] = "0",
 			["clickcast"] = "0",
-			["buff_indicator"] = "0",
+			["debufflimit"] = "16",
 			["powercolor"] = "1",
 			["pspace"] = "-3",
 			["width"] = "100",
 			["visible"] = "1",
-			["debuff_indicator"] = "0",
-			["txtpowerright"] = "none",
 			["faderange"] = "1",
+			["txtpowerright"] = "none",
+			["debuff_indicator"] = "0",
 			["height"] = "14",
 			["buffs"] = "off",
-			["debufflimit"] = "16",
+			["buff_indicator"] = "0",
 			["txtpowercenter"] = "none",
 		},
 		["animation_speed"] = "5",
 		["clickcast_alt"] = "",
 		["customcolor"] = ".2,.2,.2,1",
 		["combosize"] = "6",
-		["rangecheck"] = "0",
 		["custom"] = "0",
+		["custombg"] = "0",
 		["debuffs_class"] = "0",
 		["globalclick"] = "0",
 		["clickcast_shift"] = "",
-		["custombg"] = "0",
+		["rangecheck"] = "0",
 		["disable"] = "0",
 	},
 	["thirdparty"] = {
-		["wim"] = {
+		["cleanup"] = {
 			["enable"] = "1",
-		},
-		["ktm"] = {
-			["enable"] = "1",
-		},
-		["dpsmate"] = {
-			["enable"] = "0",
 		},
 		["healcomm"] = {
 			["enable"] = "1",
 		},
-		["cleanup"] = {
+		["ktm"] = {
+			["skin"] = "1",
+			["enable"] = "1",
+			["dock"] = "0",
+		},
+		["dpsmate"] = {
+			["skin"] = "0",
+			["enable"] = "0",
+			["dock"] = "0",
+		},
+		["swstats"] = {
+			["dock"] = "0",
+			["skin"] = "0",
+		},
+		["wim"] = {
 			["enable"] = "1",
 		},
 	},
-	["chat"] = {
-		["global"] = {
-			["tabmouse"] = "0",
-			["tabdock"] = "1",
-			["border"] = ".4,.4,.4,.5",
-			["fadetime"] = "300",
-			["fadeout"] = "0",
-			["whispermod"] = "1",
-			["custombg"] = "0",
-			["background"] = ".2,.2,.2,.5",
-			["sticky"] = "1",
-			["whisper"] = "1,.6,1,1",
-		},
-		["right"] = {
-			["height"] = "180",
-			["alwaysshow"] = "1",
-			["enable"] = "0",
-			["width"] = "380",
-		},
-		["left"] = {
-			["height"] = "180",
-			["width"] = "380",
-		},
-		["text"] = {
-			["input_height"] = "0",
-			["detecturl"] = "1",
-			["timebracket"] = "[]",
-			["time"] = "0",
-			["input_width"] = "0",
-			["classcolor"] = "1",
-			["timeformat"] = "%H:%M:%S",
-			["channelnumonly"] = "1",
-			["timecolor"] = ".8,.8,.8,1",
-		},
-	},
 	["version"] = "3.0.0",
+	["loot"] = {
+		["autopickup"] = "1",
+		["autoresize"] = "1",
+	},
 	["position"] = {
 		["pfFocus"] = {
 			["ypos"] = -916.6527712458466,
 			["xpos"] = 1475.911701952545,
 		},
-		["pfLootRollFrame4"] = {
-			["ypos"] = -169.2517518246228,
-			["xpos"] = 891.8346590769596,
-		},
-		["pfRaid1"] = {
-			["xpos"] = 6.406720113117965,
+		["pfRaid5"] = {
+			["xpos"] = 6.40671573633464,
 			["scale"] = 0.9,
-			["ypos"] = -1087.472952128727,
+			["ypos"] = -923.4726400093663,
 		},
-		["pfRaid27"] = {
-			["xpos"] = 326.8284866498876,
+		["pfPet"] = {
+			["xpos"] = 1009.598141946059,
+			["scale"] = 1,
+			["ypos"] = -921.2180713827373,
+		},
+		["pfRaid14"] = {
+			["xpos"] = 134.6199373012111,
 			["scale"] = 0.9,
-			["ypos"] = -1046.472716534687,
+			["ypos"] = -964.472455432207,
 		},
 		["pfRaid20"] = {
 			["xpos"] = 198.7265163519703,
 			["scale"] = 0.9,
 			["ypos"] = -923.4726400093663,
 		},
-		["pfRaid12"] = {
-			["xpos"] = 134.6198935333779,
+		["pfGroup4"] = {
+			["xpos"] = 5.925968761666436,
 			["scale"] = 0.9,
-			["ypos"] = -1046.472716534687,
+			["ypos"] = -724.2805389543632,
 		},
-		["pfTarget"] = {
-			["ypos"] = -903.0755691989618,
-			["xpos"] = 1203.216531985977,
+		["pfLootRollFrame4"] = {
+			["ypos"] = -169.2517518246228,
+			["xpos"] = 891.8346590769596,
 		},
 		["pfBarShapeshift"] = {
 			["ypos"] = -1073.199036204957,
 			["xpos"] = 1007.002114191508,
 		},
-		["pfRaid26"] = {
-			["xpos"] = 326.828626706954,
+		["pfRaid33"] = {
+			["xpos"] = 390.8236415507463,
 			["scale"] = 0.9,
-			["ypos"] = -1087.472672014594,
+			["ypos"] = -1005.472060769448,
 		},
 		["pfPlayer"] = {
 			["ypos"] = -903.0783703402901,
@@ -593,14 +571,15 @@ pfUI_config = {
 			["scale"] = 0.9,
 			["ypos"] = -571.5225375276687,
 		},
-		["pfTargetTarget"] = {
-			["xpos"] = 1009.597441660727,
-			["scale"] = 1,
-			["ypos"] = -949.1285735495528,
+		["pfGroup2"] = {
+			["xpos"] = 5.925909675091542,
+			["scale"] = 0.9,
+			["ypos"] = -622.0707434534093,
 		},
-		["pfParty4Target"] = {
-			["ypos"] = -651.8524780560736,
-			["xpos"] = 161.9333674403292,
+		["pfRaid2"] = {
+			["xpos"] = 6.406719566020049,
+			["scale"] = 0.9,
+			["ypos"] = -1046.472716534687,
 		},
 		["pfRaid8"] = {
 			["xpos"] = 70.51329697548543,
@@ -622,20 +601,20 @@ pfUI_config = {
 			["scale"] = 0.9,
 			["ypos"] = -1046.472716534687,
 		},
-		["pfRaid14"] = {
-			["xpos"] = 134.6199373012111,
-			["scale"] = 0.9,
-			["ypos"] = -964.472455432207,
-		},
-		["pfGroup2"] = {
-			["xpos"] = 5.925909675091542,
-			["scale"] = 0.9,
-			["ypos"] = -622.0707434534093,
-		},
-		["pfRaid22"] = {
-			["xpos"] = 262.7216887599622,
+		["pfRaid27"] = {
+			["xpos"] = 326.8284866498876,
 			["scale"] = 0.9,
 			["ypos"] = -1046.472716534687,
+		},
+		["pfTargetTarget"] = {
+			["xpos"] = 1009.597441660727,
+			["scale"] = 1,
+			["ypos"] = -949.1285735495528,
+		},
+		["pfRaid23"] = {
+			["xpos"] = 262.7218988455618,
+			["scale"] = 0.9,
+			["ypos"] = -1005.472060769448,
 		},
 		["pfLootRollFrame2"] = {
 			["ypos"] = -227.0955303399646,
@@ -646,29 +625,30 @@ pfUI_config = {
 			["scale"] = 0.9,
 			["ypos"] = -1087.472672014594,
 		},
-		["pfLootRollFrame3"] = {
-			["ypos"] = -198.1745689603587,
-			["xpos"] = 891.8346590769596,
+		["pfRaid9"] = {
+			["xpos"] = 70.51329697548543,
+			["scale"] = 0.9,
+			["ypos"] = -964.472455432207,
 		},
 		["pfRaid15"] = {
 			["xpos"] = 134.6199373012111,
 			["scale"] = 0.9,
 			["ypos"] = -923.4724299237666,
 		},
-		["pfGroup3"] = {
-			["xpos"] = 6.00537947703047,
+		["pfRaid18"] = {
+			["xpos"] = 198.7265163519703,
 			["scale"] = 0.9,
-			["ypos"] = -673.2362508993776,
+			["ypos"] = -1005.47276105478,
 		},
 		["pfRaid19"] = {
 			["xpos"] = 198.7265163519703,
 			["scale"] = 0.9,
 			["ypos"] = -964.472455432207,
 		},
-		["pfRaid34"] = {
-			["xpos"] = 390.8236415507463,
+		["pfRaid22"] = {
+			["xpos"] = 262.7216887599622,
 			["scale"] = 0.9,
-			["ypos"] = -964.472455432207,
+			["ypos"] = -1046.472716534687,
 		},
 		["pfLootRollFrame1"] = {
 			["ypos"] = -256.0179097973679,
@@ -684,43 +664,36 @@ pfUI_config = {
 			["scale"] = 0.9,
 			["ypos"] = -923.4724299237666,
 		},
-		["pfRaid38"] = {
-			["xpos"] = 454.8187264230718,
-			["scale"] = 0.9,
-			["ypos"] = -1005.472060769448,
+		["pfUITimer"] = {
+			["ypos"] = -45.83331608835112,
+			["xpos"] = 1007.16654118748,
 		},
 		["pfRaid28"] = {
 			["xpos"] = 326.828626706954,
 			["scale"] = 0.9,
 			["ypos"] = -1005.47276105478,
 		},
-		["pfRaid11"] = {
-			["xpos"] = 134.6198935333779,
+		["pfRaid7"] = {
+			["xpos"] = 70.51335825045199,
 			["scale"] = 0.9,
-			["ypos"] = -1087.472672014594,
+			["ypos"] = -1046.473346791486,
 		},
 		["pfRaid40"] = {
 			["xpos"] = 454.8187264230718,
 			["scale"] = 0.9,
 			["ypos"] = -923.4724299237666,
 		},
-		["pfRaid9"] = {
-			["xpos"] = 70.51329697548543,
-			["scale"] = 0.9,
-			["ypos"] = -964.472455432207,
+		["pfLootRollFrame3"] = {
+			["ypos"] = -198.1745689603587,
+			["xpos"] = 891.8346590769596,
 		},
 		["pfRaid36"] = {
 			["xpos"] = 454.8190415514712,
 			["scale"] = 0.9,
 			["ypos"] = -1087.472672014594,
 		},
-		["pfRaid25"] = {
-			["xpos"] = 262.7216887599622,
-			["scale"] = 0.9,
-			["ypos"] = -923.4726400093663,
-		},
-		["pfRaid4"] = {
-			["xpos"] = 6.406720113117965,
+		["pfRaid34"] = {
+			["xpos"] = 390.8236415507463,
 			["scale"] = 0.9,
 			["ypos"] = -964.472455432207,
 		},
@@ -728,29 +701,35 @@ pfUI_config = {
 			["ypos"] = -1089.331019200333,
 			["xpos"] = 852.4874470092926,
 		},
-		["pfRaid7"] = {
-			["xpos"] = 70.51335825045199,
+		["pfRaid4"] = {
+			["xpos"] = 6.406720113117965,
 			["scale"] = 0.9,
-			["ypos"] = -1046.473346791486,
+			["ypos"] = -964.472455432207,
+		},
+		["pfRaid11"] = {
+			["xpos"] = 134.6198935333779,
+			["scale"] = 0.9,
+			["ypos"] = -1087.472672014594,
 		},
 		["pfRaid21"] = {
 			["xpos"] = 262.7216887599622,
 			["scale"] = 0.9,
 			["ypos"] = -1087.472672014594,
 		},
-		["pfUITimer"] = {
-			["ypos"] = -45.83331608835112,
-			["xpos"] = 1007.16654118748,
+		["pfRaid38"] = {
+			["xpos"] = 454.8187264230718,
+			["scale"] = 0.9,
+			["ypos"] = -1005.472060769448,
 		},
 		["pfRaid10"] = {
 			["xpos"] = 70.51329697548543,
 			["scale"] = 0.9,
 			["ypos"] = -923.4726400093663,
 		},
-		["pfRaid23"] = {
-			["xpos"] = 262.7218988455618,
+		["pfGroup3"] = {
+			["xpos"] = 6.00537947703047,
 			["scale"] = 0.9,
-			["ypos"] = -1005.472060769448,
+			["ypos"] = -673.2362508993776,
 		},
 		["pfRaid30"] = {
 			["xpos"] = 326.8284866498876,
@@ -762,10 +741,10 @@ pfUI_config = {
 			["scale"] = 0.9,
 			["ypos"] = -1046.472716534687,
 		},
-		["pfRaid18"] = {
-			["xpos"] = 198.7265163519703,
+		["pfRaid25"] = {
+			["xpos"] = 262.7216887599622,
 			["scale"] = 0.9,
-			["ypos"] = -1005.47276105478,
+			["ypos"] = -923.4726400093663,
 		},
 		["pfRaid24"] = {
 			["xpos"] = 262.7216887599622,
@@ -780,10 +759,9 @@ pfUI_config = {
 		["pfMinimap"] = {
 			["scale"] = 1.1,
 		},
-		["pfRaid2"] = {
-			["xpos"] = 6.406719566020049,
-			["scale"] = 0.9,
-			["ypos"] = -1046.472716534687,
+		["pfParty4Target"] = {
+			["ypos"] = -651.8524780560736,
+			["xpos"] = 161.9333674403292,
 		},
 		["pfRaid29"] = {
 			["xpos"] = 326.828626706954,
@@ -793,25 +771,24 @@ pfUI_config = {
 		["pfPanelMinimap"] = {
 			["scale"] = 1.1,
 		},
-		["pfRaid33"] = {
-			["xpos"] = 390.8236415507463,
+		["pfRaid26"] = {
+			["xpos"] = 326.828626706954,
 			["scale"] = 0.9,
-			["ypos"] = -1005.472060769448,
+			["ypos"] = -1087.472672014594,
 		},
-		["pfGroup4"] = {
-			["xpos"] = 5.925968761666436,
+		["pfRaid12"] = {
+			["xpos"] = 134.6198935333779,
 			["scale"] = 0.9,
-			["ypos"] = -724.2805389543632,
+			["ypos"] = -1046.472716534687,
 		},
-		["pfPet"] = {
-			["xpos"] = 1009.598141946059,
-			["scale"] = 1,
-			["ypos"] = -921.2180713827373,
-		},
-		["pfRaid5"] = {
-			["xpos"] = 6.40671573633464,
+		["pfRaid1"] = {
+			["xpos"] = 6.406720113117965,
 			["scale"] = 0.9,
-			["ypos"] = -923.4726400093663,
+			["ypos"] = -1087.472952128727,
+		},
+		["pfTarget"] = {
+			["ypos"] = -903.0755691989618,
+			["xpos"] = 1203.216531985977,
 		},
 	},
 	["nameplates"] = {
@@ -835,7 +812,7 @@ pfUI_config = {
 		["overlap"] = "0",
 	},
 	["bars"] = {
-		["glowrange"] = "1",
+		["showkeybind"] = "1",
 		["hide_pet"] = "0",
 		["icon_size"] = "32",
 		["tworight"] = {
@@ -844,12 +821,12 @@ pfUI_config = {
 		["hide_time"] = "1",
 		["background"] = "1",
 		["showmacro"] = "1",
-		["hide_bottomright"] = "0",
+		["hide_shapeshift"] = "0",
 		["hide_tworight"] = "1",
 		["bottomleft"] = {
 			["formfactor"] = "12 x 1",
 		},
-		["showkeybind"] = "1",
+		["glowrange"] = "1",
 		["hide_bottomleft"] = "0",
 		["pet"] = {
 			["formfactor"] = "10 x 1",
@@ -867,20 +844,51 @@ pfUI_config = {
 		["hide_right"] = "0",
 		["hunterbar"] = "1",
 		["hide_actionmain"] = "0",
-		["hide_shapeshift"] = "0",
 		["shapeshift"] = {
 			["formfactor"] = "10 x 1",
 		},
+		["hide_bottomright"] = "0",
 	},
-	["loot"] = {
-		["autopickup"] = "1",
-		["autoresize"] = "1",
+	["chat"] = {
+		["global"] = {
+			["tabmouse"] = "0",
+			["tabdock"] = "1",
+			["border"] = ".4,.4,.4,.5",
+			["fadetime"] = "300",
+			["fadeout"] = "0",
+			["whispermod"] = "1",
+			["whisper"] = "1,.6,1,1",
+			["background"] = ".2,.2,.2,.5",
+			["sticky"] = "1",
+			["custombg"] = "0",
+		},
+		["right"] = {
+			["enable"] = "0",
+			["alwaysshow"] = "1",
+			["height"] = "180",
+			["width"] = "380",
+		},
+		["left"] = {
+			["height"] = "180",
+			["width"] = "380",
+		},
+		["text"] = {
+			["timecolor"] = ".8,.8,.8,1",
+			["detecturl"] = "1",
+			["timebracket"] = "[]",
+			["time"] = "0",
+			["input_width"] = "0",
+			["classcolor"] = "1",
+			["timeformat"] = "%H:%M:%S",
+			["channelnumonly"] = "1",
+			["input_height"] = "0",
+		},
 	},
 	["global"] = {
 		["pixelperfect"] = "0",
-		["font_unit_size"] = "12",
+		["font_combat"] = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf",
 		["errors_limit"] = "1",
-		["font_unit"] = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf",
+		["autosell"] = "1",
 		["hidewbuff"] = "1",
 		["hidebuff"] = "1",
 		["autorepair"] = "1",
@@ -888,19 +896,19 @@ pfUI_config = {
 		["twentyfour"] = "0",
 		["force_region"] = "1",
 		["font_size"] = "11",
-		["font_combat"] = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf",
-		["profile"] = "SyncedUI",
-		["autosell"] = "1",
-		["offscreen"] = "0",
+		["font_unit_size"] = "12",
 		["font_default"] = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf",
+		["font_unit"] = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf",
+		["offscreen"] = "0",
+		["profile"] = "SyncedUI",
 	},
 }
 pfUI_init = {
-	["chat_channels"] = true,
+	["welcome"] = true,
 	["cvars"] = true,
 	["chat_position"] = true,
+	["chat_channels"] = true,
 	["chat_right"] = true,
-	["welcome"] = true,
 }
 pfUI_playerDB = {
 	[""] = {
@@ -951,12 +959,12 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Eovas"] = {
+	["Papasloans"] = {
 		["class"] = "PRIEST",
-		["level"] = 60,
+		["level"] = 40,
 	},
-	["Domacica"] = {
-		["class"] = "PRIEST",
+	["Carmage"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Niflheim"] = {
@@ -979,9 +987,9 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 42,
 	},
-	["Bymebepurged"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
+	["Sashimi"] = {
+		["class"] = "HUNTER",
+		["level"] = 41,
 	},
 	["Tfwnowf"] = {
 		["class"] = "WARRIOR",
@@ -992,6 +1000,10 @@ pfUI_playerDB = {
 		["level"] = 60,
 	},
 	["Iskald"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
+	},
+	["Plagiuu"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
@@ -1023,9 +1035,9 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Stabbedulol"] = {
-		["class"] = "ROGUE",
-		["level"] = 50,
+	["Marelle"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Brazzil"] = {
 		["class"] = "DRUID",
@@ -1043,9 +1055,9 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 14,
 	},
-	["Potatomash"] = {
-		["class"] = "HUNTER",
-		["level"] = 31,
+	["Bestie"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
 	},
 	["Sparkletits"] = {
 		["class"] = "PRIEST",
@@ -1110,13 +1122,17 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Octaviae"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Minori"] = {
+		["class"] = "WARLOCK",
+		["level"] = 21,
 	},
 	["Bankmehard"] = {
 		["class"] = "PRIEST",
 		["level"] = 5,
+	},
+	["Berncastel"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
 	},
 	["Miva"] = {
 		["class"] = "WARRIOR",
@@ -1143,15 +1159,15 @@ pfUI_playerDB = {
 		["level"] = 60,
 	},
 	["Chroma"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Jorkadeen"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Castlequest"] = {
-		["class"] = "ROGUE",
+	["Xypnotica"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
 	["Vexe"] = {
@@ -1162,8 +1178,8 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Poovey"] = {
-		["class"] = "DRUID",
+	["Phadara"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 	["Lauzz"] = {
@@ -1178,11 +1194,12 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 1,
 	},
-	["Xeark"] = {
-		["class"] = "WARRIOR",
-	},
-	["Fam"] = {
+	["Syken"] = {
 		["class"] = "HUNTER",
+		["level"] = 42,
+	},
+	["Melgwy"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Baddiscos"] = {
@@ -1203,9 +1220,9 @@ pfUI_playerDB = {
 	["Dali"] = {
 		["class"] = "MAGE",
 	},
-	["Zaltarish"] = {
-		["class"] = "Warrior",
-		["level"] = 60,
+	["Zoriane"] = {
+		["class"] = "DRUID",
+		["level"] = 5,
 	},
 	["Amphitrite"] = {
 		["class"] = "MAGE",
@@ -1215,9 +1232,9 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Neuronyx"] = {
-		["class"] = "ROGUE",
-		["level"] = 46,
+	["Tamere"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Napster"] = {
 		["class"] = "ROGUE",
@@ -1227,16 +1244,16 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Finnt"] = {
-		["class"] = "HUNTER",
+	["Stormbearded"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
 	["Balaam"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Vachina"] = {
-		["class"] = "HUNTER",
+	["Hinorei"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Lovegood"] = {
@@ -1271,8 +1288,8 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Alkaiser"] = {
-		["class"] = "ROGUE",
+	["Aelf"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Mcscurgle"] = {
@@ -1291,8 +1308,8 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Silbergeld"] = {
-		["class"] = "DRUID",
+	["Cruzar"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Porcia"] = {
@@ -1306,21 +1323,20 @@ pfUI_playerDB = {
 	["Veritos"] = {
 		["class"] = "ROGUE",
 	},
-	["Irrinipeste"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Smallstack"] = {
+		["class"] = "WARRIOR",
+		["level"] = 52,
 	},
-	["Sixohfour"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
+	["Bowstuffs"] = {
+		["class"] = "HUNTER",
 	},
 	["Mcg"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Julliette"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
+	["Aleppo"] = {
+		["class"] = "WARRIOR",
+		["level"] = 5,
 	},
 	["Jaffataxi"] = {
 		["class"] = "WARLOCK",
@@ -1342,8 +1358,8 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Dazzler"] = {
-		["class"] = "WARLOCK",
+	["Praethon"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Zoriak"] = {
@@ -1374,9 +1390,9 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 30,
 	},
-	["Helcar"] = {
-		["class"] = "WARLOCK",
-		["level"] = 52,
+	["Hotslice"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
 	["Melfice"] = {
 		["class"] = "Mage",
@@ -1491,9 +1507,9 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Poirierz"] = {
-		["class"] = "Warrior",
-		["level"] = 0,
+	["Saetia"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Funkytot"] = {
 		["class"] = "PALADIN",
@@ -1523,8 +1539,9 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Kluren"] = {
-		["class"] = "WARRIOR",
+	["Sukixo"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
 	["Spaceferaspy"] = {
 		["class"] = "WARRIOR",
@@ -1569,6 +1586,10 @@ pfUI_playerDB = {
 	["Hammerlocke"] = {
 		["class"] = "HUNTER",
 		["level"] = 60,
+	},
+	["Darkgrill"] = {
+		["class"] = "WARLOCK",
+		["level"] = 45,
 	},
 	["Wada"] = {
 		["class"] = "PRIEST",
@@ -1676,8 +1697,8 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 1,
 	},
-	["Vanillapudin"] = {
-		["class"] = "ROGUE",
+	["Limah"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Aestalux"] = {
@@ -1700,9 +1721,9 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 56,
 	},
-	["Fiodor"] = {
-		["class"] = "PALADIN",
-		["level"] = 46,
+	["Zialle"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
 	["Mcbubbles"] = {
 		["class"] = "PRIEST",
@@ -1735,9 +1756,9 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 52,
 	},
-	["Risenmats"] = {
-		["class"] = "ROGUE",
-		["level"] = 1,
+	["Bofadeez"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Novendis"] = {
 		["class"] = "WARLOCK",
@@ -1778,9 +1799,9 @@ pfUI_playerDB = {
 	["Bulsyv"] = {
 		["class"] = "DRUID",
 	},
-	["Spacekazspy"] = {
-		["class"] = "WARRIOR",
-		["level"] = 1,
+	["Bearlymadeit"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
 	},
 	["Bobloblaw"] = {
 		["class"] = "PRIEST",
@@ -1826,13 +1847,13 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 49,
 	},
-	["Oldgregg"] = {
-		["class"] = "HUNTER",
+	["Akarat"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Underfoot"] = {
-		["class"] = "ROGUE",
-		["level"] = 52,
+	["Marguerite"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
 	["Optixx"] = {
 		["class"] = "PALADIN",
@@ -1846,8 +1867,8 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Natacha"] = {
-		["class"] = "ROGUE",
+	["Partlyevil"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Lunadamis"] = {
@@ -1889,9 +1910,9 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Risenconsume"] = {
-		["class"] = "MAGE",
-		["level"] = 1,
+	["Sullen"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Clinktommen"] = {
 		["class"] = "WARRIOR",
@@ -1913,17 +1934,17 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Erguard"] = {
-		["class"] = "WARRIOR",
-		["level"] = 4,
+	["Modagimli"] = {
+		["class"] = "Hunter",
+		["level"] = 60,
 	},
 	["Tandir"] = {
 		["class"] = "PALADIN",
 		["level"] = 15,
 	},
-	["Pinkmuffin"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Scratjinks"] = {
+		["class"] = "PALADIN",
+		["level"] = 42,
 	},
 	["Duder"] = {
 		["class"] = "MAGE",
@@ -1973,12 +1994,12 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 0,
 	},
-	["Tpyo"] = {
-		["class"] = "MAGE",
+	["Pathologic"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Daxin"] = {
-		["class"] = "WARLOCK",
+	["Argos"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 	["Oojala"] = {
@@ -2016,9 +2037,9 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Solopriest"] = {
-		["class"] = "PRIEST",
-		["level"] = 25,
+	["Obewan"] = {
+		["class"] = "Paladin",
+		["level"] = 60,
 	},
 	["Caiani"] = {
 		["class"] = "ROGUE",
@@ -2097,19 +2118,19 @@ pfUI_playerDB = {
 		["level"] = 60,
 	},
 	["Bigpoopy"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+		["class"] = "DRUID",
+		["level"] = 60,
 	},
 	["Alysstra"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Neuvieme"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
-	},
-	["Matoko"] = {
+	["Axegrill"] = {
 		["class"] = "WARRIOR",
+		["level"] = 39,
+	},
+	["Rolypoly"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Callexista"] = {
@@ -2361,13 +2382,13 @@ pfUI_playerDB = {
 		["class"] = "Warrior",
 		["level"] = 60,
 	},
-	["Devilmayncry"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Andreas"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
-	["Chaddys"] = {
-		["class"] = "ROGUE",
-		["level"] = 48,
+	["Ermahgerd"] = {
+		["class"] = "WARRIOR",
+		["level"] = 5,
 	},
 	["Moghedien"] = {
 		["class"] = "MAGE",
@@ -2385,9 +2406,8 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 39,
 	},
-	["Talenos"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
+	["Pyren"] = {
+		["class"] = "WARRIOR",
 	},
 	["Yagi"] = {
 		["class"] = "Unknown",
@@ -2401,13 +2421,12 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 5,
 	},
-	["Antonidac"] = {
-		["class"] = "MAGE",
-		["level"] = 56,
+	["Krey"] = {
+		["class"] = "DRUID",
 	},
-	["Frozenflame"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Cinnadots"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
 	},
 	["Mentorzq"] = {
 		["class"] = "PRIEST",
@@ -2425,16 +2444,17 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 58,
 	},
-	["Mammamoo"] = {
+	["Dotsmats"] = {
 		["class"] = "WARRIOR",
+		["level"] = 1,
 	},
 	["Rhio"] = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Gnomette"] = {
-		["class"] = "WARLOCK",
-		["level"] = 1,
+	["Healzforu"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
 	["Payoh"] = {
 		["class"] = "ROGUE",
@@ -2456,7 +2476,7 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Jipetto"] = {
+	["Vwln"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
@@ -2464,8 +2484,8 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 10,
 	},
-	["Pinnacle"] = {
-		["class"] = "PRIEST",
+	["Lowzik"] = {
+		["class"] = "Warrior",
 		["level"] = 60,
 	},
 	["Cagalli"] = {
@@ -2516,25 +2536,25 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Goldfinger"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
+	["Vexos"] = {
+		["class"] = "HUNTER",
+		["level"] = 26,
 	},
 	["Sheeple"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Rougex"] = {
-		["class"] = "ROGUE",
-		["level"] = 1,
+	["Coot"] = {
+		["class"] = "PALADIN",
+		["level"] = 34,
 	},
 	["Letholdus"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Wasteblade"] = {
+	["Litrpiva"] = {
 		["class"] = "ROGUE",
-		["level"] = 59,
+		["level"] = 47,
 	},
 	["Weasel"] = {
 		["class"] = "MAGE",
@@ -2548,17 +2568,17 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Anankee"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
+	["Zivan"] = {
+		["class"] = "HUNTER",
+		["level"] = 16,
 	},
 	["Cekc"] = {
 		["class"] = "DRUID",
 		["level"] = 41,
 	},
-	["Hamicket"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
+	["Gerrett"] = {
+		["class"] = "WARRIOR",
+		["level"] = 1,
 	},
 	["Adrianne"] = {
 		["class"] = "WARLOCK",
@@ -2572,8 +2592,8 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Caellan"] = {
-		["class"] = "MAGE",
+	["Istarain"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
 	["Jobu"] = {
@@ -2615,12 +2635,12 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Lumberg"] = {
-		["class"] = "PALADIN",
+	["Malin"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Macfugly"] = {
-		["class"] = "PRIEST",
+	["Vexh"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 	["Hiimsa"] = {
@@ -2651,16 +2671,16 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Biggs"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Aterbale"] = {
+		["class"] = "PALADIN",
+		["level"] = 18,
 	},
 	["Boradar"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Bladestormz"] = {
-		["class"] = "WARRIOR",
+	["Coaleen"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Blacklord"] = {
@@ -2671,20 +2691,20 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Zafias"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Snailtrails"] = {
+		["class"] = "HUNTER",
+		["level"] = 58,
 	},
 	["Mollette"] = {
 		["class"] = "DRUID",
 		["level"] = 30,
 	},
-	["Seohyun"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
+	["Karum"] = {
+		["class"] = "WARLOCK",
+		["level"] = 32,
 	},
-	["Citromostea"] = {
-		["class"] = "PRIEST",
+	["Wake"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Dagrus"] = {
@@ -2699,17 +2719,17 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Muffinbutton"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Kachiko"] = {
+		["class"] = "WARLOCK",
+		["level"] = 24,
 	},
 	["Roana"] = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Quazafayria"] = {
-		["class"] = "PALADIN",
-		["level"] = 39,
+	["Lognessmonah"] = {
+		["class"] = "ROGUE",
+		["level"] = 1,
 	},
 	["Tudum"] = {
 		["class"] = "WARLOCK",
@@ -2735,6 +2755,10 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
+	["Rhama"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
+	},
 	["Spaceashespy"] = {
 		["class"] = "WARRIOR",
 		["level"] = 1,
@@ -2743,7 +2767,7 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Aillyn"] = {
+	["Sortofevil"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
@@ -2751,12 +2775,12 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Virtix"] = {
+	["Gasnier"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Forceberg"] = {
-		["class"] = "WARRIOR",
+	["Hotspice"] = {
+		["class"] = "ROGUE",
 		["level"] = 60,
 	},
 	["Zamle"] = {
@@ -2786,9 +2810,9 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Palpal"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
+	["Honeybear"] = {
+		["class"] = "ROGUE",
+		["level"] = 50,
 	},
 	["Damia"] = {
 		["class"] = "WARRIOR",
@@ -2814,9 +2838,9 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 52,
 	},
-	["Mimo"] = {
-		["class"] = "PRIEST",
-		["level"] = 17,
+	["Kirie"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
 	["Gallnerolf"] = {
 		["class"] = "PALADIN",
@@ -2876,9 +2900,9 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 36,
 	},
-	["Daps"] = {
-		["class"] = "HUNTER",
-		["level"] = 35,
+	["Risenzg"] = {
+		["class"] = "MAGE",
+		["level"] = 1,
 	},
 	["Tarkan"] = {
 		["class"] = "HUNTER",
@@ -3023,17 +3047,17 @@ pfUI_playerDB = {
 		["class"] = "Warrior",
 		["level"] = 60,
 	},
-	["Lanfeer"] = {
-		["class"] = "WARLOCK",
+	["Keimuu"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Stoofy"] = {
-		["class"] = "ROGUE",
-		["level"] = 0,
-	},
-	["Gizzmeoff"] = {
-		["class"] = "PALADIN",
+	["Fkingpylon"] = {
+		["class"] = "PRIEST",
 		["level"] = 1,
+	},
+	["Timecopx"] = {
+		["class"] = "MAGE",
+		["level"] = 9,
 	},
 	["Emmy"] = {
 		["class"] = "DRUID",
@@ -3074,8 +3098,8 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Arturia"] = {
-		["class"] = "WARRIOR",
+	["Fsink"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 	["Humi"] = {
@@ -3101,6 +3125,10 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
+	["Raistmajere"] = {
+		["class"] = "MAGE",
+		["level"] = 58,
+	},
 	["Fooldan"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
@@ -3109,21 +3137,21 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Shub"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Golgi"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
-	["Tariana"] = {
-		["class"] = "DRUID",
+	["Mheraa"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
 	["Quixy"] = {
 		["class"] = "WARRIOR",
 		["level"] = 53,
 	},
-	["Dauntless"] = {
-		["class"] = "Warrior",
-		["level"] = 60,
+	["Risenraid"] = {
+		["class"] = "MAGE",
+		["level"] = 1,
 	},
 	["Cakeadin"] = {
 		["class"] = "PALADIN",
@@ -3145,17 +3173,17 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Ercarmage"] = {
-		["class"] = "MAGE",
-		["level"] = 14,
+	["Jaffa"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
 	["Norin"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Generation"] = {
-		["class"] = "PALADIN",
-		["level"] = 21,
+	["Missdarcey"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Elisona"] = {
 		["class"] = "ROGUE",
@@ -3225,9 +3253,9 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Pyuhnk"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Dumpstergirl"] = {
+		["class"] = "WARRIOR",
+		["level"] = 1,
 	},
 	["Oseary"] = {
 		["class"] = "PALADIN",
@@ -3309,9 +3337,9 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Undecima"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Auron"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
 	["Interventna"] = {
 		["class"] = "HUNTER",
@@ -3360,9 +3388,9 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Risengear"] = {
-		["class"] = "MAGE",
-		["level"] = 1,
+	["Toddybear"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
 	},
 	["Rocketpoop"] = {
 		["class"] = "ROGUE",
@@ -3384,9 +3412,9 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Umipleb"] = {
-		["class"] = "Warrior",
-		["level"] = 60,
+	["Latitty"] = {
+		["class"] = "ROGUE",
+		["level"] = 11,
 	},
 	["Foolproof"] = {
 		["class"] = "WARRIOR",
@@ -3423,8 +3451,12 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Sloans"] = {
-		["class"] = "HUNTER",
+	["Elessana"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
+	},
+	["Fsinkk"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Icetomeetu"] = {
@@ -3434,6 +3466,10 @@ pfUI_playerDB = {
 	["Spaceduskspy"] = {
 		["class"] = "WARRIOR",
 		["level"] = 3,
+	},
+	["Risenleather"] = {
+		["class"] = "ROGUE",
+		["level"] = 1,
 	},
 	["Fakecrits"] = {
 		["class"] = "HUNTER",
@@ -3459,29 +3495,49 @@ pfUI_playerDB = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Prizzle"] = {
+	["Matoko"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
+	},
+	["Neuvieme"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
+	},
+	["Aklav"] = {
+		["class"] = "Rogue",
+		["level"] = 0,
+	},
+	["Shardz"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Talinar"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Albank"] = {
+		["class"] = "WARRIOR",
+		["level"] = 2,
+	},
+	["Daxin"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
+	},
+	["Notkirtarnos"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
 	},
 	["Ripple"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Fishbeard"] = {
-		["class"] = "ROGUE",
-		["level"] = 7,
+	["Tpyo"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Louboutin"] = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Jesicarabbit"] = {
-		["class"] = "PRIEST",
-		["level"] = 1,
+	["Nephran"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
 	["Spylord"] = {
 		["class"] = "HUNTER",
@@ -3491,37 +3547,37 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 25,
 	},
-	["Korfen"] = {
-		["class"] = "PRIEST",
-		["level"] = 2,
+	["Pinkmuffin"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Feals"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Pampam"] = {
-		["class"] = "ROGUE",
-		["level"] = 52,
+	["Erguard"] = {
+		["class"] = "WARRIOR",
+		["level"] = 4,
 	},
-	["Seveneves"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Barbarossa"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
 	},
 	["Dissonaut"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Obewan"] = {
-		["class"] = "Paladin",
+	["Wizzlebop"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Fender"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Dimecop"] = {
-		["class"] = "HUNTER",
-		["level"] = 46,
+	["Natacha"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
 	},
 	["Kuni"] = {
 		["class"] = "WARLOCK",
@@ -3543,45 +3599,44 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Areina"] = {
-		["class"] = "Rogue",
-		["level"] = 0,
+	["Underfoot"] = {
+		["class"] = "ROGUE",
+		["level"] = 52,
 	},
-	["Erati"] = {
+	["Roshy"] = {
+		["class"] = "DRUID",
+	},
+	["Dyrnwyn"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
+	},
+	["Maxx"] = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Auranleather"] = {
-		["class"] = "WARRIOR",
-		["level"] = 1,
-	},
-	["Dirceuz"] = {
-		["class"] = "Hunter",
-		["level"] = 60,
-	},
-	["Arthots"] = {
-		["class"] = "DRUID",
+	["Wadadadeng"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Bigjoo"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Sullen"] = {
-		["class"] = "PRIEST",
+	["Shardlock"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Ameyuri"] = {
 		["class"] = "Rogue",
 		["level"] = 60,
 	},
-	["Lagtron"] = {
-		["class"] = "WARRIOR",
-		["level"] = 50,
+	["Theruas"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
-	["Kiwii"] = {
-		["class"] = "MAGE",
-		["level"] = 31,
+	["Risencdfive"] = {
+		["class"] = "DRUID",
+		["level"] = 35,
 	},
 	["Zinc"] = {
 		["class"] = "HUNTER",
@@ -3595,9 +3650,9 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Zincy"] = {
-		["class"] = "DRUID",
-		["level"] = 11,
+	["Tinytini"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
 	["Polyice"] = {
 		["class"] = "MAGE",
@@ -3607,17 +3662,17 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Risenleather"] = {
-		["class"] = "ROGUE",
-		["level"] = 1,
+	["Snugglewumps"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Risencdfour"] = {
 		["class"] = "PALADIN",
 		["level"] = 38,
 	},
-	["Jammer"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
+	["Areina"] = {
+		["class"] = "Rogue",
+		["level"] = 0,
 	},
 	["Fattyuten"] = {
 		["class"] = "PRIEST",
@@ -3627,28 +3682,28 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Aszune"] = {
-		["class"] = "DRUID",
-		["level"] = 20,
+	["Jaylib"] = {
+		["class"] = "ROGUE",
+		["level"] = 40,
 	},
-	["Bagtheridon"] = {
-		["class"] = "DRUID",
-		["level"] = 1,
+	["Ronda"] = {
+		["class"] = "Priest",
+		["level"] = 5,
 	},
 	["Daleya"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Donnandra"] = {
-		["class"] = "MAGE",
-		["level"] = 19,
-	},
-	["Maxx"] = {
-		["class"] = "HUNTER",
+	["Binoc"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Akarat"] = {
-		["class"] = "WARRIOR",
+	["Risenmats"] = {
+		["class"] = "ROGUE",
+		["level"] = 1,
+	},
+	["Yogibeer"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Coxie"] = {
@@ -3663,16 +3718,16 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Rawjaffa"] = {
-		["class"] = "PRIEST",
-		["level"] = 1,
+	["Pokeybumwank"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
-	["Jaylib"] = {
-		["class"] = "ROGUE",
-		["level"] = 40,
+	["Avaro"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
-	["Theruas"] = {
-		["class"] = "PRIEST",
+	["Spica"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Kikinaxxmats"] = {
@@ -3683,57 +3738,57 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 5,
 	},
-	["Wizzlebop"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
-	},
-	["Edex"] = {
+	["Rindon"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Ronda"] = {
-		["class"] = "Priest",
-		["level"] = 5,
+	["Tyranical"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
 	},
-	["Phadara"] = {
-		["class"] = "PALADIN",
+	["Vanillapudin"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
+	},
+	["Ororo"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Arb"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Kikiskidneys"] = {
-		["class"] = "ROGUE",
+	["Bearbuns"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
 	["Windoo"] = {
 		["class"] = "PALADIN",
 		["level"] = 48,
 	},
-	["Malin"] = {
-		["class"] = "MAGE",
+	["Congo"] = {
+		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Troisieme"] = {
+	["Soulshards"] = {
 		["class"] = "WARLOCK",
-		["level"] = 0,
+		["level"] = 60,
 	},
 	["Theplug"] = {
 		["class"] = "WARRIOR",
 		["level"] = 5,
 	},
-	["Andreas"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
-	},
-	["Ermahgerd"] = {
-		["class"] = "WARRIOR",
-		["level"] = 5,
-	},
-	["Archean"] = {
-		["class"] = "PRIEST",
+	["Poovey"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
+	},
+	["Zincy"] = {
+		["class"] = "DRUID",
+		["level"] = 11,
+	},
+	["Rawjaffa"] = {
+		["class"] = "PRIEST",
+		["level"] = 1,
 	},
 	["Oraghh"] = {
 		["class"] = "PALADIN",
@@ -3747,8 +3802,8 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Janitorvenue"] = {
-		["class"] = "DRUID",
+	["Ghave"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Mellbix"] = {
@@ -3759,7 +3814,7 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Tyranical"] = {
+	["Catamenia"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
@@ -3767,23 +3822,25 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Ezri"] = {
+	["Janitorvenue"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
+	},
+	["Devilmayncry"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Pyren"] = {
-		["class"] = "WARRIOR",
-	},
-	["Shiizu"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
+	["Chaddys"] = {
+		["class"] = "ROGUE",
+		["level"] = 48,
 	},
 	["Ziltrox"] = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Krey"] = {
-		["class"] = "DRUID",
+	["Manameister"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Drzoidberg"] = {
 		["class"] = "PRIEST",
@@ -3793,29 +3850,29 @@ pfUI_playerDB = {
 		["class"] = "Warrior",
 		["level"] = 60,
 	},
-	["Cinnadots"] = {
+	["Shiizu"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
+	},
+	["Saerin"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Papasloans"] = {
-		["class"] = "PRIEST",
-		["level"] = 40,
-	},
-	["Carmage"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Ororo"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Peeperz"] = {
-		["class"] = "ROGUE",
+	["Padrote"] = {
+		["class"] = "WARLOCK",
 		["level"] = 1,
 	},
-	["Zialle"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Keimu"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
+	},
+	["Fools"] = {
+		["class"] = "PRIEST",
+		["level"] = 19,
+	},
+	["Talenos"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
 	},
 	["Progression"] = {
 		["class"] = "WARRIOR",
@@ -3825,72 +3882,71 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Albank"] = {
-		["class"] = "WARRIOR",
-		["level"] = 2,
+	["Antonidac"] = {
+		["class"] = "MAGE",
+		["level"] = 56,
 	},
-	["Catamenia"] = {
-		["class"] = "ROGUE",
+	["Junsun"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Sashimi"] = {
-		["class"] = "HUNTER",
-		["level"] = 41,
+	["Frozenflame"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
-	["Dotsmats"] = {
-		["class"] = "WARRIOR",
-		["level"] = 1,
+	["Eovas"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Ninjapleez"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Saerin"] = {
-		["class"] = "ROGUE",
+	["Domacica"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Healzforu"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Catseyes"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
 	},
-	["Toddybear"] = {
-		["class"] = "PALADIN",
+	["Elsaa"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
 	["Gizmoff"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Deuxieme"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
-	},
-	["Wadadadeng"] = {
+	["Kiwii"] = {
 		["class"] = "MAGE",
+		["level"] = 31,
+	},
+	["Gendry"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Zoroastra"] = {
-		["class"] = "MAGE",
+	["Bymebepurged"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Vwln"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
+	["Mammamoo"] = {
+		["class"] = "WARRIOR",
 	},
-	["Honu"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
+	["Bankerbotanu"] = {
+		["class"] = "ROGUE",
+		["level"] = 5,
 	},
 	["Sandmarshal"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Lowzik"] = {
-		["class"] = "Warrior",
-		["level"] = 60,
+	["Gnomette"] = {
+		["class"] = "WARLOCK",
+		["level"] = 1,
 	},
-	["Marelle"] = {
-		["class"] = "MAGE",
+	["Ruthven"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 	["Boltzmann"] = {
@@ -3901,8 +3957,8 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 33,
 	},
-	["Bestie"] = {
-		["class"] = "PALADIN",
+	["Pyuhnk"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Velren"] = {
@@ -3912,23 +3968,23 @@ pfUI_playerDB = {
 	["Magpipes"] = {
 		["class"] = "PRIEST",
 	},
-	["Bolegnomen"] = {
+	["Firegrill"] = {
 		["class"] = "MAGE",
-		["level"] = 60,
+		["level"] = 39,
 	},
-	["Fools"] = {
-		["class"] = "PRIEST",
-		["level"] = 19,
-	},
-	["Barbarossa"] = {
+	["Jipetto"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Sidney"] = {
-		["class"] = "HUNTER",
+	["Therusumc"] = {
+		["class"] = "WARLOCK",
+		["level"] = 45,
+	},
+	["Broceliande"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Jermaine"] = {
+	["Pinnacle"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
@@ -3936,113 +3992,112 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Untamed"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
+	["Stabbedulol"] = {
+		["class"] = "ROGUE",
+		["level"] = 50,
 	},
-	["Vexos"] = {
-		["class"] = "HUNTER",
-		["level"] = 26,
-	},
-	["Coot"] = {
-		["class"] = "PALADIN",
-		["level"] = 34,
-	},
-	["Hawkflame"] = {
+	["Muffinbutton"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
-	},
-	["Chrizo"] = {
-		["class"] = "Warrior",
-		["level"] = 60,
-	},
-	["Xcalibr"] = {
-		["class"] = "WARRIOR",
-	},
-	["Artherb"] = {
-		["class"] = "ROGUE",
-		["level"] = 1,
 	},
 	["Reggialadin"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Annefrank"] = {
-		["class"] = "ROGUE",
-	},
-	["Catseyes"] = {
+	["Potatomash"] = {
 		["class"] = "HUNTER",
-		["level"] = 60,
-	},
-	["Therherblock"] = {
-		["class"] = "WARLOCK",
-		["level"] = 48,
-	},
-	["Arram"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
-	},
-	["Dogkins"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Litrpiva"] = {
-		["class"] = "ROGUE",
-		["level"] = 47,
-	},
-	["Evol"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
-	},
-	["Turbourpo"] = {
-		["class"] = "PALADIN",
-		["level"] = 36,
+		["level"] = 31,
 	},
 	["Thorminator"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Sortofevil"] = {
+	["Annalisa"] = {
 		["class"] = "PRIEST",
-		["level"] = 60,
+		["level"] = 12,
+	},
+	["Artherb"] = {
+		["class"] = "ROGUE",
+		["level"] = 1,
 	},
 	["Redshadowz"] = {
 		["class"] = "Druid",
 		["level"] = 60,
 	},
-	["Scratjinks"] = {
+	["Annefrank"] = {
+		["class"] = "ROGUE",
+	},
+	["Swiftbow"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Morb"] = {
+		["class"] = "WARRIOR",
+	},
+	["Stoofy"] = {
+		["class"] = "ROGUE",
+		["level"] = 0,
+	},
+	["Dogkins"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
+	},
+	["Goldfinger"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
+	},
+	["Rougex"] = {
+		["class"] = "ROGUE",
+		["level"] = 1,
+	},
+	["Turbourpo"] = {
 		["class"] = "PALADIN",
-		["level"] = 42,
+		["level"] = 36,
+	},
+	["Neuronyx"] = {
+		["class"] = "ROGUE",
+		["level"] = 46,
+	},
+	["Prima"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
+	},
+	["Olimog"] = {
+		["class"] = "WARRIOR",
+		["level"] = 23,
+	},
+	["Therusumb"] = {
+		["class"] = "WARLOCK",
+		["level"] = 45,
 	},
 	["Slumwawa"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Minori"] = {
-		["class"] = "WARLOCK",
+	["Generation"] = {
+		["class"] = "PALADIN",
 		["level"] = 21,
 	},
-	["Zivan"] = {
-		["class"] = "HUNTER",
-		["level"] = 16,
-	},
-	["Risencdfive"] = {
-		["class"] = "DRUID",
-		["level"] = 35,
-	},
-	["Dyrnwyn"] = {
+	["Kluren"] = {
 		["class"] = "WARRIOR",
-		["level"] = 60,
+	},
+	["Finalcut"] = {
+		["class"] = "WARRIOR",
+		["level"] = 28,
+	},
+	["Wasteblade"] = {
+		["class"] = "ROGUE",
+		["level"] = 59,
 	},
 	["Kreastor"] = {
 		["class"] = "ROGUE",
 		["level"] = 2,
 	},
-	["Pokeybumwank"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
+	["Ercarmage"] = {
+		["class"] = "MAGE",
+		["level"] = 14,
 	},
-	["Sulfura"] = {
+	["Desen"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
@@ -4050,23 +4105,22 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Gerrett"] = {
-		["class"] = "WARRIOR",
-		["level"] = 1,
+	["Abiathar"] = {
+		["class"] = "PRIEST",
 	},
-	["Yogibeer"] = {
-		["class"] = "HUNTER",
+	["Nov"] = {
+		["class"] = "ROGUE",
+		["level"] = 34,
+	},
+	["Arron"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
-	},
-	["Olimog"] = {
-		["class"] = "WARRIOR",
-		["level"] = 23,
 	},
 	["Hbizzy"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Binoc"] = {
+	["Faesroll"] = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
@@ -4078,11 +4132,11 @@ pfUI_playerDB = {
 		["class"] = "Warrior",
 		["level"] = 60,
 	},
-	["Radus"] = {
-		["class"] = "WARRIOR",
+	["Thugarturia"] = {
+		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Istarain"] = {
+	["Anankee"] = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
@@ -4090,93 +4144,92 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Lilphuk"] = {
-		["class"] = "WARLOCK",
+	["Oldgregg"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Claudey"] = {
-		["class"] = "MAGE",
-		["level"] = 54,
+	["Hamicket"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Quasievil"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Akkin"] = {
-		["class"] = "MAGE",
+	["Neeh"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Narya"] = {
-		["class"] = "WARLOCK",
-		["level"] = 46,
+	["Torpor"] = {
+		["class"] = "HUNTER",
+		["level"] = 28,
 	},
-	["Hrodulf"] = {
-		["class"] = "PRIEST",
-		["level"] = 32,
+	["Caellan"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
 	["Xethyr"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Vexh"] = {
-		["class"] = "PALADIN",
+	["Cw"] = {
+		["class"] = "Hunter",
 		["level"] = 60,
 	},
-	["Xypnotica"] = {
+	["Poirierz"] = {
+		["class"] = "Warrior",
+		["level"] = 0,
+	},
+	["Dauntless"] = {
+		["class"] = "Warrior",
+		["level"] = 60,
+	},
+	["Tariana"] = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Aterbale"] = {
-		["class"] = "PALADIN",
-		["level"] = 18,
-	},
-	["Saitoh"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
-	},
-	["Ayia"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Pampam"] = {
+		["class"] = "ROGUE",
+		["level"] = 52,
 	},
 	["Horo"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Ilove"] = {
-		["class"] = "ROGUE",
+	["Lumberg"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 	["Lotte"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Coaleen"] = {
-		["class"] = "HUNTER",
+	["Shub"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
+	},
+	["Macfugly"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Snailtrails"] = {
-		["class"] = "HUNTER",
-		["level"] = 58,
-	},
-	["Bobbybonez"] = {
-		["class"] = "WARRIOR",
+	["Castlequest"] = {
+		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Karum"] = {
-		["class"] = "WARLOCK",
-		["level"] = 32,
+	["Biggs"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
 	},
-	["Finalcut"] = {
-		["class"] = "WARRIOR",
-		["level"] = 28,
+	["Sayurie"] = {
+		["class"] = "PRIEST",
+		["level"] = 17,
 	},
-	["Syken"] = {
-		["class"] = "HUNTER",
-		["level"] = 42,
-	},
-	["Melgwy"] = {
+	["Ayia"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
+	},
+	["Pazrael"] = {
+		["class"] = "WARRIOR",
 	},
 	["Reginaldz"] = {
 		["class"] = "PRIEST",
@@ -4186,15 +4239,15 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 10,
 	},
-	["Wake"] = {
-		["class"] = "WARRIOR",
+	["Prizzle"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
 	["Bobbyheals"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Reeve"] = {
+	["Bladestormz"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
@@ -4213,32 +4266,31 @@ pfUI_playerDB = {
 	["Funkypot"] = {
 		["class"] = "WARLOCK",
 	},
-	["Stupidfox"] = {
-		["class"] = "HUNTER",
+	["Zafias"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Ting"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
-	},
-	["Thugarturia"] = {
-		["class"] = "ROGUE",
-		["level"] = 60,
-	},
-	["Kachiko"] = {
-		["class"] = "WARLOCK",
-		["level"] = 24,
-	},
-	["Lognessmonah"] = {
-		["class"] = "ROGUE",
-		["level"] = 1,
-	},
-	["Zoriane"] = {
-		["class"] = "DRUID",
-		["level"] = 5,
-	},
-	["Laststand"] = {
+	["Arturia"] = {
 		["class"] = "WARRIOR",
+		["level"] = 60,
+	},
+	["Seohyun"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
+	},
+	["Rossix"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
+	},
+	["Kilimaw"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
+	},
+	["Xeark"] = {
+		["class"] = "WARRIOR",
+	},
+	["Hawkflame"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Spaceazuspy"] = {
@@ -4257,71 +4309,72 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Tyranifex"] = {
-		["class"] = "WARRIOR",
+	["Fam"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Morb"] = {
-		["class"] = "WARRIOR",
+	["Shardc"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
 	},
-	["Ziw"] = {
-		["class"] = "PALADIN",
+	["Citromostea"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
 	["Eugie"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Rossix"] = {
-		["class"] = "WARRIOR",
+	["Bobbyboner"] = {
+		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Fkingpylon"] = {
-		["class"] = "PRIEST",
-		["level"] = 1,
+	["Guraax"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
 	},
-	["Kindofevil"] = {
+	["Fayzd"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Quazafayria"] = {
 		["class"] = "PALADIN",
-		["level"] = 60,
+		["level"] = 39,
 	},
-	["Tamere"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Rolston"] = {
+		["class"] = "DRUID",
+		["level"] = 54,
 	},
-	["Tinytini"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Snugglewumps"] = {
-		["class"] = "MAGE",
+	["Jakop"] = {
+		["class"] = "Paladin",
 		["level"] = 60,
 	},
 	["Vatra"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Sayurie"] = {
-		["class"] = "PRIEST",
-		["level"] = 17,
-	},
-	["Gasnier"] = {
+	["Gizzmeoff"] = {
 		["class"] = "PALADIN",
+		["level"] = 1,
+	},
+	["Lorch"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Duvessa"] = {
 		["class"] = "PRIEST",
 		["level"] = 19,
 	},
-	["Icypug"] = {
-		["class"] = "DRUID",
+	["Daemonicus"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Willferral"] = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Hotspice"] = {
-		["class"] = "ROGUE",
+	["Lanfeer"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Publius"] = {
@@ -4336,27 +4389,26 @@ pfUI_playerDB = {
 		["class"] = "WARRIOR",
 		["level"] = 1,
 	},
-	["Torpor"] = {
-		["class"] = "HUNTER",
-		["level"] = 28,
-	},
-	["Hinorei"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
-	},
-	["Stormbearded"] = {
+	["Econtra"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Honeybear"] = {
-		["class"] = "ROGUE",
-		["level"] = 50,
+	["Holloww"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
 	},
-	["Titanictilt"] = {
+	["Fiyora"] = {
 		["class"] = "WARRIOR",
-		["level"] = 14,
+		["level"] = 60,
 	},
-	["Aelf"] = {
+	["Renzedge"] = {
+		["class"] = "ROGUE",
+	},
+	["Virtix"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
+	},
+	["Forceberg"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
@@ -4364,75 +4416,77 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Pazrael"] = {
-		["class"] = "WARRIOR",
+	["Stabbyface"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
 	},
 	["Oughlaundoh"] = {
 		["class"] = "WARRIOR",
 		["level"] = 2,
 	},
-	["Kirie"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Vachina"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
 	},
 	["Kheebler"] = {
 		["class"] = "Mage",
 		["level"] = 60,
 	},
-	["Benix"] = {
-		["class"] = "WARLOCK",
-		["level"] = 13,
+	["Fizzelz"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
 	},
-	["Sadgariusboy"] = {
+	["Talinar"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
+	},
+	["Palpal"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
+	},
+	["Jaffax"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Alkaiser"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
+	},
+	["Mimo"] = {
 		["class"] = "PRIEST",
-		["level"] = 20,
+		["level"] = 17,
 	},
-	["Ironbolt"] = {
+	["Hild"] = {
 		["class"] = "WARRIOR",
+		["level"] = 60,
+	},
+	["Lissedaril"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
+	},
+	["Solariz"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
 	["Gnomageddon"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Kahlana"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Lori"] = {
-		["class"] = "MAGE",
-		["level"] = 42,
-	},
-	["Zairina"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Ognqn"] = {
-		["class"] = "HUNTER",
-	},
-	["Cruzar"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Rolston"] = {
-		["class"] = "DRUID",
-		["level"] = 54,
-	},
-	["Foks"] = {
-		["class"] = "WARRIOR",
+	["Shardzg"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Feith"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Baelorc"] = {
-		["class"] = "HUNTER",
+	["Vnmll"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Smallstack"] = {
-		["class"] = "WARRIOR",
-		["level"] = 52,
+	["Senix"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
 	["Len"] = {
 		["class"] = "MAGE",
@@ -4442,16 +4496,17 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Bowstuffs"] = {
-		["class"] = "HUNTER",
-	},
-	["Bobbyboner"] = {
-		["class"] = "ROGUE",
+	["Rominou"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Aleppo"] = {
-		["class"] = "WARRIOR",
-		["level"] = 5,
+	["Silbergeld"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
+	},
+	["Sertralin"] = {
+		["class"] = "WARLOCK",
+		["level"] = 1,
 	},
 	["Tyraniddbank"] = {
 		["class"] = "MAGE",
@@ -4461,31 +4516,31 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 46,
 	},
-	["Shardzg"] = {
-		["class"] = "WARLOCK",
+	["Venix"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Cuhboom"] = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Sertralin"] = {
-		["class"] = "WARLOCK",
-		["level"] = 1,
-	},
-	["Priestina"] = {
-		["class"] = "PRIEST",
+	["Sloans"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Zincon"] = {
-		["class"] = "WARRIOR",
+	["Undecima"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
+	},
+	["Therusa"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
 	["Necrophobia"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Hotslice"] = {
+	["Ironbolt"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
@@ -4509,43 +4564,44 @@ pfUI_playerDB = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Sopitted"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
+	["Irrinipeste"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
-	["Lussien"] = {
-		["class"] = "WARRIOR",
-		["level"] = 36,
+	["Sixohfour"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
 	},
 	["Drakk"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Mileytuturu"] = {
-		["class"] = "WARRIOR",
-		["level"] = 35,
-	},
-	["Pacov"] = {
-		["class"] = "ROGUE",
-	},
-	["Rominou"] = {
-		["class"] = "WARRIOR",
+	["Badassjoker"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Praethon"] = {
-		["class"] = "WARRIOR",
+	["Julliette"] = {
+		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
 	["Treng"] = {
 		["class"] = "HUNTER",
 	},
-	["Klassify"] = {
+	["Helcar"] = {
 		["class"] = "WARLOCK",
+		["level"] = 52,
+	},
+	["Jannath"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Risenzg"] = {
+	["Sopitted"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Zairina"] = {
 		["class"] = "MAGE",
-		["level"] = 1,
+		["level"] = 60,
 	},
 	["Ahaferos"] = {
 		["class"] = "WARRIOR",
@@ -4555,61 +4611,60 @@ pfUI_playerDB = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Duodecima"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Dazzler"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
 	},
 	["Straws"] = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Papagolgi"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
 	["Shengar"] = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Jannath"] = {
-		["class"] = "PRIEST",
+	["Daps"] = {
+		["class"] = "HUNTER",
+		["level"] = 35,
+	},
+	["Papagolgi"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Frostoil"] = {
 		["class"] = "WARLOCK",
 		["level"] = 1,
 	},
-	["Badassjoker"] = {
-		["class"] = "PRIEST",
+	["Umipleb"] = {
+		["class"] = "Warrior",
 		["level"] = 60,
 	},
-	["Therusa"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
+	["Lussien"] = {
+		["class"] = "WARRIOR",
+		["level"] = 36,
 	},
-	["Latitty"] = {
-		["class"] = "ROGUE",
-		["level"] = 11,
+	["Duodecima"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
 	["Tenix"] = {
 		["class"] = "MAGE",
 		["level"] = 25,
 	},
-	["Senix"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Vnmll"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Elessana"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Venix"] = {
+	["Zincon"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
+	},
+	["Priestina"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
+	},
+	["Pacov"] = {
+		["class"] = "ROGUE",
+	},
+	["Mileytuturu"] = {
+		["class"] = "WARRIOR",
+		["level"] = 35,
 	},
 	["Darkmagician"] = {
 		["class"] = "WARLOCK",
@@ -4619,12 +4674,13 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Renzedge"] = {
+	["Fishbeard"] = {
 		["class"] = "ROGUE",
+		["level"] = 7,
 	},
-	["Lorch"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
+	["Auranleather"] = {
+		["class"] = "WARRIOR",
+		["level"] = 1,
 	},
 	["Iigrayfoxii"] = {
 		["class"] = "DRUID",
@@ -4638,23 +4694,23 @@ pfUI_playerDB = {
 		["class"] = "Warlock",
 		["level"] = 0,
 	},
-	["Auron"] = {
+	["Klassify"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
+	},
+	["Baelorc"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Solopriest"] = {
+		["class"] = "PRIEST",
+		["level"] = 25,
+	},
+	["Foks"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Jakop"] = {
-		["class"] = "Paladin",
-		["level"] = 60,
-	},
-	["Keimuu"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Timecopx"] = {
-		["class"] = "MAGE",
-		["level"] = 9,
-	},
-	["Guraax"] = {
+	["Icypug"] = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
@@ -4662,33 +4718,32 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Kilimaw"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
+	["Benix"] = {
+		["class"] = "WARLOCK",
+		["level"] = 13,
 	},
 	["Magemuch"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Fsink"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
+	["Randyquench"] = {
+		["class"] = "WARRIOR",
+		["level"] = 1,
 	},
-	["Scuba"] = {
+	["Lori"] = {
+		["class"] = "MAGE",
+		["level"] = 42,
+	},
+	["Ognqn"] = {
 		["class"] = "HUNTER",
-		["level"] = 60,
-	},
-	["Therusumb"] = {
-		["class"] = "WARLOCK",
-		["level"] = 45,
 	},
 	["Razbavim"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Prima"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Sadgariusboy"] = {
+		["class"] = "PRIEST",
+		["level"] = 20,
 	},
 	["Avaru"] = {
 		["class"] = "Unknown",
@@ -4698,43 +4753,43 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Mheraa"] = {
-		["class"] = "PRIEST",
+	["Stupidfox"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Doirone"] = {
 		["class"] = "MAGE",
 		["level"] = 16,
 	},
-	["Risenraid"] = {
-		["class"] = "MAGE",
-		["level"] = 1,
-	},
-	["Saetia"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Fayzd"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
+	["Titanictilt"] = {
+		["class"] = "WARRIOR",
+		["level"] = 14,
 	},
 	["Sendho"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Cw"] = {
-		["class"] = "Hunter",
+	["Scuba"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Kindofevil"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
+	},
+	["Reeve"] = {
+		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
 	["Kuaz"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Stabbyface"] = {
-		["class"] = "ROGUE",
-		["level"] = 60,
+	["Octaviae"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
-	["Neeh"] = {
+	["Bobbybonez"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
@@ -4750,19 +4805,59 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Jaffax"] = {
+	["Ting"] = {
 		["class"] = "HUNTER",
 		["level"] = 60,
 	},
-	["Jaffa"] = {
+	["Radus"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Sukixo"] = {
+	["Ilove"] = {
+		["class"] = "ROGUE",
+		["level"] = 60,
+	},
+	["Erati"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Sulfura"] = {
+		["class"] = "PALADIN",
+		["level"] = 60,
+	},
+	["Erol"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
+	},
+	["Saitoh"] = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Missdarcey"] = {
+	["Lilphuk"] = {
+		["class"] = "WARLOCK",
+		["level"] = 60,
+	},
+	["Claudey"] = {
+		["class"] = "MAGE",
+		["level"] = 54,
+	},
+	["Renndel"] = {
+		["class"] = "Priest",
+		["level"] = 60,
+	},
+	["Finnt"] = {
+		["class"] = "HUNTER",
+		["level"] = 60,
+	},
+	["Demisette"] = {
+		["class"] = "WARLOCK",
+		["level"] = 43,
+	},
+	["Evol"] = {
+		["class"] = "Unknown",
+		["level"] = 0,
+	},
+	["Aillyn"] = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
@@ -4770,57 +4865,17 @@ pfUI_playerDB = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Erol"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Econtra"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Faesroll"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
-	},
-	["Bearlymadeit"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
-	},
-	["Renndel"] = {
-		["class"] = "Priest",
-		["level"] = 60,
-	},
-	["Shardz"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Demisette"] = {
+	["Therherblock"] = {
 		["class"] = "WARLOCK",
-		["level"] = 43,
+		["level"] = 48,
 	},
-	["Holloww"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
-	},
-	["Golgi"] = {
+	["Laststand"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
-	["Shardlock"] = {
-		["class"] = "WARLOCK",
+	["Arram"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
-	},
-	["Shardc"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
-	},
-	["Dumpstergirl"] = {
-		["class"] = "WARRIOR",
-		["level"] = 1,
-	},
-	["Annalisa"] = {
-		["class"] = "PRIEST",
-		["level"] = 12,
 	},
 	["Palli"] = {
 		["class"] = "PALADIN",
@@ -4834,36 +4889,35 @@ pfUI_playerDB = {
 		["class"] = "PRIEST",
 		["level"] = 60,
 	},
-	["Elsaa"] = {
-		["class"] = "PRIEST",
+	["Kahlana"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Broceliande"] = {
+	["Xcalibr"] = {
+		["class"] = "WARRIOR",
+	},
+	["Chrizo"] = {
+		["class"] = "Warrior",
+		["level"] = 60,
+	},
+	["Juldom"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Firegrill"] = {
-		["class"] = "MAGE",
-		["level"] = 39,
-	},
-	["Quinta"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
-	},
-	["Ruthven"] = {
-		["class"] = "PALADIN",
+	["Untamed"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
 	["Bajeera"] = {
 		["class"] = "PALADIN",
 		["level"] = 20,
 	},
-	["Bankerbotanu"] = {
-		["class"] = "ROGUE",
-		["level"] = 5,
+	["Jermaine"] = {
+		["class"] = "PRIEST",
+		["level"] = 60,
 	},
-	["Zazaonline"] = {
-		["class"] = "Druid",
+	["Arthots"] = {
+		["class"] = "DRUID",
 		["level"] = 60,
 	},
 	["Marath"] = {
@@ -4874,9 +4928,9 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 60,
 	},
-	["Juldom"] = {
-		["class"] = "WARLOCK",
-		["level"] = 60,
+	["Quinta"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
 	["Roarn"] = {
 		["class"] = "PRIEST",
@@ -4886,9 +4940,9 @@ pfUI_playerDB = {
 		["class"] = "DRUID",
 		["level"] = 25,
 	},
-	["Padrote"] = {
-		["class"] = "WARLOCK",
-		["level"] = 1,
+	["Honu"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
 	},
 	["Samuraijack"] = {
 		["class"] = "ROGUE",
@@ -4898,33 +4952,33 @@ pfUI_playerDB = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Manameister"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
+	["Deuxieme"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
 	["Vedrex"] = {
 		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Soulshards"] = {
+	["Zoroastra"] = {
+		["class"] = "MAGE",
+		["level"] = 60,
+	},
+	["Donnandra"] = {
+		["class"] = "MAGE",
+		["level"] = 19,
+	},
+	["Narya"] = {
 		["class"] = "WARLOCK",
-		["level"] = 60,
-	},
-	["Limah"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
-	},
-	["Congo"] = {
-		["class"] = "ROGUE",
-		["level"] = 60,
+		["level"] = 46,
 	},
 	["Djfresh"] = {
 		["class"] = "WARLOCK",
 		["level"] = 60,
 	},
-	["Avaro"] = {
-		["class"] = "Unknown",
-		["level"] = 0,
+	["Risengear"] = {
+		["class"] = "MAGE",
+		["level"] = 1,
 	},
 	["Scratcher"] = {
 		["class"] = "HUNTER",
@@ -4934,25 +4988,25 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Bearbuns"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
-	},
-	["Nephran"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Bofadeez"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Ghave"] = {
+	["Ezri"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Rindon"] = {
-		["class"] = "WARRIOR",
+	["Archean"] = {
+		["class"] = "PRIEST",
 		["level"] = 60,
+	},
+	["Fiodor"] = {
+		["class"] = "PALADIN",
+		["level"] = 46,
+	},
+	["Peeperz"] = {
+		["class"] = "ROGUE",
+		["level"] = 1,
+	},
+	["Troisieme"] = {
+		["class"] = "WARLOCK",
+		["level"] = 0,
 	},
 	["Trumpian"] = {
 		["class"] = "PALADIN",
@@ -4966,14 +5020,15 @@ pfUI_playerDB = {
 		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Roshy"] = {
-		["class"] = "DRUID",
-	},
-	["Desen"] = {
-		["class"] = "PALADIN",
+	["Kikiskidneys"] = {
+		["class"] = "ROGUE",
 		["level"] = 60,
 	},
-	["Spica"] = {
+	["Risenconsume"] = {
+		["class"] = "MAGE",
+		["level"] = 1,
+	},
+	["Edex"] = {
 		["class"] = "WARRIOR",
 		["level"] = 60,
 	},
@@ -4981,9 +5036,9 @@ pfUI_playerDB = {
 		["class"] = "Warlock",
 		["level"] = 0,
 	},
-	["Swiftbow"] = {
-		["class"] = "HUNTER",
-		["level"] = 60,
+	["Spacekazspy"] = {
+		["class"] = "WARRIOR",
+		["level"] = 1,
 	},
 	["Timecop"] = {
 		["class"] = "Unknown",
@@ -4993,91 +5048,92 @@ pfUI_playerDB = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Marguerite"] = {
-		["class"] = "Warlock",
-		["level"] = 0,
+	["Vishenka"] = {
+		["class"] = "WARRIOR",
+		["level"] = 59,
 	},
 	["Serafi"] = {
 		["class"] = "PRIEST",
 		["level"] = 50,
 	},
-	["Vishenka"] = {
-		["class"] = "WARRIOR",
-		["level"] = 59,
+	["Bagtheridon"] = {
+		["class"] = "DRUID",
+		["level"] = 1,
 	},
 	["Jrod"] = {
 		["class"] = "MAGE",
 		["level"] = 52,
 	},
-	["Partlyevil"] = {
-		["class"] = "HUNTER",
+	["Ziw"] = {
+		["class"] = "PALADIN",
 		["level"] = 60,
 	},
-	["Abiathar"] = {
-		["class"] = "PRIEST",
+	["Jammer"] = {
+		["class"] = "DRUID",
+		["level"] = 60,
 	},
-	["Nov"] = {
-		["class"] = "ROGUE",
-		["level"] = 34,
+	["Tyranifex"] = {
+		["class"] = "WARRIOR",
+		["level"] = 60,
 	},
-	["Arron"] = {
-		["class"] = "PALADIN",
+	["Akkin"] = {
+		["class"] = "MAGE",
 		["level"] = 60,
 	},
 	["Thugbizzy"] = {
 		["class"] = "ROGUE",
 		["level"] = 1,
 	},
-	["Therusumc"] = {
-		["class"] = "WARLOCK",
-		["level"] = 45,
-	},
-	["Gendry"] = {
-		["class"] = "WARRIOR",
+	["Zaltarish"] = {
+		["class"] = "Warrior",
 		["level"] = 60,
 	},
-	["Modagimli"] = {
+	["Jesicarabbit"] = {
+		["class"] = "PRIEST",
+		["level"] = 1,
+	},
+	["Dirceuz"] = {
 		["class"] = "Hunter",
 		["level"] = 60,
 	},
-	["Fsinkk"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Aklav"] = {
-		["class"] = "Rogue",
-		["level"] = 0,
-	},
-	["Notkirtarnos"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
-	},
-	["Pathologic"] = {
+	["Aszune"] = {
 		["class"] = "DRUID",
-		["level"] = 60,
+		["level"] = 20,
 	},
-	["Argos"] = {
-		["class"] = "PALADIN",
-		["level"] = 60,
+	["Hrodulf"] = {
+		["class"] = "PRIEST",
+		["level"] = 32,
+	},
+	["Dimecop"] = {
+		["class"] = "HUNTER",
+		["level"] = 46,
+	},
+	["Lagtron"] = {
+		["class"] = "WARRIOR",
+		["level"] = 50,
+	},
+	["Seveneves"] = {
+		["class"] = "Warlock",
+		["level"] = 0,
 	},
 	["Misshapen"] = {
 		["class"] = "DRUID",
 		["level"] = 40,
 	},
-	["Randyquench"] = {
-		["class"] = "WARRIOR",
-		["level"] = 1,
+	["Korfen"] = {
+		["class"] = "PRIEST",
+		["level"] = 2,
 	},
-	["Axegrill"] = {
-		["class"] = "WARRIOR",
-		["level"] = 39,
-	},
-	["Rolypoly"] = {
+	["Bolegnomen"] = {
 		["class"] = "MAGE",
 		["level"] = 60,
 	},
-	["Fizzelz"] = {
-		["class"] = "MAGE",
+	["Zazaonline"] = {
+		["class"] = "Druid",
+		["level"] = 60,
+	},
+	["Sidney"] = {
+		["class"] = "HUNTER",
 		["level"] = 60,
 	},
 	["Aariba"] = {
