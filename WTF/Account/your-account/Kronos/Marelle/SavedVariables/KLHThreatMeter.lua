@@ -30,11 +30,11 @@ KLHTM_SavedVariables = {
 					["threat"] = true,
 				},
 			},
-			["scale"] = 1,
+			["scale"] = 1.02,
 			["raid"] = {
 				["abbreviate"] = false,
 				["hideZeroRows"] = true,
-				["hideBottomBar"] = false,
+				["hideBottomBar"] = true,
 				["rows"] = 10,
 				["columnVis"] = {
 					["threat"] = true,
