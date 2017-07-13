@@ -56,3 +56,11 @@ Frame: VCB_BF_DEBUFF_FRAME
 FrameLevel: 9
 X: 1732
 Y: -170
+Frame: WIM_IconFrame
+FrameLevel: 1
+X: 348
+Y: -1011
+Frame: WIM_WindowAnchor
+FrameLevel: 1
+X: 0
+Y: -1163
