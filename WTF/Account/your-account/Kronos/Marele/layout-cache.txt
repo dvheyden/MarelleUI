@@ -1,5 +1,5 @@
 Frame: ChatFrame1
-FrameLevel: 2
+FrameLevel: 5
 X: 8
 Y: -1041
 W: 374
@@ -12,7 +12,7 @@ W: 374
 H: 128
 Frame: ChatFrame3
 FrameLevel: 2
-X: 8
+X: 1751
 Y: -1041
 W: 374
 H: 128
@@ -42,14 +42,8 @@ X: 1893
 Y: -376
 Frame: KLHTM_Frame
 FrameLevel: 1
-X: 1713
-Y: -994
-Frame: SW_BarFrame1
-FrameLevel: 150
-X: 1932
-Y: -1009
-W: 202
-H: 191
+X: 1943
+Y: -1128
 Frame: VCB_BF_ConfigFrame
 FrameLevel: 1
 X: 610
@@ -62,4 +56,3 @@ Frame: VCB_BF_DEBUFF_FRAME
 FrameLevel: 9
 X: 1732
 Y: -170
-
