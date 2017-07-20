@@ -255,7 +255,7 @@ pfUI:RegisterModule("panel", function ()
       end
     end
     local freeslots = maxslots - usedslots
-    pfUI.panel:OutputPanel("bagspace", freeslots .. " (" .. usedslots .. "/" .. maxslots .. ")")
+    pfUI.panel:OutputPanel("bagspace", freeslots .. " (" .. usedslots .. "/" .. maxslots .. ")", nil, OpenAllBags)
   end
 
   -- Update "gold"
@@ -286,11 +286,7 @@ pfUI:RegisterModule("panel", function ()
       GameTooltip:Show()
     end
 
-    local click = function ()
-      OpenAllBags()
-    end
-
-    pfUI.panel:OutputPanel("gold", gold .. "|cffffd700g|r " .. silver .. "|cffc7c7cfs|r " .. copper .. "|cffeda55fc|r", tooltip, click)
+    pfUI.panel:OutputPanel("gold", gold .. "|cffffd700g|r " .. silver .. "|cffc7c7cfs|r " .. copper .. "|cffeda55fc|r", tooltip, OpenAllBags)
   end
 
   -- Update "friends"
@@ -486,9 +482,7 @@ pfUI:RegisterModule("panel", function ()
 
 
   pfUI.panel.left = CreateFrame("Frame", "pfPanelLeft", UIParent)
-
-
-  pfUI.panel.left:SetFrameStrata("HIGH")
+  pfUI.panel.left:SetFrameStrata("MEDIUM")
   pfUI.panel.left:ClearAllPoints()
 
   if pfUI.chat then
@@ -558,7 +552,7 @@ pfUI:RegisterModule("panel", function ()
   pfUI.panel.left.right.text:SetFontObject(GameFontWhite)
 
   pfUI.panel.right = CreateFrame("Frame", "pfPanelRight", UIParent)
-  pfUI.panel.right:SetFrameStrata("HIGH")
+  pfUI.panel.right:SetFrameStrata("MEDIUM")
   pfUI.panel.right:ClearAllPoints()
   if pfUI.chat then
     pfUI.panel.right:SetScale(pfUI.chat.left:GetScale())
@@ -637,7 +631,7 @@ pfUI:RegisterModule("panel", function ()
     pfUI.panel.minimap:SetWidth(200)
     pfUI.panel.minimap:SetPoint("TOP", UIParent, "TOP", 0, -5)
   end
-  pfUI.panel.minimap:SetFrameStrata("BACKGROUND")
+  pfUI.panel.minimap:SetFrameStrata("MEDIUM")
   pfUI.panel.minimap.text = pfUI.panel.minimap:CreateFontString("MinimapZoneText", "LOW", "GameFontNormal")
   pfUI.panel.minimap.text:SetFont(font, font_size, "OUTLINE")
   pfUI.panel.minimap.text:SetPoint("CENTER", 0, 0)
@@ -650,7 +644,7 @@ pfUI:RegisterModule("panel", function ()
     UpdateMovable(pfUI.panel.microbutton)
     pfUI.panel.microbutton:SetHeight(23)
     pfUI.panel.microbutton:SetWidth(145)
-    pfUI.panel.microbutton:SetFrameStrata("BACKGROUND")
+    pfUI.panel.microbutton:SetFrameStrata("MEDIUM")
 
     local MICRO_BUTTONS = {
       'CharacterMicroButton', 'SpellbookMicroButton', 'TalentMicroButton',
