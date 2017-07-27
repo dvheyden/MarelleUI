@@ -1,8 +1,8 @@
-MACRO 18 "Blink" Ability_CheapShot
+MACRO 30 "Blink" Spell_Arcane_Blink
 /script SpellStopCasting()
 /cast Blink
 END
-MACRO 30 "Blink" Spell_Arcane_Blink
+MACRO 18 "Blink" Ability_CheapShot
 /script SpellStopCasting()
 /cast Blink
 END
@@ -34,11 +34,14 @@ MACRO 27 "Frostbolt r11" Spell_Frost_FrostBolt02
 /script CastSpellAtTarget(25304)
 END
 MACRO 33 "Guild" Ability_Creature_Disease_04
-/4 Synced (EU) is looking for 1 Priest, 1 Druid and 1 Warlock to join our team. Experience Naxxramas with the most stable guild on Kronos, winner of all K1 progress races. Apply @ www.synced-kronos.enjin.com or hit me up ingame.
+/4 Synced (EU) is looking for exceptional players to join our team. Experience Naxxramas with the most stable guild on Kronos, winner of all K1 progress races. Apply @ www.synced-kronos.enjin.com or message me in game.
 END
 MACRO 24 "Hamstring" Ability_ShockWave
 /script if not IsCurrentAction(61) then UseAction(61) end;
 /cast Hamstring(Rank 1)
+END
+MACRO 34 "Herbs" Ability_Creature_Cursed_04
+/4 WTB Gromsblood @ 15g/stack, Stonescale Eel @ 12g/stack, Fadeleaf @ 14g/stack, Gravemoss @ 15g/stack. Elemental earth @ 3g/per & Dreamfoil @ 11g/stack.  COD me everything, there is no limit.
 END
 MACRO 22 "Heroic Strike" Ability_Rogue_Ambush
 /script if not IsCurrentAction(61) then UseAction(61) end;
@@ -49,8 +52,8 @@ MACRO 16 "Iceblock" Spell_Frost_Frost
 /cast Ice Block
 END
 MACRO 32 "Inv" Spell_ChargePositive
-/promote Vashin
-/invite Vashin
+/promote Lagtron
+/invite Lagtron
 /logout
 END
 MACRO 23 "Overpower" Ability_MeleeDamage
