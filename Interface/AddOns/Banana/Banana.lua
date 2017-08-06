@@ -21,6 +21,14 @@ BINDING_NAME_BANANA_TARGET_SYMBOL6 = "Target Symbol 6 ("..RAID_TARGET_6..")";
 BINDING_NAME_BANANA_TARGET_SYMBOL7 = "Target Symbol 7 ("..RAID_TARGET_7..")";
 BINDING_NAME_BANANA_TARGET_SYMBOL8 = "Target Symbol 8 ("..RAID_TARGET_8..")";
 BINDING_NAME_BANANA_TARGET_SYMBOL9 = "Target Symbol 9 (Huntersmark)";
+BINDING_NAME_BANANA_SETTARGET_SYMBOL1 = "Set Symbol "..RAID_TARGET_1.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL2 = "Set Symbol "..RAID_TARGET_2.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL3 = "Set Symbol "..RAID_TARGET_3.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL4 = "Set Symbol "..RAID_TARGET_4.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL5 = "Set Symbol "..RAID_TARGET_5.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL6 = "Set Symbol "..RAID_TARGET_6.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL7 = "Set Symbol "..RAID_TARGET_7.." (w/ mouseover)"
+BINDING_NAME_BANANA_SETTARGET_SYMBOL8 = "Set Symbol "..RAID_TARGET_8.." (w/ mouseover)"
 
 --"Interface\TargetingFrame\UI-RaidTargetingIcons"
 local snipershot = "Interface\\Icons\\Ability_Hunter_SniperShot";
@@ -35,6 +43,8 @@ BANANA_SHOW_IN_RAID = nil;
 BANANA_SHOW_IN_PARTY = nil;
 BANANA_SHOW_OUT_OF_GROUP = nil;
 BANANA_SHOW_EXTRA_INFO = nil;
+BANANA_SHOW_PRINT_MESSAGES = nil;
+BANANA_SHOW_DEBUG_MESSAGES = nil;
 
 SLASH_BANANA1 = "/bananabar";
 SLASH_BANANA2 = "/bb"; 
@@ -137,7 +147,9 @@ function Banana_Print(msg)
 
 	local strx = string.format(BANANA_PRINT_FORMAT,tostring(msg)); 
 
-	DEFAULT_CHAT_FRAME:AddMessage(strx);
+	if BANANA_SHOW_PRINT_MESSAGES == 1 then
+		DEFAULT_CHAT_FRAME:AddMessage(strx);
+	end
 end
 
 function Banana_Debug(msg)
@@ -147,7 +159,9 @@ function Banana_Debug(msg)
 
 	local strx = string.format(BANANA_PRINT_FORMAT,tostring(msg)); 
 
-	DEFAULT_CHAT_FRAME:AddMessage(strx);
+	if BANANA_SHOW_DEBUG_MESSAGES == 1 then
+		DEFAULT_CHAT_FRAME:AddMessage(strx);
+	end
 end
 
 
@@ -367,27 +381,23 @@ function Banana_ButtonOnLeave()
 end
 
 function Banana_SetRaidSymbol(index)
-	if not UnitExists("target") then
-        Banana_TargetRaidSymbol(index);
-        if not UnitExists("target") then
-            Banana_Print("Not target selected.");
-            Banana_PlayError();
-            return;
-        end
-    end
-    
-    local oldindex = (Banana_GetSymbol("TARGET") or 0);
-	if oldindex == index then
-		Banana_SetSymbol("TARGET", 0)
-		Banana_PlayRemove1();
-	else
-		Banana_SetSymbol("TARGET", index)
+ 	local unit = nil
+ 	if UnitExists("mouseover") or UnitExists("target") then
+	 	if UnitExists("mouseover") then
+	 		unit = "mouseover"
+		elseif UnitExists("target") then
+			unit = "target"
+	 	end
+	 	local oldindex = (Banana_GetSymbol(unit) or 0)
+		if oldindex == index then
+			Banana_SetSymbol(unit, 0)
+			Banana_PlayRemove1()
+		else
+			Banana_SetSymbol(unit, index)
+		end
+		Banana_UpdateStatus()
 	end
-	Banana_UpdateStatus();
 end
-
-
-
 
 function Banana_TargetRaidSymbol(index)
   for i = 1, 40, 1 do
@@ -788,6 +798,27 @@ function BananaConfig_ValueChangedShowExtraInfo()
 	end
 end
 
+function BananaConfig_ValueChangedShowPrintMessages()
+	if BANANA_READY then
+		if this:GetChecked() then
+			BANANA_SHOW_PRINT_MESSAGES = 1;
+		else
+			BANANA_SHOW_PRINT_MESSAGES = 0;
+		end
+		Banana_UpdateStatus();
+	end
+end
+
+function BananaConfig_ValueChangedShowDebugMessages()
+	if BANANA_READY then
+		if this:GetChecked() then
+			BANANA_SHOW_DEBUG_MESSAGES = 1;
+		else
+			BANANA_SHOW_DEBUG_MESSAGES = 0;
+		end
+		Banana_UpdateStatus();
+	end
+end
 
 function BananaConfig_ValueChangedHideUnused()
 	if BANANA_READY then
@@ -825,6 +856,8 @@ function Banana_ResetAll()
 	BANANA_HIDE_BUTTON_FRAMES = 1;
 	BANANA_GREY_OUT_DEATH = 0;
     BANANA_SHOW_EXTRA_INFO = 1;
+    BANANA_SHOW_PRINT_MESSAGES = 0;
+    BANANA_SHOW_DEBUG_MESSAGES = 0;
     
 	Banana_UpdateDialogFromVariables();
 	
@@ -921,6 +954,10 @@ end
 
 function Banana_TargetSymbol9()
 	Banana_TargetRaidSymbol(9);
+end
+
+function Banana_SetTargetSymbol8()
+	
 end
 
 function Banana_ShowDebugInfo()
