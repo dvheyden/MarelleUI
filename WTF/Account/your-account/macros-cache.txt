@@ -6,10 +6,6 @@ MACRO 18 "Blink" Ability_CheapShot
 /script SpellStopCasting()
 /cast Blink
 END
-MACRO 28 "CoC" Spell_Frost_Glacier
-/script SpellStopCasting()
-/cast Cone of Cold(Rank 5)
-END
 MACRO 14 "CS" Spell_Frost_IceShock
 /script SpellStopCasting()
 /cast Counterspell
@@ -66,6 +62,11 @@ MACRO 31 "POWER" Spell_Lightning_LightningBolt01
 /cast Arcane Power
 /script SpellStopCasting()
 /cast Frostbolt(Rank 11)
+END
+MACRO 28 "Sapper/BW" Ability_Creature_Cursed_01
+/script UseContainerItem(0, 1)
+/script SpellStopCasting()
+/cast Blast Wave
 END
 MACRO 11 "UI" Spell_Shadow_SacrificialShield
 /script UIErrorsFrame:Hide()
