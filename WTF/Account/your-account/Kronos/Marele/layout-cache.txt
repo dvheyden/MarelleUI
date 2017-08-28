@@ -28,10 +28,6 @@ X: 0
 Y: 0
 W: 1820
 H: 1024
-Frame: BananaConfigFrame
-FrameLevel: 1
-X: 1046
-Y: -236
 Frame: pfConfigGUI
 FrameLevel: 1
 X: 747
@@ -50,6 +46,10 @@ X: 1932
 Y: -1009
 W: 202
 H: 191
+Frame: TAContainer
+FrameLevel: 39
+X: 932
+Y: -1062
 Frame: VCB_BF_ConfigFrame
 FrameLevel: 1
 X: 610
