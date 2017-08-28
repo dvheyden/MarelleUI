@@ -28,10 +28,6 @@ X: 0
 Y: 0
 W: 1820
 H: 1024
-Frame: BananaConfigFrame
-FrameLevel: 1
-X: 1046
-Y: -236
 Frame: pfConfigGUI
 FrameLevel: 1
 X: 747
