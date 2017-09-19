@@ -48,6 +48,10 @@ Frame: GossipFrame
 FrameLevel: 39
 X: 0
 Y: -104
+Frame: CryolysisButton
+FrameLevel: 48
+X: 1037
+Y: -889
 Frame: pfConfigGUI
 FrameLevel: 1
 X: 750
