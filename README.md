@@ -4,9 +4,9 @@
 
 ## Screenshots
 
-![Screenshot](http://i.imgur.com/u5UH0AI.jpg)
+![Screenshot](https://i.imgur.com/IOOtJqZ.jpg)
 
-![Modular](http://i.imgur.com/SP3vVib.jpg)
+![Modular](https://i.imgur.com/VviqvTc.jpg)
 
 
 
