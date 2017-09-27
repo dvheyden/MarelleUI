@@ -144,7 +144,7 @@ L:RegisterTranslations("deDE", function() return {
 ----------------------------------
 
 BigWigsBars = BigWigs:NewModule(L["Bars"])
-BigWigsBars.revision = tonumber(string.sub("$Revision: 20003 $", 12, -3))
+BigWigsBars.revision = tonumber(string.sub("$Revision: 20004 $", 12, -3))
 BigWigsBars.defaultDB = {
 	growup = false,
 	scale = 1.0,
@@ -529,12 +529,8 @@ function BigWigsBars:BigWigs_StartBar(module, text, time, icon, otherc, c1, c2, 
 	self:RegisterCandyBarWithGroup(id, groupId)
 	self:SetCandyBarTexture(id, surface:Fetch(self.db.profile.texture))
 
-	if type(colorModule) == "table" then
-		local bg = colorModule.db.profile.barBackground
-		self:SetCandyBarBackgroundColor(id, bg.r, bg.g, bg.b, bg.a)
-		local txt = colorModule.db.profile.barTextColor
-		self:SetCandyBarTextColor(id, txt.r, txt.g, txt.b, txt.a)
-	end
+	if bc then module:SetCandyBarBackgroundColor(id, bc, balpha) end
+	if txtc then module:SetCandyBarTextColor(id, txtc) end
 
 	if type(self.db.profile.width) == "number" then
 		self:SetCandyBarWidth(id, self.db.profile.width)
