@@ -253,7 +253,7 @@ function module:checkSting(arg1)
 		elseif playerClass == "SHAMAN" then
 			self:sync(syncName.noxiousShaman)
 		end
-	elseif string.find(msg, L["noxious_trigger"]) then
+	elseif string.find(arg1, L["noxious_trigger"]) then
 		self:Sync(syncName.noxiousCD)
 	end
 end

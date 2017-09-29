@@ -306,7 +306,9 @@ function BigWigs.modulePrototype:Engage()
 	if self.bossSync and not self.engaged then
 		self.engaged = true
 		self:Message(string.format(L["%s engaged!"], self.translatedName), "Positive")
-		BigWigsBossRecords:StartBossfight(self)
+		if BigWigs:HasModule("BossRecords") then
+			BigWigsBossRecords:StartBossfight(self)
+		end
 		self:KTM_SetTarget(self:ToString())
 
 		self:OnEngage()
@@ -338,9 +340,9 @@ function BigWigs.modulePrototype:Victory()
 		if self.db.profile.bosskill then
 			self:Message(string.format(L["%s has been defeated"], self.translatedName), "Bosskill", nil, "Victory")
 		end
-
-		BigWigsBossRecords:EndBossfight(self)
-
+		if BigWigs:HasModule("BossRecords") then
+			BigWigsBossRecords:EndBossfight(self)
+		end
 		self:DebugMessage("Boss dead, disabling module ["..self:ToString().."].")
 		self.core:DisableModule(self:ToString())
 	end
@@ -702,6 +704,7 @@ function BigWigs:OnEnable()
 	else
 		self:RegisterEvent("AceEvent_FullyInitialized")
 	end
+	 
 end
 
 function BigWigs:AceEvent_FullyInitialized()
@@ -723,7 +726,7 @@ function BigWigs:AceEvent_FullyInitialized()
 		self:RegisterEvent("BigWigs_RebootModule")
 
 		self:RegisterEvent("BigWigs_RecvSync")
-
+		self:TriggerEvent("BigWigs_ThrottleSync", "RebootModule", 0)
 		--self:RegisterEvent("AceEvent_FullyInitialized", function() self:TriggerEvent("BigWigs_ThrottleSync", "BossEngaged", 5) end )
 
 	else
@@ -1004,6 +1007,9 @@ end
 -- event handler
 function BigWigs:BigWigs_RebootModule(moduleName)
 	local moduleName = BB:HasTranslation(moduleName) and BB[moduleName] or moduleName
+	if not BigWigs:HasModule(moduleName) then
+		return
+	end
 	local m = self:GetModule(moduleName)
 	if m and m:IsBossModule() then
 		self:DebugMessage("BigWigs:BigWigs_RebootModule(): " .. m:ToString())

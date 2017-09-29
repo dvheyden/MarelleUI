@@ -65,7 +65,6 @@ Plugins\Messages.lua
 Plugins\Proximity.lua
 Plugins\Pulltimer.lua
 Plugins\RaidIcon.lua
-Plugins\RaidOfficer.lua
 Plugins\RaidWarn.lua
 Plugins\Range.lua
 Plugins\Sound.lua
