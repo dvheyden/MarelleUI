@@ -71,7 +71,7 @@ L:RegisterTranslations("enUS", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20005 -- To be overridden by the module!
+module.revision = 20006 -- To be overridden by the module!
 module.enabletrigger = {thane, mograine, zeliek, blaumeux} -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"mark", "shieldwall", -1, "meteor", "void", "wrath", "bosskill"}
@@ -81,12 +81,12 @@ module.toggleoptions = {"mark", "shieldwall", -1, "meteor", "void", "wrath", "bo
 local timer = {
 	firstMark = 20,
 	mark = 12,
-	firstMeteor = 30,
-	meteor = {12,15},
-	firstWrath = 12,
-	wrath = {12,15},
-	firstVoid = 12,
-	void = {12,15},
+	firstMeteor = 16,
+	meteor = 12,
+	firstWrath = 16,
+	wrath = 12,
+	firstVoid = 16,
+	void = 12,
 	shieldwall = 20,
 }
 local icon = {
@@ -244,21 +244,21 @@ end
 function module:Meteor()
 	if self.db.profile.meteor then
 		self:Message(L["meteorwarn"], "Important")
-		self:IntervalBar(L["meteorbar"], timer.meteor[1], timer.meteor[2], icon.meteor)
+		self:Bar(L["meteorbar"], timer.meteor, icon.meteor)
 	end
 end
 
 function module:Wrath()
 	if self.db.profile.wrath then
 		self:Message(L["wrathwarn"], "Important")
-		self:IntervalBar(L["wrathbar"], timer.wrath[1], timer.wrath[2], icon.wrath)
+		self:Bar(L["wrathbar"], timer.wrath, icon.wrath)
 	end
 end
 
 function module:Void()
 	if self.db.profile.void then
 		self:Message(L["voidwarn"], "Important")
-		self:IntervalBar(L["voidbar"], timer.void[1], timer.void[2], icon.void)
+		self:Bar(L["voidbar"], timer.void, icon.void)
 	end
 end
 

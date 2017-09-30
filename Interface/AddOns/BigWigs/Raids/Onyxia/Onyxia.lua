@@ -5,7 +5,7 @@
 
 local module, L = BigWigs:ModuleDeclaration("Onyxia", "Onyxia's Lair")
 
-module.revision = 20005 -- To be overridden by the module!
+module.revision = 20006 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 module.toggleoptions = {"flamebreath", "deepbreath", "wingbuffet", "fireball", "phase", "onyfear", "bosskill"}
 
@@ -15,8 +15,8 @@ module.toggleoptions = {"flamebreath", "deepbreath", "wingbuffet", "fireball", "
 ---------------------------------
 
 local timer = {
-	firstFear = 5,
-	fear = 15,
+	firstFear = 28,
+	fear = 25,
 	fearCast = 1.5,
 	wingbuffet = 1,
 }
@@ -34,6 +34,7 @@ local syncName = {
 	flamebreath = "OnyFlameBreath"..module.revision,
 	fireball = "OnyFireball"..module.revision,
 	fear = "OnyBellowingRoar"..module.revision,
+	firstfear = "OnyFirstFear"..module.revision,
 }
 
 local transitioned = false
@@ -79,6 +80,7 @@ L:RegisterTranslations("enUS", function() return {
 	phase3_trigger = "It seems you'll need another lesson",
 	fear_trigger = "Onyxia begins to cast Bellowing Roar\.",
 	fear_over_trigger = "Bellowing Roar",
+	firstfear_trigger = "afflicted by Bellowing Roar",
 
 	warn1 = "Deep Breath incoming!",
 	phase1text = "Phase 1",
@@ -145,6 +147,7 @@ L:RegisterTranslations("deDE", function() return {
 
 local fireballTarget = nil
 local iconNumber = 8
+local firstfear = false
 
 ------------------------------
 --      Initialization      --
@@ -159,7 +162,9 @@ function module:OnEnable()
 	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE")
 	--self:RegisterEvent("UNIT_HEALTH")
 	self:RegisterEvent("CHAT_MSG_SPELL_AURA_GONE_SELF")
-
+	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE", "Event")
+	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE", "Event")
+	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE", "Event")
 	self:ThrottleSync(10, syncName.deepbreath)
 	self:ThrottleSync(10, syncName.phase2)
 	self:ThrottleSync(10, syncName.phase3)
@@ -175,6 +180,7 @@ function module:OnSetup()
 	phase = 0
 	fireballTarget = nil
 	iconNumber = 8
+	firstfear = false
 end
 
 -- called after boss is engaged
@@ -207,6 +213,11 @@ function module:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
+function module:Event(msg)
+	if string.find(msg, L["firstfear_trigger"]) then
+		self:Sync(syncName.firstfear)
+	end
+end
 --[[function module:UNIT_HEALTH(arg1) --temporary workaround until Phase2 yell gets fixed
 	if UnitName(arg1) == module.translatedName then
 		local health = UnitHealth(arg1)
@@ -255,6 +266,9 @@ function module:BigWigs_RecvSync(sync, rest, nick)
 		self:Fireball()
 	elseif sync == syncName.fear  then
 		self:Fear()
+	elseif sync == syncName.firstfear and not firstfear then
+		firstfear = true
+		self:FirstFear()
 	end
 end
 
@@ -275,7 +289,6 @@ end
 function module:Phase3()
 	if self.db.profile.phase and phase < 3 then
 		self:Message(L["phase3text"], "Important", true, "Beware")
-		self:Bar(L["fear_next"], timer.firstFear + timer.fearCast, icon.fear)
 		phase = 3
 		self:KTM_Reset()
 	end
@@ -324,11 +337,17 @@ function module:Fear()
 
 		self:Message(L["feartext"], "Important", true, "Alarm")
 		self:Bar(L["fear_cast"], timer.fearCast, icon.fear, true, "white") -- add cast bar
-		self:DelayedBar(timer.fearCast, L["fear_next"], timer.fear, icon.fear) -- delayed timer bar
+		self:DelayedBar(timer.fearCast, L["fear_next"], timer.fear-timer.fearCast, icon.fear) -- delayed timer bar
 		self:WarningSign(icon.fear, 5)
 	end
 end
 
+function module:FirstFear()
+	if self.db.profile.onyfear then
+		self:Bar(L["fear_next"], timer.firstFear, icon.fear)
+		self:WarningSign(icon.fear, 5)
+	end
+end
 -----------------------
 -- Utility Functions --
 -----------------------
