@@ -6,7 +6,6 @@
 
 ![Screenshot](https://i.imgur.com/IOOtJqZ.jpg)
 
-![Modular](https://i.imgur.com/VviqvTc.jpg)
 
 
 
