@@ -3,11 +3,11 @@ BigWigsDB = {
 	["disabledModules"] = {
 		["Default"] = {
 			["High Priestess Jeklik"] = true,
-			["Gothik the Harvester"] = true,
+			["Ragnaros"] = true,
 			["Buru the Gorger"] = true,
 			["Wushoolay"] = true,
 			["Anubisath Defender"] = true,
-			["Ossirian the Unscarred"] = true,
+			["Kurinnaxx"] = true,
 			["Firemaw"] = true,
 			["Grand Widow Faerlina"] = true,
 			["High Priestess Mar'li"] = true,
@@ -25,59 +25,59 @@ BigWigsDB = {
 			["C'Thun"] = true,
 			["General Rajaxx"] = true,
 			["King Gordok"] = true,
-			["Renataki"] = true,
-			["Garr"] = true,
+			["Gluth"] = true,
 			["Thaddius"] = true,
-			["Loatheb"] = true,
+			["Ouro"] = true,
 			["Ayamiss the Hunter"] = true,
 			["Living Monstrosity"] = true,
-			["Ouro"] = true,
-			["Onyxia"] = true,
+			["Sapphiron"] = true,
 			["Ebonroc"] = true,
+			["Anubisath Guardian"] = true,
 			["The Bug Family"] = true,
 			["Heigan the Unclean"] = true,
-			["Shazzrah"] = true,
-			["Azuregos"] = true,
-			["Chromaggus"] = true,
-			["Sapphiron"] = true,
-			["Gluth"] = true,
-			["Baron Geddon"] = true,
+			["Ossirian the Unscarred"] = true,
+			["Onyxia"] = true,
+			["Gurubashi Berserker"] = true,
+			["Jin'do the Hexxer"] = true,
+			["Anubisath Warder"] = true,
 			["Princess Huhuran"] = true,
+			["Baron Geddon"] = true,
+			["Broodlord Lashlayer"] = true,
 			["High Priestess Arlokk"] = true,
 			["Gri'lek"] = true,
-			["Razorgore the Untamed"] = true,
-			["Ysondre"] = true,
-			["The Twin Emperors"] = true,
 			["Viscidus"] = true,
-			["Death Talon Wyrmguard"] = true,
 			["Bloodlord Mandokir"] = true,
-			["Maexxna"] = true,
-			["Ragnaros"] = true,
+			["Emeriss"] = true,
 			["Lord Kazzak"] = true,
+			["Death Talon Wyrmguard"] = true,
+			["The Twin Emperors"] = true,
+			["High Priest Venoxis"] = true,
+			["Hakkar"] = true,
+			["Shazzrah"] = true,
 			["Battleguard Sartura"] = true,
-			["Kurinnaxx"] = true,
+			["Loatheb"] = true,
 			["Kel'Thuzad"] = true,
 			["Nefarian"] = true,
 			["Fankriss the Unyielding"] = true,
 			["Lucifron"] = true,
 			["Anub'Rekhan"] = true,
 			["Hazza'rah"] = true,
-			["Golemagg the Incinerator"] = true,
+			["Gothik the Harvester"] = true,
 			["Sulfuron Harbinger"] = true,
-			["Anubisath Guardian"] = true,
-			["Hakkar"] = true,
+			["Golemagg the Incinerator"] = true,
+			["Maexxna"] = true,
 			["The Four Horsemen"] = true,
-			["High Priest Venoxis"] = true,
+			["Ysondre"] = true,
 			["Grobbulus"] = true,
 			["Instructor Razuvious"] = true,
-			["Emeriss"] = true,
+			["Razorgore the Untamed"] = true,
 			["Magmadar"] = true,
 			["Ancient Core Hound"] = true,
-			["Broodlord Lashlayer"] = true,
+			["Renataki"] = true,
 			["Patchwerk"] = true,
-			["Anubisath Warder"] = true,
-			["Jin'do the Hexxer"] = true,
-			["Gurubashi Berserker"] = true,
+			["Azuregos"] = true,
+			["Chromaggus"] = true,
+			["Garr"] = true,
 		},
 	},
 	["namespaces"] = {
@@ -88,7 +88,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Gothik the Harvester"] = {
+		["Ragnaros"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -109,6 +109,13 @@ BigWigsDB = {
 				},
 			},
 		},
+		["Anubisath Defender"] = {
+			["profiles"] = {
+				["Default"] = {
+					["plagueother"] = false,
+				},
+			},
+		},
 		["Ossirian the Unscarred"] = {
 			["profiles"] = {
 				["Default"] = {
@@ -116,7 +123,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Firemaw"] = {
+		["Golemagg the Incinerator"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -151,15 +158,10 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Bars"] = {
+		["The Twin Emperors"] = {
 			["profiles"] = {
 				["Default"] = {
-					["posx"] = 443.7335834544012,
-					["emphasizeFlash"] = false,
-					["growup"] = true,
-					["posy"] = 324.2669252937337,
-					["emphasize"] = false,
-					["texture"] = "Smooth",
+					["bosskill"] = false,
 				},
 			},
 		},
@@ -192,7 +194,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Bloodlord Mandokir"] = {
+		["Lethon"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -247,7 +249,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Princess Huhuran"] = {
+		["King Gordok"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -261,7 +263,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Loatheb"] = {
+		["Ouro"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -269,6 +271,122 @@ BigWigsDB = {
 			},
 		},
 		["Ayamiss the Hunter"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Gahz'ranka"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Hakkar"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Anubisath Guardian"] = {
+			["profiles"] = {
+				["Default"] = {
+					["plagueother"] = false,
+				},
+			},
+		},
+		["Ebonroc"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["The Bug Family"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Colors"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bgc"] = "3e3e40",
+					["bga"] = 0.6400000154972076,
+				},
+			},
+		},
+		["Heigan the Unclean"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["WarningSign"] = {
+			["profiles"] = {
+				["Default"] = {
+					["posx"] = 627.2000897982857,
+					["isVisible"] = false,
+					["posy"] = 697.0665137936173,
+				},
+			},
+		},
+		["Azuregos"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Chromaggus"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Onyxia"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Flamegor"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Gluth"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
+		["Version Query"] = {
+			["profiles"] = {
+				["Default"] = {
+					["popup"] = false,
+				},
+			},
+		},
+		["Baron Geddon"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+					["announce"] = false,
+				},
+			},
+		},
+		["Moam"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -289,114 +407,26 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Ebonroc"] = {
+		["Bars"] = {
+			["profiles"] = {
+				["Default"] = {
+					["posx"] = 443.7335834544012,
+					["emphasize"] = false,
+					["growup"] = true,
+					["posy"] = 324.2669252937337,
+					["emphasizeFlash"] = false,
+					["texture"] = "Smooth",
+				},
+			},
+		},
+		["Emeriss"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["King Gordok"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["The Bug Family"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["The Twin Emperors"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Heigan the Unclean"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Azuregos"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Garr"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Jin'do the Hexxer"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Golemagg the Incinerator"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Proximity"] = {
-			["profiles"] = {
-				["Default"] = {
-					["posx"] = 2.666669503033591,
-					["posy"] = 504.5329148548124,
-				},
-			},
-		},
-		["Version Query"] = {
-			["profiles"] = {
-				["Default"] = {
-					["popup"] = false,
-				},
-			},
-		},
-		["Baron Geddon"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Lethon"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Viscidus"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Colors"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bgc"] = "3e3e40",
-					["bga"] = 0.6400000154972076,
-				},
-			},
-		},
-		["Broodlord Lashlayer"] = {
+		["Shazzrah"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -410,28 +440,14 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Razorgore the Untamed"] = {
+		["Firemaw"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["Gehennas"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Gluth"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Lord Kazzak"] = {
+		["Maexxna"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -446,21 +462,21 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Hakkar"] = {
+		["Ysondre"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["Shazzrah"] = {
+		["Lord Kazzak"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["Ouro"] = {
+		["High Priestess Arlokk"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -474,7 +490,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Ragnaros"] = {
+		["Loatheb"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -523,6 +539,13 @@ BigWigsDB = {
 				},
 			},
 		},
+		["Gothik the Harvester"] = {
+			["profiles"] = {
+				["Default"] = {
+					["bosskill"] = false,
+				},
+			},
+		},
 		["Kurinnaxx"] = {
 			["profiles"] = {
 				["Default"] = {
@@ -530,24 +553,18 @@ BigWigsDB = {
 				},
 			},
 		},
-		["High Priestess Arlokk"] = {
+		["Viscidus"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["Ysondre"] = {
+		["Proximity"] = {
 			["profiles"] = {
 				["Default"] = {
-					["bosskill"] = false,
-				},
-			},
-		},
-		["Maexxna"] = {
-			["profiles"] = {
-				["Default"] = {
-					["bosskill"] = false,
+					["posx"] = 2.666669503033591,
+					["posy"] = 504.5329148548124,
 				},
 			},
 		},
@@ -558,7 +575,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Gahz'ranka"] = {
+		["Broodlord Lashlayer"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -579,7 +596,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Emeriss"] = {
+		["Razorgore the Untamed"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -593,7 +610,7 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Moam"] = {
+		["Gehennas"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
@@ -607,33 +624,31 @@ BigWigsDB = {
 				},
 			},
 		},
-		["Flamegor"] = {
+		["Bloodlord Mandokir"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["Onyxia"] = {
+		["Princess Huhuran"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["Chromaggus"] = {
+		["Jin'do the Hexxer"] = {
 			["profiles"] = {
 				["Default"] = {
 					["bosskill"] = false,
 				},
 			},
 		},
-		["WarningSign"] = {
+		["Garr"] = {
 			["profiles"] = {
 				["Default"] = {
-					["posx"] = 627.2000897982857,
-					["posy"] = 697.0665137936173,
-					["isVisible"] = false,
+					["bosskill"] = false,
 				},
 			},
 		},
