@@ -50,8 +50,8 @@ X: 0
 Y: -104
 Frame: BigWigsMessageAnchor
 FrameLevel: 1
-X: 979
-Y: -197
+X: 980
+Y: -79
 Frame: pfConfigGUI
 FrameLevel: 1
 X: 750
