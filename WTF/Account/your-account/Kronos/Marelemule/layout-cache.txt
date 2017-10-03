@@ -72,7 +72,7 @@ W: 202
 H: 191
 Frame: TAContainer
 FrameLevel: 19
-X: 931
+X: 932
 Y: -1063
 Frame: VCB_BF_ConfigFrame
 FrameLevel: 1
