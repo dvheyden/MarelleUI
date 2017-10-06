@@ -143,7 +143,7 @@ L:RegisterTranslations("deDE", function() return {
 
 
 -- module variables
-module.revision = 20008 -- To be overridden by the module!
+module.revision = 20009 -- To be overridden by the module!
 local veklor = AceLibrary("Babble-Boss-2.2")["Emperor Vek'lor"]
 local veknilash = AceLibrary("Babble-Boss-2.2")["Emperor Vek'nilash"]
 module.enabletrigger = {veklor, veknilash} -- string or table {boss, add1, add2}
@@ -201,7 +201,15 @@ end
 
 -- called after boss is engaged
 function module:OnEngage()
-	self:Sync(syncName.teleport)
+	if self.db.profile.teleport then
+		self:Bar(L["bartext"], timer.teleport, icon.teleport)
+		
+		self:DelayedSound(timer.teleport - 10, "Ten")
+		self:DelayedSound(timer.teleport - 3, "Three")
+		self:DelayedSound(timer.teleport - 2, "Two")
+		self:DelayedSound(timer.teleport - 1, "One")
+		self:DelayedMessage(timer.teleport - 0.1, L["portwarn"], "Attention", false, "Alarm")
+	end
 
 	if self.db.profile.enrage then
 		self:Message(L["startwarn"], "Important")

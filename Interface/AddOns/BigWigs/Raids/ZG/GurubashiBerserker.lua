@@ -97,7 +97,7 @@ end
 -- called after boss is engaged
 function module:OnEngage()
 	if self.db.profile.bars then
-		self:DelayedSync(timer.knockBack, syncName.knockBack)
+		self:DelayedSync(timer.firstKnockBack, syncName.knockBack)
 		self:Bar(L["ThunderClap"], timer.firstThunderClap, icon.thunderClap)
 		--first fear comes when it comes
 		--self:Bar(L["Fear"], timer.firstFear, icon.fear)

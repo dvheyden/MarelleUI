@@ -15,6 +15,7 @@ L:RegisterTranslations("enUS", function() return {
 
 	engage_trigger = "None of your kind should be here",
 	ms_trigger = "^(.+) (.+) afflicted by Mortal Strike",
+	ms_trigger2 = "Lashlayer's Mortal Strike",
 	bw_trigger = "^(.+) (.+) afflicted by Blast Wave",
 	deathyou_trigger = "You die\.",
 	deathother_trigger = "(.+) dies\.",
@@ -75,7 +76,7 @@ L:RegisterTranslations("deDE", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20005 -- To be overridden by the module!
+module.revision = 20006 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"ms", "bw", "knock", "bosskill"}
@@ -117,6 +118,9 @@ function module:OnEnable()
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE", "Event")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE", "Event")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE", "Event")
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_SELF_DAMAGE", "CheckForKnockaway")
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_PARTY_DAMAGE", "CheckForKnockaway")
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE", "CheckForKnockaway")
 	self:RegisterEvent("PLAYER_TARGET_CHANGED")
 	--self:RegisterEvent("CHAT_MSG_COMBAT_FRIENDLY_DEATH")
 end
@@ -175,11 +179,17 @@ function module:Event(msg)
 			--self:ScheduleEvent("BigWigs_Message", 24, L["bw_warn"], "Urgent", true, "Alert")
 		end
 		lastBlastWave = GetTime()
-	elseif string.find(msg, L["knock_trigger"]) and self.db.profile.knock then
+	end
+end
+
+function module:CheckForKnockaway(msg)
+	if string.find(msg, L["knock_trigger"]) and self.db.profile.knock then
 		if GetTime() - lastKnock > 5 then
 			self:Bar(L["knock_bar"], timer.knockAwayInterval, icon.knockAway, true, "White")
 		end
 		lastKnock = GetTime()
+	elseif string.find(msg, L["ms_trigger2"]) and self.db.profile.ms then
+		self:IntervalBar(L["msnext_bar"], timer.earliestMortalStrike, timer.latestMortalStrike, icon.mortalStrike)
 	end
 end
 

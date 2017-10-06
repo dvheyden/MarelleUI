@@ -157,7 +157,7 @@ L:RegisterTranslations("deDE", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20008 -- To be overridden by the module!
+module.revision = 20009 -- To be overridden by the module!
 module.enabletrigger = {kri, yauj, vem} -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"panic", "toxicvolley", "heal", "announce", "deathspecials", "enrage", "bosskill"}
@@ -254,7 +254,7 @@ function module:OnEngage()
 	end
 	if self.db.profile.toxicvolley then
 		self:Bar(L["toxicvolley_bar"], timer.volley, icon.volley, true, "green")
-		self:DelayedMessage(timer.earliestFirstVolley - 3, L["toxicvolley_message"], "Urgent")
+		--self:DelayedMessage(timer.earliestFirstVolley - 3, L["toxicvolley_message"], "Urgent")
 	end
 	if self.db.profile.enrage then
 		self:Bar(L["enrage_bar"], timer.enrage, icon.enrage, true, "red")
@@ -361,7 +361,7 @@ end
 
 function module:Volley()
 	if self.db.profile.toxicvolley then
-		self:Bar(L["toxicvolley_bar"], timer.earliestVolley, timer.latestVolley, icon.volley, true, "green")
+		self:Bar(L["toxicvolley_bar"], timer.volley, icon.volley, true, "green")
 		--self:DelayedMessage(timer.firstVolley - 3, L["toxicvolley_message"], "Urgent")
 	end
 end

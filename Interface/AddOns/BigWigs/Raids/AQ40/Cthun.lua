@@ -174,7 +174,7 @@ L:RegisterTranslations("deDE", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20013 -- To be overridden by the module!
+module.revision = 20014 -- To be overridden by the module!
 local eyeofcthun = AceLibrary("Babble-Boss-2.2")["Eye of C'Thun"]
 local cthun = AceLibrary("Babble-Boss-2.2")["C'Thun"]
 module.enabletrigger = {eyeofcthun, cthun} -- string or table {boss, add1, add2}
@@ -277,7 +277,7 @@ function module:OnEnable()
 	self:ThrottleSync(20, syncName.p2Start)
 	self:ThrottleSync(50, syncName.weaken)
 	self:ThrottleSync(3, syncName.giantEyeDown)
-	self:ThrottleSync(600, syncName.weakenOver)
+	self:ThrottleSync(60, syncName.weakenOver)
 	self:ThrottleSync(25, syncName.giantClawSpawn)
 	self:ThrottleSync(25, syncName.giantEyeSpawn)
 	self:ThrottleSync(25, syncName.tentacleSpawn)
@@ -500,7 +500,7 @@ function module:CThunWeakened()
 		self:Message(L["weakened"], "Positive" )
 		self:Sound("Murloc")
 		self:Bar(L["barWeakened"], timer.weakened, icon.weaken)
-		self:Message(timer.weakened - 5, L["invulnerable2"], "Urgent")
+		self:DelayedMessage(timer.weakened - 5, L["invulnerable2"], "Urgent")
 	end
 
 	-- cancel tentacle timers
@@ -525,7 +525,7 @@ end
 
 function module:CThunWeakenedOver()
 	isWeakened = nil
-	self:ThrottleSync(600, syncName.weakenOver)
+	self:ThrottleSync(60, syncName.weakenOver)
 	self:CancelDelayedSync(syncName.weakenOver) -- ok
 
 	if self.db.profile.weakened then

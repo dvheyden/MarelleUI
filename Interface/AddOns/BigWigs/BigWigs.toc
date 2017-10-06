@@ -61,6 +61,7 @@ Plugins\Comm.lua
 Plugins\CommonAuras.lua
 Plugins\CustomBar.lua
 Plugins\Farclip.lua
+Plugins\KtmOptions.lua
 Plugins\Messages.lua
 Plugins\Proximity.lua
 Plugins\Pulltimer.lua
@@ -129,7 +130,6 @@ Raids\MC\Shazzrah.lua
 Raids\MC\Garr.lua
 Raids\MC\Sulfuron.lua
 Raids\MC\Golemagg.lua
-Raids\MC\CoreHound.lua
 
 Raids\Other\Azuregos.lua
 Raids\Other\Kazzak.lua

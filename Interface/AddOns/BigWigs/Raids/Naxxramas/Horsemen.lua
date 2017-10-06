@@ -71,7 +71,7 @@ L:RegisterTranslations("enUS", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20006 -- To be overridden by the module!
+module.revision = 20007 -- To be overridden by the module!
 module.enabletrigger = {thane, mograine, zeliek, blaumeux} -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"mark", "shieldwall", -1, "meteor", "void", "wrath", "bosskill"}
@@ -81,11 +81,11 @@ module.toggleoptions = {"mark", "shieldwall", -1, "meteor", "void", "wrath", "bo
 local timer = {
 	firstMark = 20,
 	mark = 12,
-	firstMeteor = 16,
+	firstMeteor = 12,
 	meteor = 12,
-	firstWrath = 16,
+	firstWrath = 12,
 	wrath = 12,
-	firstVoid = 16,
+	firstVoid = 12,
 	void = 12,
 	shieldwall = 20,
 }

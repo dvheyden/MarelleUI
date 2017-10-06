@@ -168,7 +168,7 @@ BigWigs.cmdtable = {type = "group", handler = BigWigs, args = {
 }}
 BigWigs:RegisterChatCommand({"/bw", "/BigWigs"}, BigWigs.cmdtable)
 BigWigs.debugFrame = ChatFrame1
-BigWigs.revision = 20023
+BigWigs.revision = 20024
 
 
 function BigWigs:DebugMessage(msg, module)
@@ -193,7 +193,7 @@ end
 ------------------------------
 --      KLHThreatMeter      --
 ------------------------------
-
+--[[
 function BigWigs:KTM_Reset()
 	if IsAddOnLoaded("KLHThreatMeter") then
 		if IsRaidLeader() or IsRaidOfficer() then
@@ -201,7 +201,7 @@ function BigWigs:KTM_Reset()
 		end
 	end
 end
-
+]]
 BigWigs.masterTarget = nil;
 BigWigs.forceReset = nil;
 
@@ -209,7 +209,7 @@ function BigWigs:KTM_ClearTarget(forceReset)
 	if IsAddOnLoaded("KLHThreatMeter") and (IsRaidLeader() or IsRaidOfficer()) then
 		klhtm.net.clearmastertarget()
 		if forceReset then
-			self:KTM_Reset()
+			BigWigsKtm:KTM_Reset()
 		end
 	end
 end
@@ -228,7 +228,7 @@ function BigWigs:PLAYER_TARGET_CHANGED()
 			-- our new target is the wanted target, setup masterTarget now
 			klhtm.net.sendmessage("target " .. BigWigs.masterTarget)
 			if BigWigs.forceReset then
-				BigWigs:KTM_Reset()
+				BigWigsKtm:KTM_Reset()
 				BigWigs.forceReset = nil
 			end
 			BigWigs.masterTarget   = nil
@@ -650,7 +650,7 @@ end
 
 -- KLHThreatMeter
 function BigWigs.modulePrototype:KTM_Reset()
-	BigWigs:KTM_Reset()
+	BigWigsKtm:KTM_Reset()
 end
 function BigWigs.modulePrototype:KTM_ClearTarget(forceReset)
 	BigWigs:KTM_ClearTarget(forceReset)
