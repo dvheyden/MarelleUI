@@ -1,182 +1,331 @@
-module 'aux'
+Aux.util = {}
 
-M.immutable = setmetatable(T, {
-	__metatable = false,
-	__newindex = nop,
-	__sub = function(_, t)
-		return setmetatable(T, O('__metatable', false, '__newindex', nop, '__index', t))
+Aux.util.LT = {}
+Aux.util.EQ = {}
+Aux.util.GT = {}
+
+local merge, copy_array
+
+function Aux.util.pass()
+end
+
+function Aux.util.inventory_iterator()
+    local inventory = {}
+    for bag = 0, 4 do
+        if GetBagName(bag) then
+            for bag_slot = 1, GetContainerNumSlots(bag) do
+                tinsert(inventory, { bag = bag, bag_slot = bag_slot })
+            end
+        end
+    end
+
+    local i = 0
+    local n = getn(inventory)
+    return function()
+        i = i + 1
+        if i <= n then
+            return inventory[i]
+        end
+    end
+end
+
+function Aux.util.safe_index(chain)
+    local target = chain[1]
+
+    for i=2,getn(chain) do
+        if not target then
+            return
+        end
+        target = target[chain[i]]
+    end
+
+    return target
+end
+
+function Aux_PluralizeIf(word, count)
+
+    if count and count == 1 then
+        return word
+    else
+        return word.."s"
+    end
+end
+
+function Aux.util.without_errors(f)
+    local orig = UIErrorsFrame.AddMessage
+    UIErrorsFrame.AddMessage = Aux.util.pass
+    f()
+    UIErrorsFrame.AddMessage = orig
+end
+
+function Aux.util.without_sound(f)
+    local orig = GetCVar('MasterSoundEffects')
+    SetCVar('MasterSoundEffects', 0)
+    f()
+    SetCVar('MasterSoundEffects', orig)
+end
+
+function Aux.util.iter(array)
+	local with_index = ipairs(array)
+	return function()
+		local _, value = with_index
+		return value
 	end
-})
-
-M.select = vararg-function(arg)
-	for _ = 1, arg[1] do
-		tremove(arg, 1)
-	end
-	if getn(arg) == 0 then
-		return nil
-	else
-		return unpack(arg)
-	end
 end
 
-M.join = table.concat
-
-function M.range(arg1, arg2)
-	local i, n = arg2 and arg1 or 1, arg2 or arg1
-	if i <= n then return first, range(i + 1, n) end
+function Aux.util.set_add(set, key)
+    set[key] = true
 end
 
-function M.replicate(count, value)
-	if count > 0 then return value, replicate(count - 1, value) end
+function Aux.util.set_remove(set, key)
+    set[key] = nil
 end
 
-M.index = vararg-function(arg)
-	local t = tremove(arg, 1)
-	for _, v in ipairs(arg) do
-		t = t and t[v]
-	end
-	return t
+function Aux.util.set_contains(set, key)
+    return set[key] ~= nil
 end
 
-M.huge = 1.8 * 10 ^ 308
-
-function M.get_modified()
-	return IsShiftKeyDown() or IsControlKeyDown() or IsAltKeyDown()
-end
-
-function M.copy(t)
-	local copy = T
-	for k, v in pairs(t) do
-		copy[k] = v
-	end
-	table.setn(copy, getn(t))
-	return setmetatable(copy, getmetatable(t))
-end
-
-function M.size(t)
-	local size = 0
-	for _ in pairs(t) do
+function Aux.util.set_size(set)
+    local size = 0
+	for _,_ in pairs(set) do
 		size = size + 1
 	end
 	return size
 end
 
-function M.key(t, value)
-	for k, v in pairs(t) do
-		if v == value then
-			return k
+function Aux.util.set_to_array(set)
+	local array = {}
+	for element, _ in pairs(set) do
+		tinsert(array, element)
+	end
+	return array
+end
+
+function Aux.util.any(xs, p)
+	holds = false
+	for _, x in ipairs(xs) do
+		holds = holds or p(x)
+	end
+	return holds
+end
+
+function Aux.util.all(xs, p)
+	holds = true
+	for _, x in ipairs(xs) do
+		holds = holds and p(x)
+	end
+	return holds
+end
+
+function Aux.util.set_filter(xs, p)
+	ys = {}
+	for x, _ in pairs(xs) do
+		if p(x) then
+			Aux.util.set_add(ys, x)
 		end
 	end
+	return ys
 end
 
-function M.keys(t)
-	local keys = T
-	for k in pairs(t) do
-		tinsert(keys, k)
-	end
-	return keys
-end
-
-function M.values(t)
-	local values = T
-	for _, v in pairs(t) do
-		tinsert(values, v)
-	end
-	return values
-end
-
-function M.eq(t1, t2)
-	if not t1 or not t2 then return false end
-	for key, value in pairs(t1) do
-		if t2[key] ~= value then return false end
-	end
-	for key, value in pairs(t2) do
-		if t1[key] ~= value then return false end
-	end
-	return true
-end
-
-function M.any(t, predicate)
-	for _, v in pairs(t) do
-		if predicate then
-			if predicate(v) then return true end
-		elseif v then
-			return true
+function Aux.util.filter(xs, p)
+	ys = {}
+	for _, x in ipairs(xs) do
+		if p(x) then
+			tinsert(ys, x)
 		end
 	end
-	return false
+	return ys
 end
 
-function M.all(t, predicate)
-	for _, v in pairs(t) do
-		if predicate then
-			if not predicate(v) then return false end
-		elseif not v then
-			return false
+function Aux.util.map(xs, f)
+	ys = {}
+	for _, x in ipairs(xs) do
+		tinsert(ys, f(x))
+	end
+	return ys
+end
+
+function Aux.util.take(n, xs)
+	ys = {}
+	for i=1,n do
+		if xs[i] then
+			tinsert(ys, xs[i])
 		end
 	end
-	return true
+	return ys
 end
 
-function M.filter(t, predicate)
-	for k, v in pairs(t) do
-		if not predicate(v, k) then t[k] = nil end
-	end
-	return t
+function Aux.util.merge_sort(A, comp)
+	local n = getn(A)
+	local B = {}
+	
+	local width = 1
+	while width <= n do
+
+		for i=1, n, 2 * width do
+			merge(A, i, min(i + width, n), min(i + 2 * width - 1, n), B, comp)
+        end
+	  
+		copy_array(B, A, n)
+  
+		width = 2 * width
+    end
 end
 
-function M.map(t, f)
-	for k, v in pairs(t) do
-		t[k] = f(v, k)
-	end
-	return t
-end
+function merge(A, start1, start2, last, B, comp)
+	local i1 = start1
+	local i2 = start2
 
-function M.trim(str)
-	return gsub(str, '^%s*(.-)%s*$', '%1')
-end
-
-function M.split(str, separator)
-	local parts = T
-	while true do
-		local start_index = strfind(str, separator, 1, true)
-		if start_index then
-			local part = strsub(str, 1, start_index - 1)
-			tinsert(parts, part)
-			str = strsub(str, start_index + 1)
+	for i=start1,last do
+		if i1 < start2 and (i2 > last or comp(A[i1], A[i2]) == Aux.util.LT or comp(A[i1], A[i2]) == Aux.util.EQ) then
+			B[i] = A[i1]
+			i1 = i1 + 1
 		else
-			local part = strsub(str, 1)
-			tinsert(parts, part)
-			return parts
+			B[i] = A[i2]
+			i2 = i2 + 1
 		end
 	end
 end
 
-function M.tokenize(str)
-	local tokens = T
-	for token in string.gfind(str, '%S+') do tinsert(tokens, token) end
-	return tokens
-end
-
-function M.bounded(lower_bound, upper_bound, number)
-	return max(lower_bound, min(upper_bound, number))
-end
-
-function M.round(x)
-	return floor(x + .5)
-end
-
-function M.later(t, t0)
-	t0 = t0 or GetTime()
-	return function() return GetTime() - t0 > t end
-end
-
-function M.signal()
-	local params
-	return vararg-function(arg)
-		static(arg)
-		params = arg
-	end, function()
-		return params
+function copy_array(A, B, n)
+    for i=1,n do
+        B[i] = A[i]
 	end
+end
+
+function Aux.util.invert_order(ordering)
+	if ordering == Aux.util.LT then
+		return Aux.util.GT
+	elseif ordering == Aux.util.GT then
+		return Aux.util.LT
+	else
+		return Aux.util.EQ
+	end
+end
+
+function Aux.util.compare(a, b, nil_ordering)
+	nil_ordering = nil_ordering or Aux.util.EQ
+	if not a and b then
+		return nil_ordering
+	elseif a and not b then
+		return Aux.util.invert_order(nil_ordering)
+	elseif not a and not b then
+		return Aux.util.EQ
+	elseif a < b then
+		return Aux.util.LT
+	elseif a > b then
+		return Aux.util.GT
+	else
+		return Aux.util.EQ
+	end
+end
+
+function Aux.util.index_of(value, array)
+	for i, item in ipairs(array) do
+		if item == value then
+			return i
+		end
+	end
+end
+
+local GSC_GOLD = "ffd100"
+local GSC_SILVER = "e6e6e6"
+local GSC_COPPER = "c8602c"
+local GSC_RED = "ff0000"
+
+local GSC_3 = "|cff"..GSC_GOLD.."%d|cff000000.|cff"..GSC_SILVER.."%02d|cff000000.|cff"..GSC_COPPER.."%02d|r"
+local GSC_2 = "|cff"..GSC_SILVER.."%d|cff000000.|cff"..GSC_COPPER.."%02d|r"
+local GSC_1 = "|cff"..GSC_COPPER.."%d|r"
+
+local GSC_3N = "|cff"..GSC_RED.."(|cff"..GSC_GOLD.."%d|cff000000.|cff"..GSC_SILVER.."%02d|cff000000.|cff"..GSC_COPPER.."%02d|cff"..GSC_RED..")|r"
+local GSC_2N = "|cff"..GSC_RED.."(|cff"..GSC_SILVER.."%d|cff000000.|cff"..GSC_COPPER.."%02d|cff"..GSC_RED..")|r"
+local GSC_1N = "|cff"..GSC_RED.."(|cff"..GSC_COPPER.."%d|cff"..GSC_RED..")|r"
+
+function Aux.util.money_string(money)
+	money = floor(tonumber(money) or 0)
+	local negative = money < 0
+	money = abs(money)
+
+	local g = floor(money / 10000)
+	money = money - g * 10000
+	local s = floor(money / 100)
+	money = money - s * 100
+	local c = money
+
+	if g > 0 then
+		if negative then
+			return format(GSC_3N, g, s, c)
+		else
+			return format(GSC_3, g, s, c)
+		end
+	elseif s > 0 then
+		if negative then
+			return format(GSC_2N, s, c)
+		else
+			return format(GSC_2, s, c)
+		end
+	else
+		if negative then
+			return format(GSC_1N, c)
+		else
+			return format(GSC_1, c)
+		end
+	end
+end
+
+function Aux.util.group_by(tables, equal)
+	local groups = {}
+	for _, table in ipairs(tables) do
+        local found_group
+		for _, group in ipairs(groups) do
+			if equal(table, group[1]) then
+				tinsert(group, table)
+                found_group = true
+			end
+        end
+        if not found_group then
+		    tinsert(groups, { table })
+        end
+	end
+	return groups
+end
+
+function Aux.util.set()
+    local self = {}
+
+    local data = {}
+
+    function self.add(value)
+        data[value] = true
+    end
+
+    function self.add_all(values)
+        for _, value in ipairs(values) do
+            self.add(value)
+        end
+    end
+
+    function self.remove(value)
+        data[value] = nil
+    end
+
+    function self.remove_all(values)
+        for _, value in ipairs(values) do
+            self.remove(value)
+        end
+    end
+
+    function self.contains(value)
+        return data[value] ~= nil
+    end
+
+    function self.values()
+        local values = {}
+        for value, _ in pairs(data) do
+            tinsert(values, value)
+        end
+        return values
+    end
+
+    return self
 end
