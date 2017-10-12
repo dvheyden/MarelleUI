@@ -1,6 +1,6 @@
 
 RABui_Settings = {
-	["lockwindow"] = true,
+	["newestVersionTitle"] = "0.10.2",
 	["trustctra"] = false,
 	["newestVersionPlayer"] = "Marelle",
 	["newestVersion"] = 0.1002,
@@ -13,50 +13,11 @@ RABui_Settings = {
 	["syntaxhelp"] = true,
 	["enableGreeting"] = true,
 	["showsampleoutputonclick"] = true,
-	["showraid"] = true,
-	["newestVersionTitle"] = "0.10.2",
+	["firstRun"] = false,
+	["lockwindow"] = true,
 	["Layout"] = {
 		["Kronos.Marelle.current"] = {
 			[1] = {
-				["label"] = "Alive",
-				["color"] = {
-					[1] = 0.3,
-					[2] = 1,
-					[3] = 0.3,
-				},
-				["class"] = "ALL",
-				["cmd"] = "alive",
-				["out"] = "RAID",
-				["priority"] = 1,
-				["extralabel"] = "",
-			},
-			[2] = {
-				["label"] = "DPS",
-				["color"] = {
-					[1] = 0.2,
-					[2] = 0.2,
-					[3] = 1,
-				},
-				["class"] = "ALL",
-				["cmd"] = "mana mlh",
-				["out"] = "RAID",
-				["priority"] = 1,
-				["extralabel"] = "",
-			},
-			[3] = {
-				["label"] = "Healer",
-				["color"] = {
-					[1] = 0.2431372549019608,
-					[2] = 0.2156862745098039,
-					[3] = 1,
-				},
-				["class"] = "ALL",
-				["cmd"] = "mana pdsa",
-				["out"] = "RAID",
-				["priority"] = 1,
-				["extralabel"] = "",
-			},
-			[4] = {
 				["label"] = "Intellect",
 				["color"] = {
 					[1] = 0.2352941176470588,
@@ -69,7 +30,7 @@ RABui_Settings = {
 				["priority"] = 10,
 				["extralabel"] = "",
 			},
-			[5] = {
+			[2] = {
 				["cmd"] = "bok 12345678",
 				["label"] = "Kings",
 				["color"] = {
@@ -77,11 +38,11 @@ RABui_Settings = {
 					[2] = 0,
 					[3] = 0.9568627450980392,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[6] = {
+			[3] = {
 				["cmd"] = "bom 12345678",
 				["label"] = "Might",
 				["color"] = {
@@ -89,11 +50,11 @@ RABui_Settings = {
 					[2] = 0,
 					[3] = 0.9568627450980392,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[7] = {
+			[4] = {
 				["cmd"] = "bos 12345678",
 				["label"] = "Salvation",
 				["color"] = {
@@ -101,11 +62,11 @@ RABui_Settings = {
 					[2] = 0,
 					[3] = 0.9568627450980392,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[8] = {
+			[5] = {
 				["cmd"] = "motw 12345678",
 				["label"] = "Mark of the Wild",
 				["color"] = {
@@ -113,11 +74,11 @@ RABui_Settings = {
 					[2] = 0.3882352941176471,
 					[3] = 0.007843137254901961,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[9] = {
+			[6] = {
 				["cmd"] = "pwf 12345678",
 				["label"] = "Fortitude",
 				["color"] = {
@@ -125,11 +86,11 @@ RABui_Settings = {
 					[2] = 1,
 					[3] = 1,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[10] = {
+			[7] = {
 				["cmd"] = "ds 12345678",
 				["label"] = "Divine Spirit",
 				["color"] = {
@@ -137,11 +98,11 @@ RABui_Settings = {
 					[2] = 1,
 					[3] = 1,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[11] = {
+			[8] = {
 				["cmd"] = "firepot 12345678",
 				["label"] = "Fire Protection",
 				["color"] = {
@@ -149,11 +110,11 @@ RABui_Settings = {
 					[2] = 0,
 					[3] = 0,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[12] = {
+			[9] = {
 				["cmd"] = "naturepot 12345678",
 				["label"] = "Nature Protection",
 				["color"] = {
@@ -161,11 +122,11 @@ RABui_Settings = {
 					[2] = 0.611764705882353,
 					[3] = 0.2078431372549019,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[13] = {
+			[10] = {
 				["cmd"] = "shadowpot 12345678",
 				["label"] = "Shadow Protection",
 				["color"] = {
@@ -173,11 +134,11 @@ RABui_Settings = {
 					[2] = 0.192156862745098,
 					[3] = 0.6352941176470588,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
-			[14] = {
+			[11] = {
 				["cmd"] = "ss 12345678",
 				["label"] = "Soulstone",
 				["color"] = {
@@ -185,20 +146,20 @@ RABui_Settings = {
 					[2] = 0.3764705882352941,
 					[3] = 0.3764705882352941,
 				},
-				["priority"] = 5,
-				["extralabel"] = "",
+				["priority"] = 10,
 				["out"] = "RAID",
+				["extralabel"] = "",
 			},
 		},
 	},
 	["keepversions"] = false,
 	["alwayscastbigbuffs"] = false,
 	["outlocale"] = "",
-	["colorizechat"] = true,
 	["castbigbuffs"] = false,
+	["colorizechat"] = true,
 	["showsolo"] = false,
 	["enablefadingfx"] = false,
 	["partymode"] = true,
 	["dummymode"] = false,
-	["firstRun"] = false,
+	["showraid"] = true,
 }
