@@ -1,6 +1,6 @@
 
 RABui_Settings = {
-	["newestVersionTitle"] = "0.10.2",
+	["lockwindow"] = true,
 	["trustctra"] = false,
 	["newestVersionPlayer"] = "Marelle",
 	["newestVersion"] = 0.1002,
@@ -13,8 +13,8 @@ RABui_Settings = {
 	["syntaxhelp"] = true,
 	["enableGreeting"] = true,
 	["showsampleoutputonclick"] = true,
-	["firstRun"] = false,
-	["lockwindow"] = true,
+	["showraid"] = true,
+	["newestVersionTitle"] = "0.10.2",
 	["Layout"] = {
 		["Kronos.Marelle.current"] = {
 			[1] = {
@@ -78,8 +78,8 @@ RABui_Settings = {
 					[3] = 0.9568627450980392,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[6] = {
 				["cmd"] = "bom 12345678",
@@ -90,8 +90,8 @@ RABui_Settings = {
 					[3] = 0.9568627450980392,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[7] = {
 				["cmd"] = "bos 12345678",
@@ -102,8 +102,8 @@ RABui_Settings = {
 					[3] = 0.9568627450980392,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[8] = {
 				["cmd"] = "motw 12345678",
@@ -114,8 +114,8 @@ RABui_Settings = {
 					[3] = 0.007843137254901961,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[9] = {
 				["cmd"] = "pwf 12345678",
@@ -126,8 +126,8 @@ RABui_Settings = {
 					[3] = 1,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[10] = {
 				["cmd"] = "ds 12345678",
@@ -138,8 +138,8 @@ RABui_Settings = {
 					[3] = 1,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[11] = {
 				["cmd"] = "firepot 12345678",
@@ -150,8 +150,8 @@ RABui_Settings = {
 					[3] = 0,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[12] = {
 				["cmd"] = "naturepot 12345678",
@@ -162,8 +162,8 @@ RABui_Settings = {
 					[3] = 0.2078431372549019,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[13] = {
 				["cmd"] = "shadowpot 12345678",
@@ -174,8 +174,8 @@ RABui_Settings = {
 					[3] = 0.6352941176470588,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[14] = {
 				["cmd"] = "ss 12345678",
@@ -186,19 +186,19 @@ RABui_Settings = {
 					[3] = 0.3764705882352941,
 				},
 				["priority"] = 5,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 		},
 	},
 	["keepversions"] = false,
 	["alwayscastbigbuffs"] = false,
 	["outlocale"] = "",
-	["castbigbuffs"] = false,
 	["colorizechat"] = true,
+	["castbigbuffs"] = false,
 	["showsolo"] = false,
-	["enablefadingfx"] = true,
+	["enablefadingfx"] = false,
 	["partymode"] = true,
-	["dummymode"] = true,
-	["showraid"] = true,
+	["dummymode"] = false,
+	["firstRun"] = false,
 }
