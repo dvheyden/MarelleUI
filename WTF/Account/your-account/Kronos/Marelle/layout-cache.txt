@@ -58,7 +58,7 @@ X: 750
 Y: -360
 Frame: DecursiveMainBar
 FrameLevel: 1
-X: 1965
+X: 1885
 Y: -396
 Frame: KLHTM_Frame
 FrameLevel: 1
