@@ -372,6 +372,7 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
     end)
   f:SetScript("OnEnter", function()
         if not this.label then return end
+        if this.config.showtooltip == "0" then return end
         GameTooltip_SetDefaultAnchor(GameTooltip, this)
         GameTooltip:SetUnit(this.label .. this.id)
         GameTooltip:Show()
@@ -1241,6 +1242,19 @@ function pfUI.uf:SetupBuffFilter()
     -- Blessing of Might
     table.insert(pfUI.uf.buffs, "interface\\icons\\spell_holy_fistofjustice")
     table.insert(pfUI.uf.buffs, "interface\\icons\\spell_holy_greaterblessingofkings")
+  end
+
+
+  -- [[ WARLOCK ]]
+  if myclass == "WARLOCK" then
+    -- Fire Shield
+    table.insert(pfUI.uf.buffs, "interface\\icons\\spell_fire_firearmor")
+
+    -- Blood Pact
+    table.insert(pfUI.uf.buffs, "interface\\icons\\spell_shadow_bloodboil")
+
+    -- Soulstone
+    table.insert(pfUI.uf.buffs, "interface\\icons\\spell_shadow_soulgem")
   end
 
 
