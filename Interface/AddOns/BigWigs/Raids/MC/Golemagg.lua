@@ -5,7 +5,7 @@
 
 local module, L = BigWigs:ModuleDeclaration("Golemagg the Incinerator", "Molten Core")
 
-module.revision = 20003 -- To be overridden by the module!
+module.revision = 20004 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 module.toggleoptions = {"earthquake", "enraged", "bosskill"}
 
@@ -104,10 +104,10 @@ end
 function module:UNIT_HEALTH(arg1)
 	if UnitName(arg1) == module.translatedName then
 		local health = UnitHealth(arg1)
-		if health > 110000 and health <= 162000 and not earthquakeon then
+		if health > 13 and health <= 20 and not earthquakeon then
 			self:Sync(syncName.earthquake)
 			earthquakeon = true
-		elseif health > 162000 and earthquakeon then
+		elseif health > 20 and earthquakeon then
 			earthquakeon = nil
 		end
 	end

@@ -61,7 +61,7 @@ L:RegisterTranslations("enUS", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20012 -- To be overridden by the module!
+module.revision = 20013 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"spray", "poison", "cocoon", "enrage", "bosskill"}
@@ -154,12 +154,12 @@ end
 function module:UNIT_HEALTH( msg )
 	if UnitName(msg) == boss then
 		local health = UnitHealth(msg)
-		if (health > 449685 and health <= 500000 and not enrageannounced) then
+		if (health > 29 and health <= 34 and not enrageannounced) then
 			if self.db.profile.enrage then
 				self:Message(L["enragesoonwarn"], "Important")
 			end
 			enrageannounced = true
-		elseif (health > 599580 and enrageannounced) then
+		elseif (health > 34 and enrageannounced) then
 			enrageannounced = false
 		end
 	end

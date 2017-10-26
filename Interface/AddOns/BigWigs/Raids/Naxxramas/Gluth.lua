@@ -118,7 +118,6 @@ function module:OnEnable()
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS", "Frenzy")
 	self:RegisterEvent("CHAT_MSG_SPELL_AURA_GONE_OTHER", "Frenzy")
 	self:RegisterEvent("CHAT_MSG_MONSTER_EMOTE", "Frenzy")
-	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS", "Enrage")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE", "Fear")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE", "Fear")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE", "Fear")
@@ -192,6 +191,8 @@ function module:Frenzy( msg )
 		self:Sync(syncName.frenzy)
 	elseif msg == L["frenzyend_trigger"] then
 		self:Sync(syncName.frenzyOver)
+	elseif string.find(msg, L["berserk_trigger"]) and self.db.profile.enrage then
+		self:Message(L["enragewarn"], "Important")
 	end
 end
 
@@ -214,19 +215,6 @@ function module:Decimate()
 		self:Bar(string.format(L["zombiebar"],self.zomnum), timer.zombie, icon.zombie)
 		self.zomnum = self.zomnum + 1
 		self:Zombie()
-	end
-end
-
-function module:Enrage( msg )
-	if string.find(msg, L["berserk_trigger"]) then
-		if self.db.profile.enrage then
-			self:Message(L["enragewarn"], "Important")
-		end
-		--[[self:CancelScheduledEvent("bwgluthdecimate")
-		self:CancelScheduledEvent("bwgluthdecimatewarn")
-		self:CancelScheduledEvent("bwgluthfrenzy_warn")
-		self:CancelScheduledEvent("bwgluthfear_warn_5")
-		self:CancelScheduledEvent("bwgluthfear_warn")]]
 	end
 end
 

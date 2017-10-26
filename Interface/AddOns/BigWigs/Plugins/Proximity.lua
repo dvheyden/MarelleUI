@@ -409,7 +409,7 @@ function BigWigsProximity:SetupFrames()
 	frame:Hide()
 
 	frame:SetWidth(200)
-	frame:SetHeight(100)
+	frame:SetHeight(120)
 
 	frame:SetBackdrop({
 		bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 16,

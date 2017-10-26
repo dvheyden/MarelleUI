@@ -67,7 +67,7 @@ L:RegisterTranslations("deDE", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20005 -- To be overridden by the module!
+module.revision = 20006 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"mc", --[["split",]] "bosskill"}
@@ -100,15 +100,15 @@ function module:OnEnable()
 	self:RegisterEvent("CHAT_MSG_SPELL_AURA_GONE_PARTY", "Event")
 	self:RegisterEvent("CHAT_MSG_SPELL_AURA_GONE_OTHER", "Event")
 	--self:RegisterEvent("CHAT_MSG_COMBAT_FRIENDLY_DEATH", "Event")
+	--[[
 	self:RegisterEvent("UNIT_HEALTH")
-
 	self:TriggerEvent("BigWigs_ThrottleSync", "SkeramSplit80Soon", 100)
 	self:TriggerEvent("BigWigs_ThrottleSync", "SkeramSplit75Now", 100)
 	self:TriggerEvent("BigWigs_ThrottleSync", "SkeramSplit55Soon", 100)
 	self:TriggerEvent("BigWigs_ThrottleSync", "SkeramSplit50Now", 100)
 	self:TriggerEvent("BigWigs_ThrottleSync", "SkeramSplit30Soon", 100)
 	self:TriggerEvent("BigWigs_ThrottleSync", "SkeramSplit25Now", 100)
-
+	]]
 	self:ThrottleSync(1, syncName.mc)
 	self:ThrottleSync(1, syncName.mcOver)
 end
@@ -204,6 +204,7 @@ function module:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
+--[[
 function module:UNIT_HEALTH(arg1)
 	if UnitName(arg1) == boss then
 		local health = UnitHealth(arg1)
@@ -223,12 +224,14 @@ function module:UNIT_HEALTH(arg1)
 		end
 	end
 end
+]]
 
 ------------------------------
 --      Sync Handlers	    --
 ------------------------------
 
 function module:BigWigs_RecvSync(sync, rest, nick)
+	--[[
 	if sync == "SkeramSplit80Soon" then
 		splittime = true
 			if self.db.profile.split then
@@ -259,7 +262,8 @@ function module:BigWigs_RecvSync(sync, rest, nick)
 		if self.db.profile.split then
 			self:Message(L["split_message"], "Important", "Alarm")
 		end
-	elseif sync == syncName.mc then
+	]]
+	if sync == syncName.mc then
 		if self.db.profile.mc then
 			if rest == UnitName("player") then
 				self:Bar(string.format(L["mindcontrol_bar"], UnitName("player")), timer.mc, icon.mc, true, "White")

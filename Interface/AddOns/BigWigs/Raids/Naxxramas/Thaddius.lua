@@ -59,8 +59,8 @@ L:RegisterTranslations("enUS", function() return {
 	pstrigger = "Now YOU feel pain!",
 	trigger_polarity_cast = "Thaddius begins to cast Polarity Shift",
 	chargetrigger = "You are afflicted by (%w+) Charge.",
-	positivetype = "Spell_ChargePositive",
-	negativetype = "Spell_ChargeNegative",
+	positivetype = "Interface\\Icons\\Spell_ChargePositive",
+	negativetype = "Interface\\Icons\\Spell_ChargeNegative",
 	stalaggtrigger = "Stalagg gains Power Surge.",
 
 	you = "You",
@@ -70,7 +70,7 @@ L:RegisterTranslations("enUS", function() return {
 	startwarn = "Thaddius Phase 1",
 	startwarn2 = "Thaddius Phase 2, Enrage in 5 minutes!",
 	addsdownwarn = "Thaddius incoming in 14sec!",
-	pswarn1 = "Thaddius begins to cast Polarity Shift! - CHECK DEBUFF!",
+	pswarn1 = "Thaddius begins to cast Polarity Shift!",
 	pswarn2 = "30 seconds to Polarity Shift!",
 	pswarn3 = "3 seconds to Polarity Shift!",
 	poswarn = "You changed to a Positive Charge!",
@@ -103,7 +103,7 @@ L:RegisterTranslations("enUS", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20004 -- To be overridden by the module!
+module.revision = 20005 -- To be overridden by the module!
 module.enabletrigger = {module.translatedName, feugen, stalagg} -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"enrage", "charge", "polarity", -1, "power", "throw", "phase", "bosskill"}
@@ -125,6 +125,8 @@ local icon = {
 	powerSurge = "Spell_Shadow_UnholyFrenzy",
 	enrage = "Spell_Shadow_UnholyFrenzy",
 	polarityShift = "Spell_Nature_Lightning",
+	positive = "Spell_ChargePositive",
+	negative = "Spell_ChargeNegative",
 }
 local syncName = {
 	powerSurge = "StalaggPower"..module.revision,
@@ -270,12 +272,13 @@ function module:NewPolarity(chargetype)
 			self:Message(L["nochange"], "Urgent", true, "Long")
 		elseif chargetype == L["positivetype"] then
 			self:Message(L["poswarn"], "Positive", true, "RunAway")
-			self:WarningSign(chargetype, 5)
+			self:Bar(L["polaritytickbar"], timer.polarityTick, icon.positive, "Important")
+			self:WarningSign(icon.positive, 5)
 		elseif chargetype == L["negativetype"] then
 			self:Message(L["negwarn"], "Important", true, "RunAway")
-			self:WarningSign(chargetype, 5)
+			self:Bar(L["polaritytickbar"], timer.polarityTick, icon.negative, "Important")
+			self:WarningSign(icon.negative, 5)
 		end
-		self:Bar(L["polaritytickbar"], timer.polarityTick, chargetype, "Important")
 	end
 	self.previousCharge = chargetype
 end

@@ -168,7 +168,7 @@ BigWigs.cmdtable = {type = "group", handler = BigWigs, args = {
 }}
 BigWigs:RegisterChatCommand({"/bw", "/BigWigs"}, BigWigs.cmdtable)
 BigWigs.debugFrame = ChatFrame1
-BigWigs.revision = 20024
+BigWigs.revision = 20026
 
 
 function BigWigs:DebugMessage(msg, module)
@@ -600,10 +600,10 @@ function BigWigs.modulePrototype:CancelDelayedSound(sound, id)
 end
 
 function BigWigs.modulePrototype:Icon(name, iconnumber)
-	self:TriggerEvent("BigWigs_SetRaidIcon", name, iconnumber)
+	--self:TriggerEvent("BigWigs_SetRaidIcon", name, iconnumber)
 end
 function BigWigs.modulePrototype:RemoveIcon()
-	self:TriggerEvent("BigWigs_RemoveRaidIcon")
+	--self:TriggerEvent("BigWigs_RemoveRaidIcon")
 end
 
 function BigWigs.modulePrototype:WarningSign(icon, duration, force)
@@ -650,7 +650,9 @@ end
 
 -- KLHThreatMeter
 function BigWigs.modulePrototype:KTM_Reset()
-	BigWigsKtm:KTM_Reset()
+	if IsRaidLeader() or IsRaidOfficer() then
+		BigWigsKtm:KTM_Reset()
+	end
 end
 function BigWigs.modulePrototype:KTM_ClearTarget(forceReset)
 	BigWigs:KTM_ClearTarget(forceReset)

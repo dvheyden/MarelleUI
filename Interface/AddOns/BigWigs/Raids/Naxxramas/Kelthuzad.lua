@@ -94,14 +94,14 @@ L:RegisterTranslations("enUS", function() return {
 
 	phase3_soon_warning = "Phase 3 soon!",
 	phase3_trigger = "Master! I require aid!",
-	phase3_warning = "Phase 3, Guardians in ~15sec!",
+	phase3_warning = "Phase 3, Guardians incoming!",
 
-	guardians_trigger = "Very well. Warriors of the frozen wastes, rise up! I command you to fight, kill and die for your master! Let none survive!",
-	guardians_warning = "Guardians incoming in ~10sec!",
-	guardians_bar = "Guardians incoming!",
+	guardians_bar = "Guardian %d",
 
 	fissure_trigger = "cast Shadow Fissure.",
+	fissure_trigger2 = "casts Shadow Fissure.",
 	fissure_warning = "Shadow Fissure!",
+	fissure_bar = "Shadow Fissure CD",
 
 	frostbolt_trigger = "Kel'Thuzad begins to cast Frostbolt.",
 	frostbolt_warning = "Frostbolt! Interrupt!",
@@ -116,7 +116,7 @@ L:RegisterTranslations("enUS", function() return {
 
 	frostblast_bar = "Possible Frost Blast",
 	frostblast_trigger1 = "I will freeze the blood in your veins!",
-	frostblast_trigger2 = "afflicted by Frost Blast",
+	frostblast_trigger2 = "^([^%s]+) ([^%s]+) afflicted by Frost Blast.",
 	frostblast_warning = "Frost Blast!",
 	frostblast_soon_message = "Possible Frost Blast in ~5sec!",
 
@@ -144,7 +144,7 @@ L:RegisterTranslations("enUS", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20005 -- To be overridden by the module!
+module.revision = 20008 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"frostbolt", "frostboltbar", -1, "frostblast", "proximity", "fissure", "mc", -1, "fbvolley", -1, "detonate", "detonateicon", -1 ,"guardians", -1, "addcount", "phase", "bosskill"}
@@ -156,8 +156,8 @@ module.proximitySilent = true
 
 -- locals
 local timer = {
-	phase1 = 320,
-	firstFrostboltVolley = 30,
+	phase1 = 310,
+	firstFrostboltVolley = 15,
 	frostboltVolley = {15,30},
 	frostbolt = 2,
 	phase2 = 15,
@@ -170,6 +170,7 @@ local timer = {
 	mindcontrol = {60,90},
 	firstGuardians = 5,
 	guardians = 7,
+	fissure = {10,15},
 }
 local icon = {
 	abomination = "",
@@ -182,6 +183,7 @@ local icon = {
 	frostblast = "Spell_Frost_FreezingBreath",
 	detonate = "Spell_Nature_WispSplode",
 	frostbolt = "Spell_Frost_FrostBolt02",
+	fissure = "Spell_Shadow_CreepingPlague",
 }
 local syncName = {
 	detonate = "KelDetonate"..module.revision,
@@ -194,7 +196,6 @@ local syncName = {
 	soulWeaver = "KelAddDiesSoul"..module.revision,
 	phase2 = "KelPhase2"..module.revision,
 	phase3 = "KelPhase3"..module.revision,
-	guardians = "KelGuardians"..module.revision,
 }
 
 local timeLastFrostboltVolley = 0    -- saves time of first frostbolt
@@ -231,13 +232,13 @@ function module:OnEnable()
 	self:RegisterEvent("CHAT_MSG_COMBAT_CREATURE_VS_PARTY_MISSES", "Event")
 	self:RegisterEvent("CHAT_MSG_COMBAT_CREATURE_VS_CREATURE_HITS", "Event")
 	self:RegisterEvent("CHAT_MSG_COMBAT_CREATURE_VS_CREATURE_MISSES", "Event")
-
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_BUFF", "FissureEvent")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE", "Affliction")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE", "Affliction")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE", "Affliction")
 
 	self:ThrottleSync(5, syncName.detonate)
-	self:ThrottleSync(5, syncName.frostblast)
+	self:ThrottleSync(0, syncName.frostblast)
 	self:ThrottleSync(2, syncName.frostbolt)
 	self:ThrottleSync(2, syncName.frostboltOver)
 	self:ThrottleSync(2, syncName.fissure)
@@ -250,13 +251,14 @@ end
 -- called after module is enabled and after each wipe
 function module:OnSetup()
 	self:RegisterEvent("CHAT_MSG_COMBAT_HOSTILE_DEATH")
-
 	self.warnedAboutPhase3Soon = nil
 	frostbolttime = 0
+	self.lastFrostBlast=0
 end
 
 -- called after boss is engaged
 function module:OnEngage()
+	self.lastFrostBlast=0
 	self:Message(L["start_warning"], "Attention")
 	self:Bar(L["start_bar"], timer.phase1, icon.phase1)
 	self:DelayedMessage(timer.phase1 - 20, L["phase1_warn"], "Important")
@@ -268,11 +270,13 @@ function module:OnEngage()
 		self:Bar(string.format(L["add_bar"], numAbominations, "Unstoppable Abomination"), timer.phase1, icon.abomination)
 		self:Bar(string.format(L["add_bar"], numWeavers, "Soul Weaver"), timer.phase1, icon.soulWeaver)
 	end
+	self:KTM_SetTarget("Unstoppable Abomination")
 end
 
 -- called after boss is disengaged (wipe(retreat) or victory)
 function module:OnDisengage()
 	self:RemoveProximity()
+	BigWigsFrostBlast:FBClose()
 end
 
 
@@ -307,20 +311,21 @@ end
 function module:CHAT_MSG_MONSTER_YELL(msg)
 	if ((msg == L["phase2_trigger1"]) or (msg == L["phase2_trigger2"]) or (msg == L["phase2_trigger3"])) then
 		self:Sync(syncName.phase2)
-	elseif msg == L["phase3_trigger"] then
+	elseif string.find(msg, L["phase3_trigger"]) then
 		self:Sync(syncName.phase3)
 	elseif msg == L["mc_trigger1"] or msg == L["mc_trigger2"] then
 		self:Sync(syncName.mindcontrol)
-	elseif msg == L["guardians_trigger"] then
-		self:Sync(syncName.guardians)
-	elseif msg == L["frostblast_trigger1"] then
-		self:Sync(syncName.frostblast)
+		--elseif msg == L["frostblast_trigger1"] then
+		--	self:Sync(syncName.frostblast)
 	end
 end
 
 function module:CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE( msg )
 	if string.find(msg, L["frostbolt_trigger"]) then
 		self:Sync(syncName.frostbolt)
+	-- shadow fissure
+	elseif string.find(msg, L["fissure_trigger"]) then
+		self:Sync(syncName.fissure)
 	end
 end
 
@@ -341,8 +346,13 @@ end
 self:Bar(L["frostbolt_volley"], 15, icon.frostboltVolley)
 end]]
 function module:Affliction(msg)
-	if string.find(msg, L["frostblast_trigger2"]) then
-		self:Sync(syncName.frostblast)
+	local _, _, sPlayer, sType = string.find(msg, L["frostblast_trigger2"])
+	if ( sPlayer and sType ) then
+		if ( sPlayer == "You" and sType == "are" ) then
+			self:Sync(syncName.frostblast.." "..UnitName("player"))
+		else
+			self:Sync(syncName.frostblast.." "..sPlayer)
+		end
 	end
 
 	if string.find(msg, L["detonate_trigger"]) then
@@ -384,11 +394,6 @@ function module:Affliction(msg)
 end
 
 function module:Event(msg)
-	-- shadow fissure
-	if string.find(msg, L["fissure_trigger"]) then
-		self:Sync(syncName.fissure)
-	end
-
 	-- frost bolt
 	if GetTime() < frostbolttime + timer.frostbolt then
 		if string.find(msg, L["attack_trigger1"]) or string.find(msg, L["attack_trigger2"]) or string.find(msg, L["attack_trigger3"]) or string.find(msg, L["attack_trigger4"]) then
@@ -409,7 +414,11 @@ function module:Event(msg)
 	end
 end
 
-
+function module:FissureEvent(msg)
+	if string.find(msg, L["fissure_trigger2"]) then
+		self:Sync(syncName.fissure)
+	end
+end
 ------------------------------
 --      Synchronization	    --
 ------------------------------
@@ -419,12 +428,10 @@ function module:BigWigs_RecvSync(sync, rest, nick)
 		self:Phase2()
 	elseif sync == syncName.phase3 then
 		self:Phase3()
-	elseif sync == syncName.guardians then
-		self:Guardians()
 	elseif sync == syncName.mindcontrol then
 		self:MindControl()
 	elseif sync == syncName.frostblast then
-		self:FrostBlast()
+		self:FrostBlast(rest)
 	elseif sync == syncName.detonate and rest then
 		self:Detonate(rest)
 	elseif sync == syncName.frostbolt then       -- changed from only frostbolt (thats only alert, if someone still wants to see the bar, it wouldnt work then)
@@ -449,15 +456,15 @@ function module:Phase2()
 	self:Bar(L["phase2_bar"], timer.phase2, icon.phase2)
 	self:DelayedMessage(timer.phase2, L["phase2_warning"], "Important")
 	if self.db.profile.mc then
-		self:DelayedBar(timer.phase2, L["mc_bar"], timer.firstMindcontrol, icon.mindcontrol)
+		self:DelayedBar(timer.phase2, L["mc_bar"], timer.firstMindcontrol, icon.mindcontrol, true, "Black")
 		self:DelayedMessage(timer.firstMindcontrol  + timer.phase2 - 5, L["phase2_mc_warning"], "Important")
 	end
 	if self.db.profile.detonate then
-		self:DelayedBar(timer.phase2, L["detonate_possible_bar"], timer.firstDetonate, icon.detonate)
+		self:DelayedBar(timer.phase2, L["detonate_possible_bar"], timer.firstDetonate, icon.detonate, true, "Gray")
 		self:DelayedMessage(timer.firstDetonate + timer.phase2 - 5, L["phase2_detonate_warning"], "Important")
 	end
 	if self.db.profile.frostblast then
-		self:DelayedBar(timer.phase2, L["frostblast_bar"], timer.firstFrostblast, icon.frostblast)
+		self:DelayedBar(timer.phase2, L["frostblast_bar"], timer.firstFrostblast, icon.frostblast, true, "Blue")
 		self:DelayedMessage(timer.firstFrostblast  + timer.phase2 - 5, L["phase2_frostblast_warning"], "Important")
 	end
 
@@ -471,54 +478,67 @@ function module:Phase2()
 
 	-- proximity silent
 	if self.db.profile.proximity then
-		self:Proximity()
+		self:ScheduleEvent("bwShowProximity", self.Proximity, timer.phase2, self)
 	end
+	self:ScheduleEvent("bwShowFBFrame", function() BigWigsFrostBlast:FBShow() end, timer.phase2, self)
+
+	local function removeP1Bars()
+		self:RemoveBar(L["start_bar"])
+		self:RemoveBar(string.format(L["add_bar"], numWeavers, "Soul Weaver"))
+		self:RemoveBar(string.format(L["add_bar"], numAbominations, "Unstoppable Abomination"))
+	end
+	self:ScheduleEvent("bwKTremoveP1Bars", removeP1Bars, 1, self)
+
 end
 
 function module:Phase3()
 	if self.db.profile.phase then
 		self:Message(L["phase3_warning"], "Attention", nil, "Beware")
 	end
+	if self.db.profile.guardians then
+		self:Bar(string.format(L["guardians_bar"],1), timer.firstGuardians, icon.guardians)
+		for i = 0,3 do
+			self:DelayedBar(timer.firstGuardians+timer.guardians*i, string.format(L["guardians_bar"],i+2), timer.guardians, icon.guardians)
+		end
+	end
 end
 
 function module:MindControl()
 	if self.db.profile.mc then
 		self:Message(L["mc_warning"], "Urgent")
-		self:IntervalBar(L["mc_bar"], timer.mindcontrol[1], timer.mindcontrol[2], icon.mindcontrol)
+		self:IntervalBar(L["mc_bar"], timer.mindcontrol[1], timer.mindcontrol[2], icon.mindcontrol, true, "Black")
 	end
 	self:KTM_Reset()
 end
 
-function module:Guardians()
-	if self.db.profile.guardians then
-		self:Message(L["guardians_warning"], "Important")
-		self:Bar(L["guardians_bar"], timer.firstGuardians, icon.guardians)
-		self:DelayedBar(timer.firstGuardians, L["guardians_bar"], timer.guardians, icon.guardians)
-		for i = 1,4 do
-			self:DelayedBar(timer.firstGuardians+timer.guardians*1, L["guardians_bar"], timer.guardians, icon.guardians)
+function module:FrostBlast(name)
+	if self.db.profile.frostblast then
+		if GetTime()-self.lastFrostBlast>5 then
+			self:WarningSign(icon.frostblast, 5)
+			self.lastFrostBlast=GetTime()
+			self:Message(L["frostblast_warning"], "Attention")
+			self:DelayedMessage(timer.frostblast[1] - 5, L["frostblast_soon_message"])
+			self:IntervalBar(L["frostblast_bar"], timer.frostblast[1], timer.frostblast[2], icon.frostblast, true, "Blue")
 		end
 	end
-end
-
-function module:FrostBlast()
-	if self.db.profile.frostblast then
-		self:Message(L["frostblast_warning"], "Attention")
-		self:DelayedMessage(timer.frostblast[1] - 5, L["frostblast_soon_message"])
-		self:IntervalBar(L["frostblast_bar"], timer.frostblast[1], timer.frostblast[2], icon.frostblast)
+	if name and name ~= "" then
+		BigWigsFrostBlast:AddFrostBlastTarget(name)
 	end
 end
 
 function module:Detonate(name)
 	if name and self.db.profile.detonate then
-		if name == UnitName("player") then
-			self:SendSay(L["detonate_onme"] .. UnitName("player") .. "!")
-		end
 		self:Message(string.format(L["detonate_warning"], name), "Attention")
 		if self.db.profile.detonateicon then
 			self:Icon(name)
 		end
+		if UnitName("player") == name then
+			self:SendSay(L["detonate_onme"] .. UnitName("player") .. "!")
+			self:WarningSign(icon.detonate, timer.detonate)
+			self:Sound("Beware")
+		end
 		self:Bar(string.format(L["detonate_bar"], name), timer.detonate, icon.detonate)
-		self:IntervalBar(L["detonate_possible_bar"], timer.nextDetonate[1], timer.nextDetonate[2], icon.detonate)
+		self:IntervalBar(L["detonate_possible_bar"], timer.nextDetonate[1], timer.nextDetonate[2], icon.detonate, true, "Gray")
 	end
 end
 
@@ -544,7 +564,7 @@ end
 function module:Fissure()
 	if self.db.profile.fissure then
 		self:Message(L["fissure_warning"], "Urgent", true, "Alarm")
-		-- add bar?
+		self:IntervalBar(L["fissure_bar"], timer.fissure[1], timer.fissure[2], icon.fissure, true, "Red")
 	end
 end
 
@@ -556,6 +576,7 @@ function module:AbominationDies(name)
 			self:Bar(string.format(L["add_bar"], numAbominations, name), (timePhase1Start + timer.phase1 - GetTime()), icon.abomination)
 		end
 	end
+	self:KTM_Reset()
 end
 
 function module:WeaverDies(name)

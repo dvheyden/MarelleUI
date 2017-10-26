@@ -74,6 +74,7 @@ Plugins\Test.lua
 Plugins\Tranq.lua
 Plugins\Version.lua
 Plugins\WarningSign.lua
+Plugins\FrostBlast.lua
 
 Raids\ZG\Arlokk.lua
 Raids\ZG\Jeklik.lua

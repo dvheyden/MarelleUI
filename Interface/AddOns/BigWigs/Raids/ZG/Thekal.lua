@@ -382,7 +382,7 @@ end
 function module:CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE(msg)
 	if msg == L["forcepunch_trigger"] then
 		self:Bar(L["forcepunch_bar"], timer.forcePunch, icon.forcePunch)
-		self:Delayedbar(timer.forcePunch, L["forcepunchCD_bar"], timer.nextForcePunch-timer.forcePunch, icon.forcePunch)
+		self:DelayedBar(timer.forcePunch, L["forcepunchCD_bar"], timer.nextForcePunch-timer.forcePunch, icon.forcePunch)
 	end
 end
 
