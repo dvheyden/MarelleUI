@@ -98,8 +98,8 @@ L:RegisterTranslations("enUS", function() return {
 
 	guardians_bar = "Guardian %d",
 
-	fissure_trigger = "cast Shadow Fissure.",
-	fissure_trigger2 = "casts Shadow Fissure.",
+	fissure_trigger = "cast Shadow Fissure",
+	fissure_trigger2 = "casts Shadow Fissure",
 	fissure_warning = "Shadow Fissure!",
 	fissure_bar = "Shadow Fissure CD",
 
@@ -113,6 +113,7 @@ L:RegisterTranslations("enUS", function() return {
 
 	add_dead_trigger = "(.*) dies",
 	add_bar = "%d/14 %s",
+	add_bar2 = "%d/10 %s",
 
 	frostblast_bar = "Possible Frost Blast",
 	frostblast_trigger1 = "I will freeze the blood in your veins!",
@@ -144,7 +145,7 @@ L:RegisterTranslations("enUS", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20008 -- To be overridden by the module!
+module.revision = 20009 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 --module.wipemobs = { L["add_name"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"frostbolt", "frostboltbar", -1, "frostblast", "proximity", "fissure", "mc", -1, "fbvolley", -1, "detonate", "detonateicon", -1 ,"guardians", -1, "addcount", "phase", "bosskill"}
@@ -157,19 +158,19 @@ module.proximitySilent = true
 -- locals
 local timer = {
 	phase1 = 310,
-	firstFrostboltVolley = 15,
-	frostboltVolley = {15,30},
+	firstFrostboltVolley = 30,
+	frostboltVolley = {15,20},
 	frostbolt = 2,
 	phase2 = 15,
 	firstDetonate = 20,
 	detonate = 5,
 	nextDetonate = {20,25},
-	firstFrostblast = 50,
-	frostblast = {30,60},
-	firstMindcontrol = 60,
+	firstFrostblast = 30,
+	frostblast = {30,70},
+	firstMindcontrol = {20,60},
 	mindcontrol = {60,90},
-	firstGuardians = 5,
-	guardians = 7,
+	firstGuardians = 10,
+	guardians = 10,
 	fissure = {10,15},
 }
 local icon = {
@@ -268,7 +269,7 @@ function module:OnEngage()
 		numAbominations = 0
 		numWeavers = 0
 		self:Bar(string.format(L["add_bar"], numAbominations, "Unstoppable Abomination"), timer.phase1, icon.abomination)
-		self:Bar(string.format(L["add_bar"], numWeavers, "Soul Weaver"), timer.phase1, icon.soulWeaver)
+		self:Bar(string.format(L["add_bar2"], numWeavers, "Soul Weaver"), timer.phase1, icon.soulWeaver)
 	end
 	self:KTM_SetTarget("Unstoppable Abomination")
 end
@@ -456,8 +457,8 @@ function module:Phase2()
 	self:Bar(L["phase2_bar"], timer.phase2, icon.phase2)
 	self:DelayedMessage(timer.phase2, L["phase2_warning"], "Important")
 	if self.db.profile.mc then
-		self:DelayedBar(timer.phase2, L["mc_bar"], timer.firstMindcontrol, icon.mindcontrol, true, "Black")
-		self:DelayedMessage(timer.firstMindcontrol  + timer.phase2 - 5, L["phase2_mc_warning"], "Important")
+		self:DelayedIntervalBar(timer.phase2, L["mc_bar"], timer.firstMindcontrol[1], timer.firstMindcontrol[2], icon.mindcontrol, true, "Black")
+		self:DelayedMessage(timer.firstMindcontrol[1]  + timer.phase2 - 5, L["phase2_mc_warning"], "Important")
 	end
 	if self.db.profile.detonate then
 		self:DelayedBar(timer.phase2, L["detonate_possible_bar"], timer.firstDetonate, icon.detonate, true, "Gray")
@@ -484,7 +485,7 @@ function module:Phase2()
 
 	local function removeP1Bars()
 		self:RemoveBar(L["start_bar"])
-		self:RemoveBar(string.format(L["add_bar"], numWeavers, "Soul Weaver"))
+		self:RemoveBar(string.format(L["add_bar2"], numWeavers, "Soul Weaver"))
 		self:RemoveBar(string.format(L["add_bar"], numAbominations, "Unstoppable Abomination"))
 	end
 	self:ScheduleEvent("bwKTremoveP1Bars", removeP1Bars, 1, self)
@@ -581,10 +582,10 @@ end
 
 function module:WeaverDies(name)
 	if name and self.db.profile.addcount then
-		self:RemoveBar(string.format(L["add_bar"], numWeavers, name))
+		self:RemoveBar(string.format(L["add_bar2"], numWeavers, name))
 		numWeavers = numWeavers + 1
-		if numWeavers < 14 then
-			self:Bar(string.format(L["add_bar"], numWeavers, name), (timePhase1Start + timer.phase1 - GetTime()), icon.soulWeaver)
+		if numWeavers < 10 then
+			self:Bar(string.format(L["add_bar2"], numWeavers, name), (timePhase1Start + timer.phase1 - GetTime()), icon.soulWeaver)
 		end
 	end
 end
