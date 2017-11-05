@@ -30,7 +30,7 @@ MACRO 27 "Frostbolt r11" Spell_Frost_FrostBolt02
 /script CastSpellAtTarget(25304)
 END
 MACRO 33 "Guild" Ability_Creature_Disease_04
-/4 Synced (14/15 Naxx) needs DPS & Healers (Regardless of class) to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.enjin.com
+/4 Synced (15/15 Naxx) needs DPS & Healers (Regardless of class) to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.enjin.com
 END
 MACRO 24 "Hamstring" Ability_ShockWave
 /script if not IsCurrentAction(61) then UseAction(61) end;
