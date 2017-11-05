@@ -46,7 +46,7 @@ L:RegisterTranslations("enUS", function() return {
 	unbalancewarn = "Unbalancing Strike! Next in ~30sec",
 	unbalancebar = "Unbalancing Strike",
 
-	shieldwalltrigger   = "Death Knight Understudy gains Shield Wall.",
+	shieldwalltrigger   = "Deathknight Understudy gains Shield Wall.",
 	shieldwallbar       = "Shield Wall",
 } end )
 

@@ -304,13 +304,13 @@ function BigWigs.modulePrototype:Engage()
 	end
 
 	if self.bossSync and not self.engaged then
+		BigWigsPulltimer:BigWigs_StopPulltimer()
 		self.engaged = true
 		self:Message(string.format(L["%s engaged!"], self.translatedName), "Positive")
 		if BigWigs:HasModule("BossRecords") then
 			BigWigsBossRecords:StartBossfight(self)
 		end
 		self:KTM_SetTarget(self:ToString())
-
 		self:OnEngage()
 	end
 end

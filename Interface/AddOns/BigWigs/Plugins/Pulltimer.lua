@@ -11,13 +11,11 @@ local timer = {
 }
 local syncName = {
 	pulltimer = "PulltimerSync",
-	combat = "PulltimerCombatSync",
 	stoppulltimer = "PulltimerStopSync",
 }
 local icon = {
 	pulltimer = "RACIAL_ORC_BERSERKERSTRENGTH",
 }
-local started
 
 -----------------------------------------------------------------------
 --      Localization
@@ -93,39 +91,22 @@ end
 function BigWigsPulltimer:OnEnable()
 	self:RegisterEvent("BigWigs_Pulltimer")
 	self:RegisterEvent("BigWigs_PullCommand")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("BigWigs_RecvSync")
 	self:ThrottleSync(0.5, syncName.pulltimer)
-	self:ThrottleSync(3, syncName.combat)
 end
 
 function BigWigsPulltimer:OnSetup()
-	started = nil
 end
 
 -----------------------------------------------------------------------
 --      Event Handlers
 -----------------------------------------------------------------------
 
-function BigWigsPulltimer:PLAYER_REGEN_DISABLED()
-	if UnitExists("target") and UnitAffectingCombat("target") and (UnitLevel("target") == -1 or UnitLevel("target") == 63 or UnitLevel("target") == 62) then
-		self:Sync(syncName.combat)
-	end
-end
-
 -----------------------------------------------------------------------
 --      Synchronization
 -----------------------------------------------------------------------
 
 function BigWigsPulltimer:BigWigs_RecvSync(sync, rest, nick)
-	if sync == syncName.combat and not started then
-		started = true
-		if self:IsEventRegistered("PLAYER_REGEN_DISABLED") then
-			self:UnregisterEvent("PLAYER_REGEN_DISABLED")
-		end
-		self:RegisterEvent("PLAYER_REGEN_ENABLED", "CheckForWipe")
-		self:BigWigs_StopPulltimer()
-	end
 	if sync == syncName.pulltimer then
 		self:BigWigs_Pulltimer(rest)
 	end

@@ -7,6 +7,8 @@ assert( BigWigs, "BigWigs not found!")
 ------------------------------
 
 local L = AceLibrary("AceLocale-2.2"):new("BigWigsBars")
+local TL = AceLibrary("AceLocale-2.2"):new("BigWigsCustomBar")
+
 local paint = AceLibrary("PaintChips-2.0")
 local minscale, maxscale = 0.25, 2
 local candybar = AceLibrary("CandyBar-2.1")
@@ -434,7 +436,9 @@ function BigWigsBars:Disable(module)
 		end
 	else
 		for i=1, table.getn(barCache) do
-			BigWigsBars:BigWigs_StopBar(barCache[i][2], barCache[i][1])
+			if barCache[i][2] ~= BigWigs:GetModule(TL["Custom Bars"]) then
+				BigWigsBars:BigWigs_StopBar(barCache[i][2], barCache[i][1])
+			end
 		end
 		barCache = {}
 	end
