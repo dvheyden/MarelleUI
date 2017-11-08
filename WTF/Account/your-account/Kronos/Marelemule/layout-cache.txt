@@ -98,3 +98,8 @@ Frame: BigWigsWarningSignAnchor
 FrameLevel: 1
 X: 980
 Y: -111
+Frame: BigWigsEmphasizedBarAnchor
+FrameLevel: 1
+X: 978
+Y: -944
+
