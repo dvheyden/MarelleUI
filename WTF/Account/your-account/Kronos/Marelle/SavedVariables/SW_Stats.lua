@@ -31,10 +31,10 @@ SW_Settings = {
 			[3] = 0.43,
 			[4] = 1,
 		},
-		["ROGUE"] = {
-			[1] = 1,
-			[2] = 0.96,
-			[3] = 0.41,
+		["SHAMAN"] = {
+			[1] = 0.14,
+			[2] = 0.35,
+			[3] = 1,
 			[4] = 1,
 		},
 		["MAGE"] = {
@@ -85,22 +85,10 @@ SW_Settings = {
 			[3] = 0.79,
 			[4] = 1,
 		},
-		["SHAMAN"] = {
-			[1] = 0.14,
-			[2] = 0.35,
-			[3] = 1,
-			[4] = 1,
-		},
-		["Backdrops"] = {
-			[1] = 0.6980392156862745,
-			[2] = 0.6980392156862745,
-			[3] = 1,
-			[4] = 0,
-		},
-		["TitleBars"] = {
-			[1] = 0,
-			[2] = 0,
-			[3] = 0,
+		["ROGUE"] = {
+			[1] = 1,
+			[2] = 0.96,
+			[3] = 0.41,
 			[4] = 1,
 		},
 		["PALADIN"] = {
@@ -109,10 +97,19 @@ SW_Settings = {
 			[3] = 0.73,
 			[4] = 1,
 		},
+		["TitleBars"] = {
+			[1] = 0,
+			[2] = 0,
+			[3] = 0,
+			[4] = 1,
+		},
+		["Backdrops"] = {
+			[1] = 0.6980392156862745,
+			[2] = 0.6980392156862745,
+			[3] = 1,
+			[4] = 0,
+		},
 	},
-	["LAST_V_RUN"] = "2.0 Beta.7",
-	["SW_TL_AutoDelete"] = true,
-	["SW_IconPosR"] = 80,
 	["InfoSettings"] = {
 		[1] = {
 			["CF"] = 1,
@@ -123,6 +120,7 @@ SW_Settings = {
 				[4] = 1,
 			},
 			["OTF"] = "",
+			["ShowPercent"] = 1,
 			["UCC"] = 1,
 			["OC"] = {
 				[1] = 1,
@@ -130,8 +128,8 @@ SW_Settings = {
 				[3] = 0,
 				[4] = 1,
 			},
-			["BFS"] = 12,
-			["BT"] = 13,
+			["SF"] = "SW_Filter_Group",
+			["COLC"] = 1,
 			["PF"] = "SW_PF_Inactive",
 			["ShowRank"] = 1,
 			["ShowNumber"] = 1,
@@ -141,41 +139,49 @@ SW_Settings = {
 				[3] = 1,
 				[4] = 1,
 			},
-			["SF"] = "SW_Filter_Group",
-			["COLC"] = 1,
+			["BFS"] = 11,
+			["BT"] = 13,
+			["BH"] = 10,
 			["IN"] = 1,
-			["BH"] = 11,
 		},
 	},
 	["OPT_ShowTLB"] = 1,
+	["SW_IconPosR"] = 80,
+	["SW_TL_AutoDelete"] = true,
+	["LAST_V_RUN"] = "2.0 Beta.7",
 }
 SW_RPS = {
 	["lastFightSecs"] = 0,
 	["allowLastFightUpdate"] = false,
 	["isRunning"] = false,
 	["startTimer"] = {
-		["epochTS"] = 1498023490,
-		["msO"] = -0.1099999999996726,
-		["uTS"] = -8820256.109999895,
+		["uTS"] = 795.7960000000003,
+		["msO"] = -0.2039999999997235,
+		["epochTS"] = 1510178931,
 	},
 	["uglyTruthStarted"] = false,
 	["lastFightDmg"] = 0,
 	["baseTimer"] = {
-		["epochTS"] = 1498023490,
-		["msO"] = -0.1099999999996726,
-		["uTS"] = -8820256.109999895,
+		["uTS"] = 795.7960000000003,
+		["msO"] = -0.2039999999997235,
+		["epochTS"] = 1510178931,
 	},
 	["totalSecs"] = 0,
-	["currentSecs"] = 0,
-	["startDmg"] = 0,
 	["maxDPS"] = 0,
+	["startDmg"] = 0,
+	["currentSecs"] = 0,
 }
 SW_StrTable = {
 	[1] = "Marelle",
 	[2] = "WORLD",
-	[3] = "Horde",
-	[4] = "Aspect of the Cheetah",
-	[5] = "Aspect of the Hawk",
+	[3] = "Dougyd",
+	[4] = "Stalker's Ally",
+	[5] = "Goodness",
+	[6] = "Tinybenis",
+	[7] = "Greater Blessing of Wisdom",
+	[8] = "Moosic",
+	[9] = "Berserker Stance",
+	[10] = "Defensive Stance",
 }
 SW_DataCollection = {
 	["settings"] = {
@@ -202,9 +208,9 @@ SW_DataCollection = {
 	["data"] = {
 		[1] = {
 			["initTS"] = {
-				["uTS"] = 10.875,
-				["msO"] = -0.125,
-				["epochTS"] = 1506843757,
+				["uTS"] = 798.7810000000009,
+				["msO"] = -0.2189999999991414,
+				["epochTS"] = 1510178934,
 			},
 			["Name"] = "Start",
 		},
