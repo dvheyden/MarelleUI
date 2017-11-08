@@ -902,24 +902,8 @@ pfUI_init = {
 	["chat_position"] = true,
 }
 pfUI_playerDB = {
-	["Vymi"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Peony"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
 	["Marelle"] = {
 		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Elayne"] = {
-		["class"] = "DRUID",
-		["level"] = 60,
-	},
-	["Leilani"] = {
-		["class"] = "PALADIN",
 		["level"] = 60,
 	},
 }
