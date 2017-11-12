@@ -32,16 +32,8 @@ END
 MACRO 33 "Guild" Ability_Creature_Disease_04
 /4 Synced (15/15 Naxx) needs DPS & Healers (Regardless of class) to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.enjin.com
 END
-MACRO 24 "Hamstring" Ability_ShockWave
-/script if not IsCurrentAction(61) then UseAction(61) end;
-/cast Hamstring(Rank 1)
-END
 MACRO 34 "Herbs" Ability_Creature_Cursed_04
 /4 WTB Gromsblood @ 15g/stack, Stonescale Eel @ 12g/stack, Fadeleaf @ 14g/stack, Gravemoss @ 15g/stack. Elemental earth @ 3g/per & Dreamfoil @ 11g/stack.  COD me everything, there is no limit.
-END
-MACRO 22 "Heroic Strike" Ability_Rogue_Ambush
-/script if not IsCurrentAction(61) then UseAction(61) end;
-/cast Heroic Strike(Rank 3)
 END
 MACRO 16 "Iceblock" Spell_Frost_Frost
 /script SpellStopCasting()
@@ -52,10 +44,6 @@ MACRO 32 "Inv" Spell_ChargePositive
 /invite Lagtron
 /logout
 END
-MACRO 23 "Overpower" Ability_MeleeDamage
-/script if not IsCurrentAction(61) then UseAction(61) end;
-/cast Overpower(Rank 1)
-END
 MACRO 31 "POWER" Spell_Lightning_LightningBolt01
 /script UseInventoryItem(13)
 /script SpellStopCasting()
@@ -63,10 +51,22 @@ MACRO 31 "POWER" Spell_Lightning_LightningBolt01
 /script SpellStopCasting()
 /cast Frostbolt(Rank 11)
 END
+MACRO 24 "Revenge" Ability_Warrior_Revenge
+/script if not IsCurrentAction(61) then UseAction(61) end;
+/cast Revenge(Rank 6)
+END
 MACRO 28 "Sapper/BW" Ability_Creature_Cursed_01
 /script UseContainerItem(0, 1)
 /script SpellStopCasting()
 /cast Blast Wave
+END
+MACRO 23 "Slam" Ability_Warrior_ShieldBash
+/script if not IsCurrentAction(61) then UseAction(61) end;
+/cast Shield Slam(Rank 4)
+END
+MACRO 22 "Sunder" Ability_Warrior_Sunder
+/script if not IsCurrentAction(61) then UseAction(61) end;
+/cast Sunder Armor(Rank 5)
 END
 MACRO 11 "UI" Spell_Shadow_SacrificialShield
 /script UIErrorsFrame:Hide()
