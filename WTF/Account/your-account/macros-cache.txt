@@ -2,29 +2,38 @@ MACRO 30 "Blink" Spell_Arcane_Blink
 /script SpellStopCasting()
 /cast Blink
 END
-MACRO 37 "Cleave" Ability_Warrior_Cleave
-/cast Cleave(Rank 5)
-/cast Attack
+MACRO 18 "Blink" Ability_CheapShot
+/script SpellStopCasting()
+/cast Blink
 END
 MACRO 14 "CS" Spell_Frost_IceShock
 /script SpellStopCasting()
 /cast Counterspell
+END
+MACRO 25 "d" Ability_Creature_Cursed_03
+/tar Princess Tempestria
+/cast Fire Blast(Rank 7)
 END
 MACRO 20 "Dampen Magic" Spell_Nature_AbolishMagic
 /tar Marelle
 /cast Dampen Magic(Rank 5)
 /script TargetLastEnemy();
 END
+MACRO 26 "Fireball rank 12" Spell_Fire_FireBolt
+/script CastSpellAtTarget(25306)
+END
 MACRO 29 "Fireblast" Spell_Fire_Fireball
 /target Lightning Totem
 /run if UnitName("target") =="Lightning Totem" then CastSpellByName("Fire Blast") end
 END
+MACRO 27 "Frostbolt r11" Spell_Frost_FrostBolt02
+/script CastSpellAtTarget(25304)
+END
 MACRO 33 "Guild" Ability_Creature_Disease_04
 /4 Synced (15/15 Naxx) needs DPS & Healers (Regardless of class) to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.enjin.com
 END
-MACRO 36 "Heroic Strike" Ability_Rogue_Ambush
-/cast Heroic Strike(Rank 9)
-/cast Attack
+MACRO 34 "Herbs" Ability_Creature_Cursed_04
+/4 WTB Gromsblood @ 15g/stack, Stonescale Eel @ 12g/stack, Fadeleaf @ 14g/stack, Gravemoss @ 15g/stack. Elemental earth @ 3g/per & Dreamfoil @ 11g/stack.  COD me everything, there is no limit.
 END
 MACRO 16 "Iceblock" Spell_Frost_Frost
 /script SpellStopCasting()
@@ -43,19 +52,22 @@ MACRO 31 "POWER" Spell_Lightning_LightningBolt01
 /cast Frostbolt(Rank 11)
 END
 MACRO 24 "Revenge" Ability_Warrior_Revenge
+/script if not IsCurrentAction(61) then UseAction(61) end;
 /cast Revenge(Rank 6)
-/cast Attack
 END
 MACRO 28 "Sapper/BW" Ability_Creature_Cursed_01
 /script UseContainerItem(0, 1)
 /script SpellStopCasting()
 /cast Blast Wave
 END
-MACRO 35 "Shield slam" Ability_Creature_Cursed_04
+MACRO 23 "Slam" Ability_Warrior_ShieldBash
+/script if not IsCurrentAction(61) then UseAction(61) end;
 /cast Shield Slam(Rank 4)
-/cast Attack
 END
 MACRO 22 "Sunder" Ability_Warrior_Sunder
+/script if not IsCurrentAction(61) then UseAction(61) end;
 /cast Sunder Armor(Rank 5)
-/cast Attack
+END
+MACRO 11 "UI" Spell_Shadow_SacrificialShield
+/script UIErrorsFrame:Hide()
 END
