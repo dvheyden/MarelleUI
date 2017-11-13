@@ -1,6 +1,6 @@
 
 RABui_Settings = {
-	["newestVersionTitle"] = "0.10.2",
+	["lockwindow"] = true,
 	["trustctra"] = false,
 	["newestVersionPlayer"] = "Marelle",
 	["newestVersion"] = 0.1002,
@@ -13,9 +13,145 @@ RABui_Settings = {
 	["syntaxhelp"] = true,
 	["enableGreeting"] = true,
 	["showsampleoutputonclick"] = true,
-	["firstRun"] = false,
-	["lockwindow"] = true,
+	["showraid"] = true,
+	["newestVersionTitle"] = "0.10.2",
 	["Layout"] = {
+		["Kronos.Marelemule.current"] = {
+			[1] = {
+				["label"] = "Alive",
+				["color"] = {
+					[1] = 0.3,
+					[2] = 1,
+					[3] = 0.3,
+				},
+				["class"] = "ALL",
+				["cmd"] = "alive",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[2] = {
+				["label"] = "Healer",
+				["color"] = {
+					[1] = 0.4,
+					[2] = 0.6,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana pdsa",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[3] = {
+				["label"] = "DPS",
+				["color"] = {
+					[1] = 0.2,
+					[2] = 0.2,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana mlh",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[4] = {
+				["label"] = "Intellect",
+				["color"] = {
+					[1] = 0,
+					[2] = 0.6,
+					[3] = 1,
+				},
+				["class"] = "MAGE",
+				["cmd"] = "ai",
+				["out"] = "RAID",
+				["priority"] = 10,
+				["extralabel"] = "",
+			},
+		},
+		["Kronos.Merylbank.current"] = {
+			[1] = {
+				["label"] = "Alive",
+				["color"] = {
+					[1] = 0.3,
+					[2] = 1,
+					[3] = 0.3,
+				},
+				["class"] = "ALL",
+				["cmd"] = "alive",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[2] = {
+				["label"] = "Healer",
+				["color"] = {
+					[1] = 0.4,
+					[2] = 0.6,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana pdsa",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[3] = {
+				["label"] = "DPS",
+				["color"] = {
+					[1] = 0.2,
+					[2] = 0.2,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana mlh",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+		},
+		["Kronos.Marele.current"] = {
+			[1] = {
+				["label"] = "Alive",
+				["color"] = {
+					[1] = 0.3,
+					[2] = 1,
+					[3] = 0.3,
+				},
+				["class"] = "ALL",
+				["cmd"] = "alive",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[2] = {
+				["label"] = "Healer",
+				["color"] = {
+					[1] = 0.4,
+					[2] = 0.6,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana pdsa",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[3] = {
+				["label"] = "DPS",
+				["color"] = {
+					[1] = 0.2,
+					[2] = 0.2,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana mlh",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+		},
 		["Kronos.Marelle.current"] = {
 			[1] = {
 				["label"] = "Intellect",
@@ -39,8 +175,8 @@ RABui_Settings = {
 					[3] = 0.9607843137254902,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[3] = {
 				["cmd"] = "bom 12345678",
@@ -51,8 +187,8 @@ RABui_Settings = {
 					[3] = 0.9607843137254902,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[4] = {
 				["cmd"] = "bos 12345678",
@@ -63,10 +199,22 @@ RABui_Settings = {
 					[3] = 0.9607843137254902,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
 			[5] = {
+				["cmd"] = "bow 12345678",
+				["label"] = "Wisdom",
+				["color"] = {
+					[1] = 1,
+					[2] = 0.596078431372549,
+					[3] = 0.9607843137254902,
+				},
+				["priority"] = 10,
+				["extralabel"] = "",
+				["out"] = "RAID",
+			},
+			[6] = {
 				["cmd"] = "motw 12345678",
 				["label"] = "Mark of the Wild",
 				["color"] = {
@@ -75,10 +223,10 @@ RABui_Settings = {
 					[3] = 0.007843137254901961,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
-			[6] = {
+			[7] = {
 				["cmd"] = "pwf 12345678",
 				["label"] = "Fortitude",
 				["color"] = {
@@ -87,10 +235,10 @@ RABui_Settings = {
 					[3] = 1,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
-			[7] = {
+			[8] = {
 				["cmd"] = "ds 12345678",
 				["label"] = "Divine Spirit",
 				["color"] = {
@@ -99,10 +247,10 @@ RABui_Settings = {
 					[3] = 1,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
-			[8] = {
+			[9] = {
 				["cmd"] = "firepot 12345678",
 				["label"] = "Fire Protection",
 				["color"] = {
@@ -111,10 +259,10 @@ RABui_Settings = {
 					[3] = 0,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
-			[9] = {
+			[10] = {
 				["cmd"] = "naturepot 12345678",
 				["label"] = "Nature Protection",
 				["color"] = {
@@ -123,31 +271,72 @@ RABui_Settings = {
 					[3] = 0.2078431372549019,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
-			[10] = {
+			[11] = {
 				["cmd"] = "shadowpot 12345678",
 				["label"] = "Shadow Protection",
 				["color"] = {
-					[1] = 0.4235294117647059,
-					[2] = 0.192156862745098,
-					[3] = 0.6352941176470588,
+					[1] = 0.3803921568627451,
+					[2] = 0.1647058823529412,
+					[3] = 0.6627450980392157,
 				},
 				["priority"] = 10,
-				["out"] = "RAID",
 				["extralabel"] = "",
+				["out"] = "RAID",
 			},
-			[11] = {
+			[12] = {
 				["cmd"] = "ss 12345678",
 				["label"] = "Soulstone",
 				["color"] = {
-					[1] = 0.3764705882352941,
-					[2] = 0.3764705882352941,
-					[3] = 0.3764705882352941,
+					[1] = 0.3725490196078432,
+					[2] = 0.1647058823529412,
+					[3] = 0.6627450980392157,
 				},
 				["priority"] = 10,
+				["extralabel"] = "",
 				["out"] = "RAID",
+			},
+		},
+		["Kronos.Mareleherbs.current"] = {
+			[1] = {
+				["label"] = "Alive",
+				["color"] = {
+					[1] = 0.3,
+					[2] = 1,
+					[3] = 0.3,
+				},
+				["class"] = "ALL",
+				["cmd"] = "alive",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[2] = {
+				["label"] = "Healer",
+				["color"] = {
+					[1] = 0.4,
+					[2] = 0.6,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana pdsa",
+				["out"] = "RAID",
+				["priority"] = 1,
+				["extralabel"] = "",
+			},
+			[3] = {
+				["label"] = "DPS",
+				["color"] = {
+					[1] = 0.2,
+					[2] = 0.2,
+					[3] = 1,
+				},
+				["class"] = "ALL",
+				["cmd"] = "mana mlh",
+				["out"] = "RAID",
+				["priority"] = 1,
 				["extralabel"] = "",
 			},
 		},
@@ -155,11 +344,11 @@ RABui_Settings = {
 	["keepversions"] = false,
 	["alwayscastbigbuffs"] = false,
 	["outlocale"] = "",
-	["castbigbuffs"] = false,
 	["colorizechat"] = true,
+	["castbigbuffs"] = false,
 	["showsolo"] = false,
 	["enablefadingfx"] = false,
 	["partymode"] = true,
 	["dummymode"] = false,
-	["showraid"] = true,
+	["firstRun"] = false,
 }
