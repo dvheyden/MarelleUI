@@ -1,8 +1,8 @@
-MACRO 30 "Blink" Spell_Arcane_Blink
+MACRO 18 "Blink" Ability_CheapShot
 /script SpellStopCasting()
 /cast Blink
 END
-MACRO 18 "Blink" Ability_CheapShot
+MACRO 30 "Blink" Spell_Arcane_Blink
 /script SpellStopCasting()
 /cast Blink
 END
@@ -68,6 +68,6 @@ MACRO 22 "Sunder" Ability_Warrior_Sunder
 /script if not IsCurrentAction(61) then UseAction(61) end;
 /cast Sunder Armor(Rank 5)
 END
-MACRO 11 "UI" Spell_Shadow_SacrificialShield
-/script UIErrorsFrame:Hide()
+MACRO 11 "UI" Ability_Warrior_WarCry
+/script if ( not UnitIsUnit("targettarget", "player") ) then CastSpellByName( "Taunt" ) end
 END
