@@ -1,7 +1,3 @@
-MACRO 18 "Blink" Ability_CheapShot
-/script SpellStopCasting()
-/cast Blink
-END
 MACRO 30 "Blink" Spell_Arcane_Blink
 /script SpellStopCasting()
 /cast Blink
@@ -10,24 +6,14 @@ MACRO 14 "CS" Spell_Frost_IceShock
 /script SpellStopCasting()
 /cast Counterspell
 END
-MACRO 25 "d" Ability_Creature_Cursed_03
-/tar Princess Tempestria
-/cast Fire Blast(Rank 7)
-END
 MACRO 20 "Dampen Magic" Spell_Nature_AbolishMagic
 /tar Marelle
 /cast Dampen Magic(Rank 5)
 /script TargetLastEnemy();
 END
-MACRO 26 "Fireball rank 12" Spell_Fire_FireBolt
-/script CastSpellAtTarget(25306)
-END
 MACRO 29 "Fireblast" Spell_Fire_Fireball
 /target Lightning Totem
 /run if UnitName("target") =="Lightning Totem" then CastSpellByName("Fire Blast") end
-END
-MACRO 27 "Frostbolt r11" Spell_Frost_FrostBolt02
-/script CastSpellAtTarget(25304)
 END
 MACRO 33 "Guild" Ability_Creature_Disease_04
 /4 Synced (15/15 Naxx) needs DPS & Healers (Regardless of class) to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.enjin.com
@@ -68,6 +54,6 @@ MACRO 22 "Sunder" Ability_Warrior_Sunder
 /script if not IsCurrentAction(61) then UseAction(61) end;
 /cast Sunder Armor(Rank 5)
 END
-MACRO 11 "UI" Ability_Warrior_WarCry
+MACRO 11 "Taunt" Ability_Physical_Taunt
 /script if ( not UnitIsUnit("targettarget", "player") ) then CastSpellByName( "Taunt" ) end
 END
