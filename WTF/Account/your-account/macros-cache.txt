@@ -2,6 +2,12 @@ MACRO 30 "Blink" Spell_Arcane_Blink
 /script SpellStopCasting()
 /cast Blink
 END
+MACRO 35 "CD/Combust" Spell_Fire_SealOfFire
+/script UseInventoryItem(13)
+/script SpellStopCasting()
+/cast Combustion
+/script SpellStopCasting()
+END
 MACRO 14 "CS" Spell_Frost_IceShock
 /script SpellStopCasting()
 /cast Counterspell
