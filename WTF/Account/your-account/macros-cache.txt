@@ -3,9 +3,9 @@ MACRO 30 "Blink" Spell_Arcane_Blink
 /cast Blink
 END
 MACRO 35 "CD/Combust" Spell_Fire_SealOfFire
-/script UseInventoryItem(13)
-/script SpellStopCasting()
 /cast Combustion
+/script SpellStopCasting()
+/script UseInventoryItem(13)
 /script SpellStopCasting()
 END
 MACRO 14 "CS" Spell_Frost_IceShock
@@ -22,7 +22,7 @@ MACRO 29 "Fireblast" Spell_Fire_Fireball
 /run if UnitName("target") =="Lightning Totem" then CastSpellByName("Fire Blast") end
 END
 MACRO 33 "Guild" Ability_Creature_Disease_04
-/4 Synced (15/15 Naxx) needs DPS & Healers (Regardless of class) to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.enjin.com
+/4 Synced (15/15 Naxx) needs Fury Warriors and Warlocks to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.com to apply!
 END
 MACRO 34 "Herbs" Ability_Creature_Cursed_04
 /4 WTB Gromsblood @ 15g/stack, Stonescale Eel @ 12g/stack, Fadeleaf @ 14g/stack, Gravemoss @ 15g/stack. Elemental earth @ 3g/per & Dreamfoil @ 11g/stack.  COD me everything, there is no limit.
@@ -37,9 +37,9 @@ MACRO 32 "Inv" Spell_ChargePositive
 /logout
 END
 MACRO 31 "POWER" Spell_Lightning_LightningBolt01
-/script UseInventoryItem(13)
-/script SpellStopCasting()
 /cast Arcane Power
+/script SpellStopCasting()
+/script UseInventoryItem(13)
 /script SpellStopCasting()
 /cast Frostbolt(Rank 11)
 END
