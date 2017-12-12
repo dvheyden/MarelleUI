@@ -58,8 +58,8 @@ X: 750
 Y: -360
 Frame: DebuffFilter_DebuffFrame
 FrameLevel: 2
-X: 1251
-Y: -841
+X: 938
+Y: -625
 Frame: DecursiveMainBar
 FrameLevel: 1
 X: 1430
