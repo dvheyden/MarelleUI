@@ -56,6 +56,10 @@ Frame: pfConfigGUI
 FrameLevel: 1
 X: 750
 Y: -360
+Frame: DebuffFilter_BuffFrame
+FrameLevel: 2
+X: 699
+Y: -625
 Frame: DebuffFilter_DebuffFrame
 FrameLevel: 2
 X: 938
