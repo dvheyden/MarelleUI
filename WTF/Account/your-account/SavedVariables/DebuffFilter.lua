@@ -20,10 +20,8 @@ DebuffFilter_Config = {
 		["count"] = "no",
 		["fbuffs"] = "no",
 		["buff_list"] = {
-			["Blade Flurry"] = 1,
-			["Holy Strength"] = 1,
-			["Adrenaline Rush"] = 1,
-			["Battle Shout"] = 1,
+			["Mage Armor"] = 1,
+			["Clearcasting"] = 1,
 		},
 		["time_orientation"] = "bottom",
 		["buff_orientation"] = "leftright",
