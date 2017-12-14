@@ -2,6 +2,9 @@ MACRO 30 "Blink" Spell_Arcane_Blink
 /script SpellStopCasting()
 /cast Blink
 END
+MACRO 36 "CC Spam" Spell_Nature_WispSplode
+/script i=1;m=0;while(UnitBuff("player",i)~=nil) do if(strfind(UnitBuff("player",i), "Spell_Shadow_ManaBurn") ~=nil) then m=1; end; i=i+1;end; c=CastSpellByName; if(m==1) then c("Arcane Explosion"); else c("Arcane Explosion(Rank 1)"); end;
+END
 MACRO 35 "CD/Combust" Spell_Fire_SealOfFire
 /cast Combustion
 /script SpellStopCasting()
@@ -24,9 +27,6 @@ END
 MACRO 33 "Guild" Ability_Creature_Disease_04
 /4 Synced (15/15 Naxx) needs Fury Warriors and Warlocks to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.com to apply!
 END
-MACRO 34 "Herbs" Ability_Creature_Cursed_04
-/4 WTB Gromsblood @ 15g/stack, Stonescale Eel @ 12g/stack, Fadeleaf @ 14g/stack, Gravemoss @ 15g/stack. Elemental earth @ 3g/per & Dreamfoil @ 11g/stack.  COD me everything, there is no limit.
-END
 MACRO 16 "Iceblock" Spell_Frost_Frost
 /script SpellStopCasting()
 /cast Ice Block
@@ -43,23 +43,8 @@ MACRO 31 "POWER" Spell_Lightning_LightningBolt01
 /script SpellStopCasting()
 /cast Frostbolt(Rank 11)
 END
-MACRO 24 "Revenge" Ability_Warrior_Revenge
-/script if not IsCurrentAction(61) then UseAction(61) end;
-/cast Revenge(Rank 6)
-END
 MACRO 28 "Sapper/BW" Ability_Creature_Cursed_01
 /script UseContainerItem(0, 1)
 /script SpellStopCasting()
 /cast Blast Wave
-END
-MACRO 23 "Slam" Ability_Warrior_ShieldBash
-/script if not IsCurrentAction(61) then UseAction(61) end;
-/cast Shield Slam(Rank 4)
-END
-MACRO 22 "Sunder" Ability_Warrior_Sunder
-/script if not IsCurrentAction(61) then UseAction(61) end;
-/cast Sunder Armor(Rank 5)
-END
-MACRO 11 "Taunt" Ability_Physical_Taunt
-/script if ( not UnitIsUnit("targettarget", "player") ) then CastSpellByName( "Taunt" ) end
 END
