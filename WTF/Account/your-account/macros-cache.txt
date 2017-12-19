@@ -25,7 +25,7 @@ MACRO 29 "Fireblast" Spell_Fire_Fireball
 /run if UnitName("target") =="Lightning Totem" then CastSpellByName("Fire Blast") end
 END
 MACRO 33 "Guild" Ability_Creature_Disease_04
-/4 Synced (15/15 Naxx) needs Fury Warriors and Warlocks to join our team. Experience Naxxramas in a relaxed environment with the oldest guild on Kronos - Message me in game for more info or visit our site @ http://www.synced-kronos.com to apply!
+/4 Synced EU (15/15 Naxx) needs geared players regardless of class to join our team. Experience Naxxramas in a relaxed environment with one of the oldest and most successful guilds on Kronos - Visit http://www.synced-kronos.com to apply!
 END
 MACRO 16 "Iceblock" Spell_Frost_Frost
 /script SpellStopCasting()
