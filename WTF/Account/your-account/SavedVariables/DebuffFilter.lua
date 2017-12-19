@@ -15,6 +15,7 @@ DebuffFilter_Config = {
 			["Armor Shatter"] = 1,
 			["Sunder Armor"] = 1,
 			["Faerie Fire"] = 1,
+			["Faerie Fire (Feral)"] = 1,
 		},
 		["all_fdebuffs"] = "no",
 		["fdebuffs"] = "no",
@@ -23,6 +24,7 @@ DebuffFilter_Config = {
 		},
 		["buff_list"] = {
 			["Ice Barrier"] = 1,
+			["Ice Block"] = 1,
 			["Ephemeral Power"] = 1,
 			["Clearcasting"] = 1,
 			["Arcane Shroud"] = 1,
