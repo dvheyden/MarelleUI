@@ -3,17 +3,17 @@ BuffaloDB = {
 	["profiles"] = {
 		["Default"] = {
 			["xPos"] = {
-				["debuff"] = 1909.167732629966,
 				["buff"] = 1909.167732629966,
+				["debuff"] = 1909.167732629966,
 				["weapon"] = 1695.001290262047,
+			},
+			["flashes"] = {
+				["buff"] = false,
+				["debuff"] = false,
+				["weapon"] = false,
 			},
 			["cols"] = {
 				["buff"] = 12,
-			},
-			["flashes"] = {
-				["debuff"] = false,
-				["buff"] = false,
-				["weapon"] = false,
 			},
 			["whiteTimers"] = {
 				["debuff"] = false,
@@ -21,13 +21,13 @@ BuffaloDB = {
 			},
 			["locked"] = true,
 			["yPos"] = {
-				["debuff"] = 1003.333319336745,
 				["buff"] = 1144.999501388637,
+				["debuff"] = 1003.333319336745,
 				["weapon"] = 110.8325751126116,
 			},
 			["verboseTimers"] = {
-				["buff"] = true,
-				["weapon"] = true,
+				["weapon"] = false,
+				["buff"] = false,
 			},
 		},
 	},
