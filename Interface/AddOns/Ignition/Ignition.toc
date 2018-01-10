@@ -1,0 +1,5 @@
+## Interface: 11200
+## Title: Ignition
+## Notes: Keeps track of the ignite debuff
+## Version: 0.1
+Ignition.xml
