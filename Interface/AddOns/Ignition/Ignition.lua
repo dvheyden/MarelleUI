@@ -9,7 +9,7 @@ function Ignition_Onload()
 end
 
 function Ignition_StartDragging()
-	if ( ( ( not this.isLocked ) or ( this.isLocked == 0 ) ) and ( arg1 == "LeftButton" ) ) then
+	if ( ( ( not this.isLocked ) or ( this.isLocked == 0 ) ) and ( arg1 == "RightButton" ) ) then
 		this:StartMoving();
 		this.isMoving = true;
 	end
