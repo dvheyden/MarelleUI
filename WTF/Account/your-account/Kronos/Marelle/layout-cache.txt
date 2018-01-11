@@ -70,8 +70,8 @@ X: 1430
 Y: -443
 Frame: IgnitionFrame
 FrameLevel: 0
-X: 1113
-Y: -623
+X: 1022
+Y: -666
 Frame: KLHTM_Frame
 FrameLevel: 1
 X: 1713
