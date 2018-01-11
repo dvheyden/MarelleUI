@@ -8,7 +8,7 @@
 		<Color r="1.0" g="1.0" b="1.0"/>
 	</FontString>
 	
-	<Frame name="IgnitionFrame" enableMouse="true" movable="true">
+	<Frame name="IgnitionFrame" enableMouse="true" movable="true" hide="true">
 		<Size>
 			<AbsDimension x="100" y="30" />
 		</Size>
@@ -31,6 +31,7 @@
 			<BackgroundInsets>
 				<AbsInset left="5" right="5" top="5" bottom="5"/>
 			</BackgroundInsets>
+			<Color r="0.121" g="0.121" b="0.121"/>
 		</Backdrop>
 		
 		<Layers>
