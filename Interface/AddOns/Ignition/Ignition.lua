@@ -1,5 +1,6 @@
 function Ignition_Onload()
 	TickedStacks = 0;
+	DEFAULT_CHAT_FRAME:AddMessage("Ignition loaded. Type /ig to toggle the frame.");
 	--ChatFrame2:AddMessage("Ignition loaded // edited by Chainsaw from Kronos");
 	this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE");
 	this:RegisterEvent("PLAYER_TARGET_CHANGED");
