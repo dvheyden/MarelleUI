@@ -100,8 +100,8 @@ X: 1732
 Y: -5
 Frame: VCB_BF_DEBUFF_FRAME
 FrameLevel: 9
-X: 1732
-Y: -170
+X: 726
+Y: -701
 Frame: BigWigsProximityAnchor
 FrameLevel: 1
 X: 4
