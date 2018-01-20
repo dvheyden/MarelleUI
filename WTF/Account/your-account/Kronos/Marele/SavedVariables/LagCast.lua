@@ -1,0 +1,4 @@
+
+LagCastCharacter = {
+	["mode"] = "enabled",
+}
