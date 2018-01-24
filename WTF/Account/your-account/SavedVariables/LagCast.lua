@@ -6,6 +6,6 @@ LagCastAccount = {
 	},
 	["disableTimerDisplay"] = false,
 	["disableSpamPrevention"] = false,
-	["bufferMs"] = 20,
+	["bufferMs"] = 15,
 	["minLag"] = 0,
 }
