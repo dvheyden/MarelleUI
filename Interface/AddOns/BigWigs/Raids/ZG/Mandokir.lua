@@ -121,7 +121,7 @@ L:RegisterTranslations("deDE", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20007 -- To be overridden by the module!
+module.revision = 20008 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
 module.wipemobs = { L["ohgan"] } -- adds which will be considered in CheckForEngage
 module.toggleoptions = {"gaze", "announce", "puticon", "whirlwind", "enraged", "bosskill"}
@@ -130,18 +130,16 @@ module.toggleoptions = {"gaze", "announce", "puticon", "whirlwind", "enraged", "
 -- locals
 local timer = {
 	firstCharge = 21,
-	chargeInterval = 45,
+	chargeInterval = 34,
 	
 	whirlwindCast = 2,
 	earliestFirstWhirlwind = 14,
 	latestFirstWhirlwind = 17,
-	whirlwindInterval = 19,
+	whirlwindInterval = 15,
 	
 	gazeDuration = 6,
 	gazeCast = 2,
-	firstGaze = 19,
-	gazeInterval = 20,
-
+	firstGaze = 18,
 	gaze = 20,
 }
 local icon = {
@@ -160,21 +158,6 @@ local syncName = {
 	gazeOver = "MandokirGazeEnd"..module.revision,
 	charge = "MandokirCharge"..module.revision,
 }
-
---[[
-9/16 22:28:16.440  Dorg's Shield Slam hits Bloodlord Mandokir for 264. -- engage
-
-Line 19212: 9/16 22:28:32.884  Bloodlord Mandokir gains Whirlwind.	16.4
-Line 20100: 9/16 22:28:56.912  Bloodlord Mandokir gains Whirlwind.	24.1
-Line 21416: 9/16 22:29:38.798  Bloodlord Mandokir gains Whirlwind.	41.9
-Line 22221: 9/16 22:30:02.966  Bloodlord Mandokir gains Whirlwind.	24.1
-
-Line 19709: 9/16 22:28:45.869  Bloodlord Mandokir begins to cast Threatening Gaze. 	29.5
-Line 20694: 9/16 22:29:13.993  Bloodlord Mandokir begins to cast Threatening Gaze.	28.1
-Line 21512: 9/16 22:29:42.084  Bloodlord Mandokir begins to cast Threatening Gaze.	28.1
-Line 22455: 9/16 22:30:10.189  Bloodlord Mandokir begins to cast Threatening Gaze.	28.1
-]]
-
 
 ------------------------------
 --      Initialization      --

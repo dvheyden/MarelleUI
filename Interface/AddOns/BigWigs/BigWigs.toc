@@ -89,7 +89,6 @@ Raids\ZG\Renataki.lua
 Raids\ZG\Hazzarah.lua
 Raids\ZG\Wushoolay.lua
 Raids\ZG\Gahzranka.lua
-Raids\ZG\GurubashiBerserker.lua
 
 Raids\AQ20\Ayamiss.lua
 Raids\AQ20\Buru.lua

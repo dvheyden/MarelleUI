@@ -448,7 +448,6 @@ function module:Landed()
 	self:Bar(L["curse_bar"], timer.firstCurse, icon.curse)
 	self:Bar(L["shadowflame_bar"], timer.firstShadowflame, icon.shadowflame)
 	self:Message(L["landed_warning"], "Attention")
-	self:KTM_SetTarget(self:ToString())
 	self:KTM_Reset()
 end
 

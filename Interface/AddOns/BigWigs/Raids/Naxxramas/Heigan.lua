@@ -42,6 +42,7 @@ L:RegisterTranslations("enUS", function() return {
 	toFloor_trigger = "rushes to attack once more!",
 	die_trigger = "takes his last breath.",
 	dtrigger = "afflicted by Decrepit Fever.",
+	manaburn_trigger = "Heigan the Unclean's Mana Burn",
 
 	-- [[ Warnings ]]--
 	engage_message = "Heigan the Unclean engaged!",
@@ -94,6 +95,7 @@ local timer = {
 	erruptionFast = 3,
 	firstManaburn = 15,
 	firstManaburnAfterDance = 5,
+	manaburnInterval = 10,
 }
 local icon = {
 	disease = "Ability_Creature_Disease_03",
@@ -146,7 +148,8 @@ function module:OnEngage()
 		self:Bar(L["dbar"], timer.firstDisease, icon.disease)
 	end
 	if self.db.profile.manaburn then
-		self:Bar(L["manaburn_bar"], timer.firstManaburn, icon.manaburn)
+		self:Bar(L["manaburn_bar"], timer.firstManaburn, icon.manaburn, true, "Blue")
+		self:ScheduleEvent("heiganmanaburn", self.Manaburn, timer.firstManaburn, self)
 	end
 	if self.db.profile.erruption then
 		timer.erruption = timer.erruptionSlow
@@ -207,6 +210,11 @@ function module:Erruption()
 	end
 end
 
+function module:Manaburn()
+	self:Bar(L["manaburn_bar"], timer.manaburnInterval, icon.manaburn, true, "Blue")
+	self:ScheduleEvent("heiganmanaburn", self.Manaburn, timer.manaburnInterval, self)
+end
+
 ------------------------------
 --      Synchronization	    --
 ------------------------------
@@ -241,6 +249,7 @@ function module:Disease()
 end
 
 function module:ToPlatform()
+	self:CancelScheduledEvent("heiganmanaburn")
 	if self.db.profile.teleport then
 		self:Message(string.format(L["on_platform_message"], timer.toFloor), "Attention")
 		self:Bar(L["toFloor_bar"], timer.toFloor, icon.toFloor)
@@ -257,8 +266,6 @@ end
 
 function module:ToFloor()
 	self:CancelScheduledEvent("bwHeiganToFloor")
-	--Threat wasn't reset
-	--self:KTM_Reset()
 	if self.db.profile.teleport then
 		self:Message(L["on_floor_message"], "Attention")
 		self:Bar(L["toPlatform_bar"], timer.toPlatform, icon.toPlatform)
@@ -267,7 +274,8 @@ function module:ToFloor()
 		self:Bar(L["dbar"], timer.firstDiseaseAfterDance, icon.disease)
 	end
 	if self.db.profile.manaburn then
-		self:Bar(L["manaburn_bar"], timer.firstManaburnAfterDance, icon.manaburn)
+		self:Bar(L["manaburn_bar"], timer.firstManaburnAfterDance, icon.manaburn, true, "Blue")
+		self:ScheduleEvent("heiganmanaburn", self.Manaburn, timer.firstManaburnAfterDance, self)
 	end
 	if self.db.profile.erruption then
 		self:CancelScheduledEvent("HeiganErruption")
@@ -276,73 +284,4 @@ function module:ToFloor()
 		self:Bar(L["erruptionbar"], timer.firstErruptionAfterDance, icon.erruption)
 		self:ScheduleEvent("HeiganErruption", self.Erruption, timer.firstErruptionAfterDance, self)
 	end
-end
-
-------------------------------
---      Test        	    --
-------------------------------
-
-function module:Test()
-	-- /run local m=BigWigs:GetModule("Heigan the Unclean");m:Test()
-
-	local function fever()
-		module:CheckForDisease(L["dtrigger"])
-	end
-	local function toPlatform()
-		module:Teleport(L["toPlatform_trigger"])
-	end
-	local function toFloor()
-		module:Teleport(L["toFloor_trigger"])
-	end
-
-	local function deactivate()
-		BigWigs:Print("deactivate")
-		self:Disable()
-	end
-
-
-
-	local time = 0
-
-	-- immitate CheckForEngage
-	self:SendEngageSync()
-
-	BigWigs:Print("module Test started")
-
-	-- fever after 9s
-	time = time + timer.firstDisease
-	BigWigs:Print(" fever after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_fever", fever, time, self)
-
-	-- fever after 30s
-	time = time + timer.disease
-	BigWigs:Print(" fever after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_fever2", fever, time, self)
-
-	-- fever after 51s
-	time = time + timer.disease
-	BigWigs:Print(" fever after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_fever3", fever, time, self)
-
-	-- fever after 72s
-	time = time + timer.disease
-	BigWigs:Print(" fever after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_fever4", fever, time, self)
-
-
-	-- toPlatform after 90s
-	time = timer.toPlatform
-	BigWigs:Print(" to platform after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_toPlatform", toPlatform, time, self)
-
-	-- toFloor after 135s
-	time = time + timer.toFloor
-	BigWigs:Print(" to floor after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_toFloor", toFloor, time, self)
-
-
-	-- reset after 50s
-	time = time + 10
-	BigWigs:Print(" deactivate after " .. time)
-	self:ScheduleEvent(self:ToString().."Test_deactivate", deactivate, time, self)
 end

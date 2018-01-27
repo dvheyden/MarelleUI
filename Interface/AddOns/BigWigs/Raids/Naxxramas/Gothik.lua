@@ -226,7 +226,7 @@ function module:Trainee()
 
 
 	if numTrainees >= 12 then  -- cancels bar after wave 11
-		self:RemoveBar(string.format(L["trabar"], numTrainees - 1))
+		self:RemoveBar(string.format(L["trabar"], numTrainees))
 		self:CancelScheduledEvent("bwgothiktrawarn")
 		self:CancelScheduledEvent("bwgothiktrarepop")
 		numTrainees = 0
@@ -249,7 +249,7 @@ function module:DeathKnight()
 
 
 	if numDeathknights >= 8 then  -- cancels bar after wave 7
-		self:RemoveBar(string.format(L["dkbar"], numDeathknights - 1))
+		self:RemoveBar(string.format(L["dkbar"], numDeathknights))
 		self:CancelScheduledEvent("bwgothikdkwarn")
 		self:CancelScheduledEvent("bwgothikdkrepop")
 		numDeathknights = 0
@@ -270,7 +270,7 @@ function module:Rider()
 	self:ScheduleRepeatingEvent("bwgothikriderrepop", self.Rider, riderTime, self)
 
 	if numRiders >= 5 then  -- cancels bar after wave 4
-		self:RemoveBar(string.format(L["riderbar"], numRiders - 1))
+		self:RemoveBar(string.format(L["riderbar"], numRiders))
 		self:CancelScheduledEvent("bwgothikriderwarn")
 		self:CancelScheduledEvent("bwgothikriderrepop")
 		numRiders = 0

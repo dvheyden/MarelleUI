@@ -166,7 +166,7 @@ local timer = {
 	detonate = 5,
 	nextDetonate = {20,25},
 	firstFrostblast = 30,
-	frostblast = {30,70},
+	frostblast = {30,90},
 	firstMindcontrol = {20,60},
 	mindcontrol = {60,90},
 	firstGuardians = 10,
@@ -180,7 +180,7 @@ local icon = {
 	mindcontrol = "Inv_Belt_18",
 	phase1 = "",
 	phase2 = "",
-	guardians = "",
+	guardians = "inv_misc_ahnqirajtrinket_01",
 	frostblast = "Spell_Frost_FreezingBreath",
 	detonate = "Spell_Nature_WispSplode",
 	frostbolt = "Spell_Frost_FrostBolt02",
@@ -271,7 +271,6 @@ function module:OnEngage()
 		self:Bar(string.format(L["add_bar"], numAbominations, "Unstoppable Abomination"), timer.phase1, icon.abomination)
 		self:Bar(string.format(L["add_bar2"], numWeavers, "Soul Weaver"), timer.phase1, icon.soulWeaver)
 	end
-	self:KTM_SetTarget("Unstoppable Abomination")
 end
 
 -- called after boss is disengaged (wipe(retreat) or victory)
@@ -299,10 +298,11 @@ function module:UNIT_HEALTH(msg)
 	if self.db.profile.phase then
 		if UnitName(msg) == self.translatedName then
 			local health = UnitHealth(msg)
-			if health > 35 and health <= 40 and not self.warnedAboutPhase3Soon then
+			local maxHealth = UnitHealthMax(msg)
+			if math.ceil(100*health/maxHealth) > 35 and math.ceil(100*health/maxHealth) <= 40 and not self.warnedAboutPhase3Soon then
 				self:Message(L["phase3_soon_warning"], "Attention")
 				self.warnedAboutPhase3Soon = true
-			elseif health > 40 and self.warnedAboutPhase3Soon then
+			elseif math.ceil(100*health/maxHealth) > 40 and self.warnedAboutPhase3Soon then
 				self.warnedAboutPhase3Soon = nil
 			end
 		end
@@ -474,7 +474,6 @@ function module:Phase2()
 	end
 
 	-- master target should be automatically set, as soon as a raid assistant targets kel'thuzad
-	self:KTM_SetTarget(self:ToString())
 	self:KTM_Reset()
 
 	-- proximity silent
@@ -498,10 +497,16 @@ function module:Phase3()
 	end
 	if self.db.profile.guardians then
 		self:Bar(string.format(L["guardians_bar"],1), timer.firstGuardians, icon.guardians)
+		self:ScheduleEvent("bwKTwsguardians", self.WarningGuardians, timer.firstGuardians, self)
 		for i = 0,3 do
+			self:ScheduleEvent("bwKTwsguardians"..i, self.WarningGuardians, timer.firstGuardians+timer.guardians*(i+1), self)
 			self:DelayedBar(timer.firstGuardians+timer.guardians*i, string.format(L["guardians_bar"],i+2), timer.guardians, icon.guardians)
 		end
 	end
+end
+
+function module:WarningGuardians()
+	self:WarningSign(icon.guardians, 3)
 end
 
 function module:MindControl()
@@ -515,6 +520,7 @@ end
 function module:FrostBlast(name)
 	if self.db.profile.frostblast then
 		if GetTime()-self.lastFrostBlast>5 then
+			self:RemoveWarningSign(icon.guardians, true)
 			self:WarningSign(icon.frostblast, 5)
 			self.lastFrostBlast=GetTime()
 			self:Message(L["frostblast_warning"], "Attention")

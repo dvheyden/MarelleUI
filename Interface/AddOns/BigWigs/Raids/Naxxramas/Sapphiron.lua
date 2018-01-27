@@ -81,12 +81,12 @@ module.proximitySilent = true
 -- locals
 local timer = {
 	berserk = 900,
-	deepbreathAfterLift = 26,
+	deepbreathAfterLift = 25,
 	deepbreath = 7,
-	firstLifedrain = 14,
+	firstLifedrain = 7,
 	lifedrainAfterFlight = 6,
-	lifedrain = 24,
-	iceboltAfterFlight = 11,
+	lifedrain = 23,
+	iceboltAfterFlight = 9,
 	iceboltInterval = 4,
 }
 local icon = {

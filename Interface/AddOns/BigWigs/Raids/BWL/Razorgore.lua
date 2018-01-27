@@ -481,8 +481,6 @@ function module:BigWigs_RecvSync(sync, rest, nick)
 		self:Bar(L["conflagration_bar"], timer.firstConflagrate, "Spell_Fire_Incinerate", true, "red")
 		self:Bar(L["volley_bar"], timer.firstVolley, icon.volley, true, "blue")
 		self:Bar(L["warstomp_bar"], timer.firstWarStomp, "Ability_BullRush")
-
-		self:KTM_SetTarget(self.translatedName)
 		self:KTM_Reset()
 	end
 end

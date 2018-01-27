@@ -136,7 +136,6 @@ end
 
 -- called after boss is engaged
 function module:OnEngage()
-	self:KTM_SetTarget(self:ToString())
 	if self.db.profile.bw then
 		self:Bar(L["bw_bar"], timer.firstBlastWave, icon.blastWave, true, "Red")
 	end

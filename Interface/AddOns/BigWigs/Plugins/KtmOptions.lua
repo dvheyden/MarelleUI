@@ -14,7 +14,7 @@ L:RegisterTranslations("enUS", function() return {
 	["KTM Options"] = true,
 	["bwktm"] = true,
 	["Options for KTM"] = true,
-	["Enable resetting"] = true,
+	["Enable resetting (requires (A) or (L))"] = true,
 	["Reset KTM for the raid when asked by bossmods."] = true,
 } end)
 
@@ -36,7 +36,7 @@ BigWigsKtm.consoleOptions = {
 	args = {
 		enable = {
 			type = "toggle",
-			name = L["Enable resetting"],
+			name = L["Enable resetting (requires (A) or (L))"],
 			desc = L["Reset KTM for the raid when asked by bossmods."],
 			order = 1,
 			get = function() return BigWigsKtm.db.profile.enable end,

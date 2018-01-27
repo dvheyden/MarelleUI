@@ -79,6 +79,7 @@ local icon = {
 	cocoon = "Spell_Nature_Web",
 	poison = "Ability_Creature_Poison_03",
 	webspray = "Ability_Ensnare",
+	enrage = "Spell_Shadow_UnholyFrenzy",
 }
 local syncName = {
 	webspray = "MaexxnaWebspray"..module.revision,
@@ -117,7 +118,6 @@ end
 
 -- called after boss is engaged
 function module:OnEngage()
-	self:KTM_SetTarget(self:ToString())
 	self:IntervalBar(L["poisonbar"], timer.poison[1], timer.poison[2], icon.poison)
 	self:Webspray()
 end
@@ -153,13 +153,14 @@ end
 
 function module:UNIT_HEALTH( msg )
 	if UnitName(msg) == boss then
+		local maxHealth = UnitHealthMax(msg)
 		local health = UnitHealth(msg)
-		if (health > 29 and health <= 34 and not enrageannounced) then
+		if (math.ceil(100*health/maxHealth) > 27 and math.ceil(100*health/maxHealth) <= 34 and not enrageannounced) then
 			if self.db.profile.enrage then
 				self:Message(L["enragesoonwarn"], "Important")
 			end
 			enrageannounced = true
-		elseif (health > 34 and enrageannounced) then
+		elseif (math.ceil(100*health/maxHealth) > 34 and enrageannounced) then
 			enrageannounced = false
 		end
 	end
@@ -169,6 +170,7 @@ function module:Enrage( msg )
 	if string.find(msg, L["etrigger1"]) then
 		if self.db.profile.enrage then
 			self:Message(L["enragewarn"], "Important", nil, "Beware")
+			self:WarningSign(icon.enrage, 5)
 		end
 	end
 end

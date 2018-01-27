@@ -181,7 +181,6 @@ end
 
 -- called after boss is engaged
 function module:OnEngage()
-	self:KTM_SetTarget(self:ToString())
 	self.phase = "emerged"
 	self:ScheduleEvent("bwourosubmergecheck", self.DoSubmergeCheck, 5, self)
 

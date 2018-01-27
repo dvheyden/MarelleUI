@@ -104,10 +104,11 @@ end
 function module:UNIT_HEALTH(arg1)
 	if UnitName(arg1) == module.translatedName then
 		local health = UnitHealth(arg1)
-		if health > 13 and health <= 20 and not earthquakeon then
+		local maxHealth = UnitHealthMax(arg1)
+		if math.ceil(100*health/maxHealth) > 13 and math.ceil(100*health/maxHealth) <= 20 and not earthquakeon then
 			self:Sync(syncName.earthquake)
 			earthquakeon = true
-		elseif health > 20 and earthquakeon then
+		elseif math.ceil(health) > 23 and earthquakeon then
 			earthquakeon = nil
 		end
 	end

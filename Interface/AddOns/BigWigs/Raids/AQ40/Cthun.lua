@@ -633,7 +633,6 @@ function module:GCTentacleRape()
 	doCheckForWipe = true
 	self:DelayedSync(timer.p2GiantClaw, syncName.giantClawSpawn)
 	self:KTM_Reset()
-	self:KTM_SetTarget("Giant Claw Tentacle")
 	if self.db.profile.giant then
 		self:Bar(L["barGiantC"], timer.p2GiantClaw, icon.giantClaw)
 	end

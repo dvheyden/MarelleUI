@@ -81,12 +81,12 @@ module.toggleoptions = {"mark", "shieldwall", -1, "meteor", "void", "wrath", "bo
 local timer = {
 	firstMark = 20,
 	mark = 12,
-	firstMeteor = 12,
-	meteor = 12,
-	firstWrath = 12,
-	wrath = 12,
-	firstVoid = 12,
-	void = 12,
+	firstMeteor = 11,
+	meteor = {11, 14},
+	firstWrath = 11,
+	wrath = {11, 14},
+	firstVoid = 11,
+	void = {11, 14},
 	shieldwall = 20,
 }
 local icon = {
@@ -147,13 +147,13 @@ function module:OnEngage()
 		self:DelayedMessage(timer.firstMark - 5, string.format( L["mark_warn_5"], self.marks + 1), "Urgent")
 	end
 	if self.db.profile.meteor then
-		self:Bar(L["meteorbar"], timer.firstMeteor, icon.meteor)
+		self:Bar(L["meteorbar"], timer.firstMeteor, icon.meteor, true, "Red")
 	end
 	if self.db.profile.wrath then
-		self:Bar(L["wrathbar"], timer.firstWrath, icon.wrath)
+		self:Bar(L["wrathbar"], timer.firstWrath, icon.wrath, true, "White")
 	end
 	if self.db.profile.void then
-		self:Bar(L["voidbar"], timer.firstVoid, icon.void)
+		self:Bar(L["voidbar"], timer.firstVoid, icon.void, true, "Blue")
 	end
 end
 
@@ -244,21 +244,22 @@ end
 function module:Meteor()
 	if self.db.profile.meteor then
 		self:Message(L["meteorwarn"], "Important")
-		self:Bar(L["meteorbar"], timer.meteor, icon.meteor)
+		self:IntervalBar(L["meteorbar"], timer.meteor[1], timer.meteor[2], icon.meteor, true, "Red")
 	end
 end
 
 function module:Wrath()
 	if self.db.profile.wrath then
 		self:Message(L["wrathwarn"], "Important")
-		self:Bar(L["wrathbar"], timer.wrath, icon.wrath)
+		self:IntervalBar(L["wrathbar"], timer.wrath[1], timer.wrath[2], icon.wrath, true, "White")
 	end
 end
 
 function module:Void()
 	if self.db.profile.void then
+		self:WarningSign(icon.void, 2)
 		self:Message(L["voidwarn"], "Important")
-		self:Bar(L["voidbar"], timer.void, icon.void)
+		self:IntervalBar(L["voidbar"], timer.void[1], timer.void[2], icon.void, true, "Blue")
 	end
 end
 

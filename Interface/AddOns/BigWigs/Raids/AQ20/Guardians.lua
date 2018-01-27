@@ -36,7 +36,14 @@ L:RegisterTranslations("enUS", function() return {
 	enrage_cmd = "enrage",
 	enrage_name = "Enrage Alert",
 	enrage_desc = "Warn for enrage",
-
+	
+	meteor_cmd = "meteor",
+	meteor_name = "Meteor Alert",
+	meteor_desc = "Warn for meteor",
+	
+	meteortrigger = "Anubisath Guardian's Meteor",
+	meteorbar = "Meteor CD",
+	meteorwarn = "Meteor!",
 	explodetrigger = "Anubisath Guardian gains Explode.",
 	explodewarn = "Exploding!",
 	enragetrigger = "Anubisath Guardian gains Enrage.",
@@ -93,18 +100,21 @@ L:RegisterTranslations("deDE", function() return {
 ---------------------------------
 
 -- module variables
-module.revision = 20008 -- To be overridden by the module!
+module.revision = 20009 -- To be overridden by the module!
 module.enabletrigger = module.translatedName -- string or table {boss, add1, add2}
-module.toggleoptions = {"summon", "explode", "enrage", -1, "plagueyou", "plagueother", "icon"--[[, "bosskill"]]}
+module.toggleoptions = {"summon", "meteor", "explode", "enrage", -1, "plagueyou", "plagueother", "icon"--[[, "bosskill"]]}
 
 module.defaultDB = {
 	bosskill = false,
 }
 
 -- locals
-local timer = {}
+local timer = {
+	meteor = {8,13},
+}
 local icon = {
 	plague = "Spell_Shadow_CurseOfTounges",
+	meteor = "Spell_Fire_Fireball02",
 }
 local syncName = {}
 
@@ -121,6 +131,8 @@ function module:OnEnable()
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE", "CheckPlague")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE", "CheckPlague")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE", "CheckPlague")
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE", "MeteorEvent")
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_PARTY_DAMAGE", "MeteorEvent")
 end
 
 -- called after module is enabled and after each wipe
@@ -141,6 +153,13 @@ end
 ------------------------------
 --      Event Handlers      --
 ------------------------------
+
+function module:MeteorEvent(msg)
+	if string.find(msg, L["meteortrigger"]) and self.db.profile.meteor then
+		self:IntervalBar(L["meteorbar"], timer.meteor[1], timer.meteor[2], icon.meteor)
+		self:Message(L["meteorwarn"], "Important")
+	end
+end
 
 -- override to suppress victory message and sound
 function module:CHAT_MSG_COMBAT_HOSTILE_DEATH(msg)

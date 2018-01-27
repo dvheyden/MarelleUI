@@ -126,6 +126,7 @@ local timer = {
 	healingUptime = 240,
 	brainwashUptime = 240,
 	hex = 5,
+	hexCD = 25,
 }
 local icon = {
 	hex = "Spell_Nature_Polymorph",
@@ -170,7 +171,7 @@ end
 
 -- called after boss is engaged
 function module:OnEngage()
-	self:Bar("Next Hex", timer.firstHex, icon.hex)
+	self:Bar("Next CD", timer.firstHex, icon.hex)
 	--self:Bar("Next Healing Ward", timer.firstHealing, icon.healing)
 	--self:Bar("Next Brain Wash", timer.firstBrainwash, icon.brainwash)
 end
@@ -262,9 +263,10 @@ function module:BigWigs_RecvSync(sync, rest, nick)
 			self:Icon(rest)
 		end
 	elseif sync == syncName.hex and self.db.profile.hex then
-		self:RemoveBar("Next Hex")
+		self:RemoveBar("Next CD")
 		self:Message(string.format(L["hexwarn_warning"], rest), "Important")
 		self:Bar(string.format(L["hex_bar"], rest), timer.hex, icon.hex, true, "White")
+		self:Bar("Hex CD", timer.hexCD, icon.hex)
 	elseif sync == syncName.hexOver and self.db.profile.hex then
 		self:RemoveBar(string.format(L["hex_bar"], rest))
 	end

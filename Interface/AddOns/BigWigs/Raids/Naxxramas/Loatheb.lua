@@ -112,7 +112,6 @@ local icon = {
 	softEnrage = "Spell_Shadow_UnholyFrenzy",
 	doom = "Spell_Shadow_NightOfTheDead",
 	spore = "Ability_TheBlackArrow",
-	sieni = "Interface\\AddOns\\BigWigs\\Textures\\sieni",
 	curse = "Spell_Holy_RemoveCurse",
 }
 local syncName = {
@@ -315,9 +314,9 @@ function module:CheckDebuff()
 			if ( buffName and strfind(strlower(buffName), debuff )) then
 				local timeleft = GetPlayerBuffTimeLeft(id)
 				if timeleft < timer.getNextSpore then
-					self:TriggerEvent("BigWigs_ShowWarningSign", icon.sieni, timer.getNextSpore)
+					self:TriggerEvent("BigWigs_ShowWarningSign", icon.spore, timer.getNextSpore)
 				elseif timeleft > timer.getNextSpore then
-					self:TriggerEvent("BigWigs_HideWarningSign", icon.sieni)
+					self:TriggerEvent("BigWigs_HideWarningSign", icon.spore)
 				end
 			elseif ( buffName==nil ) then
 				break;
