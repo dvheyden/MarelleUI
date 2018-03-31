@@ -98,6 +98,12 @@ Frame: RABFrame
 FrameLevel: 15
 X: 1986
 Y: -208
+Frame: SW_BarFrame1
+FrameLevel: 22
+X: 1932
+Y: -1009
+W: 202
+H: 191
 Frame: TAContainer
 FrameLevel: 19
 X: 932
