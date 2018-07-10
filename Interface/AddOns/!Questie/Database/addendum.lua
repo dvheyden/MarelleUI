@@ -1121,9 +1121,9 @@ QuestieLevLookup = {
   ["Bring the Defias Docket to Elling Trias in Stormwind."]={77,2724313349},
   ["Speak to Dashel Stonefist in Stormwind."]={77,3048314541},
   ["Speak to Elling Trias in Stormwind."]={77,3859909405},
-  ["Speak to Mikhail in the Wetlands. [1]"]={77,416908933},
+  ["Speak to Mikhail in the Wetlands."]={77,416908933},
   ["Subdue Tapoke Jahn before he escapes, and then return to Mikhail in Menethil."]={77,1693582965},
-  ["Speak to Mikhail in the Wetlands. [2]"]={77,416909957},
+  ["Speak to Mikhail in the Wetlands."]={77,416909957},
   ["Find Commander Samaul in Dustwallow Marsh."]={77,415875861},
   ["Search Sentry Point for any sign of Private Hendel."]={77,3971079597},
   ["Find Private Hendel in Dustwallow Marsh."]={77,453624165},
@@ -1217,7 +1217,11 @@ QuestieLevLookup = {
   ["Bring Ilkrud Magthrull's Tome to Delgren the Purifier at Maestra's Post."]={0,3181993408},
   ["Talk to Delgren the Purifier at Maestra's Post."]={0,3103336192},
   ["Free the trapped Highborne souls in Night Run and Satyrnaar, then return to Delgren the Purifier at Maestra's Post."]={0,2661493280},
+ },
+ ["The Tower of Althalaxx part 7"]={
   ["Speak with Balthule Shadowstrike near the Tower of Althalaxx."]={0,351455456},
+ },
+ ["The Tower of Althalaxx part 8"]={
   ["Kill Athrikus Narassin and bring his head to Balthule Shadowstrike near the Tower of Althalaxx."]={0,432732864},
  },
  ["To Ironforge for Yagyin's Digest"]={
@@ -4751,10 +4755,10 @@ QuestieLevLookup = {
   ["Speak to Jen'shan in the Valley of Trials."]={128,4223216040},
  },
  ["Beached Sea Creature"]={
-  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine. [1]"]={77,3862475968},
-  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine. [2]"]={77,3862478592},
-  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine. [3]"]={77,3862479744},
-  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine. [4]"]={77,3862481549},
+  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine."]={0,3862475968},
+  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine."]={0,3862478592},
+  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine."]={0,3862479744},
+  ["Take the Sea Creature Bones to Gwennyth Bly'Leggonde in Auberdine."]={77,3862481549},
  },
  ["Cairne's Hoofprint"]={
   ["Travel to Thunder Bluff to see about getting Cairne Bloodhoof's hoofprint for your ward."]={178,2827791242},
@@ -6909,11 +6913,11 @@ QuestieLevLookup = {
   ["Speak with Klockmort Spannerspan in Ironforge."]={0,3727698816},
  },
  ["Beached Sea Turtle"]={
-  ["Take the Sea Turtle Remains to Gwennyth Bly'Leggonde in Auberdine. [1]"]={77,1609368488},
-  ["Take the Strangely Marked Box to Gwennyth Bly'Leggonde in Auberdine. [1]"]={77,654119064},
-  ["Take the Sea Turtle Remains to Gwennyth Bly'Leggonde in Auberdine. [2]"]={77,1609371176},
-  ["Take the Strangely Marked Box to Gwennyth Bly'Leggonde in Auberdine. [2]"]={77,654122469},
-  ["Take the Sea Turtle Remains to Gwennyth Bly'Leggonde in Auberdine. [3]"]={77,1609374069},
+  ["Take the Sea Turtle Remains to Gwennyth Bly'Leggonde in Auberdine."]={0,1609368488},
+  ["Take the Strangely Marked Box to Gwennyth Bly'Leggonde in Auberdine."]={0,654119064},
+  ["Take the Sea Turtle Remains to Gwennyth Bly'Leggonde in Auberdine."]={0,1609371176},
+  ["Take the Strangely Marked Box to Gwennyth Bly'Leggonde in Auberdine."]={77,654122469},
+  ["Take the Sea Turtle Remains to Gwennyth Bly'Leggonde in Auberdine."]={77,1609374069},
  },
  ["Flickering Flames in the Eastern Kingdoms"]={
   ["Visit the bonfires within Hillsbrad Foothills, Silverpine Forest, Westfall, and the Wetlands, then speak with the Festival Flamekeeper."]={0,3472145328},
@@ -9912,9 +9916,9 @@ QuestieLevLookup = {
  },
  ["A Plague Upon Thee"]={
   ["Use the Empty Termite Jar on the Termite Mounds in Eastern Plaguelands. After you've gathered 100 Plagueland Termites, return to Mickey Levine at the Bulwark in Tirisfal Glades."]={178,1277861866},
-  ["Find someplace suitable in the center of the Northridge Lumber Mill in Western Plaguelands to place the Barrel of Plagueland Termites. [1]"]={178,2113024202},
+  ["Find someplace suitable in the center of the Northridge Lumber Mill in Western Plaguelands to place the Barrel of Plagueland Termites."]={178,2113024202},
   ["Use the Empty Termite Jar on the Termite Mounds in Eastern Plaguelands. After you've gathered 100 Plagueland Termites, return to Nathaniel Dumah at Chillwind Camp in Western Plaguelands."]={77,2841821173},
-  ["Find someplace suitable in the center of the Northridge Lumber Mill in Western Plaguelands to place the Barrel of Plagueland Termites. [2]"]={77,2113025125},
+  ["Find someplace suitable in the center of the Northridge Lumber Mill in Western Plaguelands to place the Barrel of Plagueland Termites."]={77,2113025125},
   ["Release the Plagueland Termites in the Northridge Lumber Mill, then return with the Barrel of Plagueland Termites to Nathaniel Dumah at Chillwind Camp in Western Plaguelands."]={77,2046718397},
   ["Release the Plagueland Termites in the Northridge Lumber Mill, then return with the Barrel of Plagueland Termites to Mickey Levine at the Bulwark in Tirisfal Glades."]={178,154556338},
  },
@@ -10539,6 +10543,16 @@ QuestieHashMap = {
   ['rc']=1,
   ['rq']=2597010416
  },
+ [2158070202]={
+  ['name']="Darkspear Defense",
+  ['startedType']="item",
+  ['finishedType']="unknown",
+  ['startedBy']="unknown",
+  ['finishedBy']="unknown",
+  ['level']=55,
+  ['questLevel']='60PVP',
+  ['rr']=178
+ },
  [2669386408]={
   ['name']="Menethil's Gift",
   ['startedType']="monster",
@@ -11081,7 +11095,7 @@ QuestieHashMap = {
   ['name']="Beached Sea Creature",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Creature [4]",
+  ['startedBy']="Beached Sea Turtle",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=14,
   ['questLevel']='19',
@@ -14954,7 +14968,6 @@ QuestieHashMap = {
   ['startedBy']="Nimboya",
   ['finishedBy']="Nimboya",
   ['level']=35,
-  ['rr']=178,
   ['questLevel']='42'
  },
  [2790069472]={
@@ -15073,7 +15086,7 @@ QuestieHashMap = {
   ['name']="Lonebrow's Journal",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Henrig Lonebrow's Journal",
+  ['startedBy']="unknown",
   ['finishedBy']="Falfindel Waywarder",
   ['level']=29,
   ['questLevel']='34+',
@@ -17363,8 +17376,7 @@ QuestieHashMap = {
   ['startedBy']="Zaruk",
   ['finishedBy']="Theldurin the Lost",
   ['level']=30,
-  ['questLevel']='40',
-  ['rr']=178
+  ['questLevel']='40'
  },
  [3130142114]={
   ['name']="Prowlers of the Barrens",
@@ -18709,6 +18721,16 @@ QuestieHashMap = {
   ['level']=1,
   ['questLevel']='60'
  },
+ [582117461]={
+  ['name']="Watcher Callahan",
+  ['startedType']="monster",
+  ['finishedType']="monster",
+  ['startedBy']="Watcher Dodds",
+  ['finishedBy']="Watcher Callahan",
+  ['level']=21,
+  ['questLevel']='25',
+  ['rr']=77
+ },
  [197258989]={
   ['name']="Badlands Reagent Run",
   ['startedType']="monster",
@@ -19591,7 +19613,7 @@ QuestieHashMap = {
  },
  [1931948912]={
   ['name']="WANTED: Caliph Scorpidsting",
-  ['startedType']="object",
+  ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Wanted Poster: Caliph Scorpidsting",
   ['finishedBy']="Chief Engineer Bilgewhizzle",
@@ -20019,7 +20041,7 @@ QuestieHashMap = {
  },
  [671223272]={
   ['name']="WANTED: Andre Firebeard",
-  ['startedType']="object",
+  ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Wanted Poster: Andre Firebeard",
   ['finishedBy']="Security Chief Bilgewhizzle",
@@ -20448,11 +20470,10 @@ QuestieHashMap = {
   ['name']="Beached Sea Turtle",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Turtle [1]",
+  ['startedBy']="Beached Sea Turtle",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=11,
   ['questLevel']='13',
-  ['rr']=77,
   ['rq']=927743120
  },
  [447025138]={
@@ -20860,7 +20881,7 @@ QuestieHashMap = {
   ['rq']=2153855240
  },
  [432732864]={
-  ['name']="The Tower of Althalaxx",
+  ['name']="The Tower of Althalaxx part 8",
   ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Balthule Shadowstrike",
@@ -21644,7 +21665,7 @@ QuestieHashMap = {
   ['finishedType']="monster",
   ['startedBy']="Theramore Guard Badge",
   ['finishedBy']="Captain Garran Vimes",
-  ['level']=32,
+  ['level']=30,
   ['questLevel']='40',
   ['rr']=77
  },
@@ -22258,7 +22279,7 @@ QuestieHashMap = {
  },
  [2213851037]={
   ['name']="WANTED: Chok'sul",
-  ['startedType']="object",
+  ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="WANTED: Chok'sul",
   ['finishedBy']="Magistrate Bluntnose",
@@ -22344,7 +22365,7 @@ QuestieHashMap = {
   ['name']="The Unsent Letter",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="An Unsent Letter",
+  ['startedBy']="unknown",
   ['finishedBy']="Baros Alexston",
   ['level']=16,
   ['questLevel']='22',
@@ -22635,7 +22656,7 @@ QuestieHashMap = {
   ['name']="The Lord of Blackrock",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Head of Nefarian",
+  ['startedBy']="unknown",
   ['finishedBy']="Thrall",
   ['level']=60,
   ['questLevel']='60',
@@ -23070,7 +23091,7 @@ QuestieHashMap = {
  },
  [2250606541]={
   ['name']="Wanted:  \"Hogger\"",
-  ['startedType']="object",
+  ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Wanted Poster:  \"Hogger\"",
   ['finishedBy']="Marshal Dughan",
@@ -23925,8 +23946,7 @@ QuestieHashMap = {
   ['finishedBy']="Deputy Rainer",
   ['level']=6,
   ['questLevel']='10',
-  ['rr']=77,
-  ['rq']=2549659877
+  ['rr']=77
  },
  [4037025928]={
   ['name']="Corrupted Songflower",
@@ -24249,11 +24269,10 @@ QuestieHashMap = {
   ['name']="Beached Sea Creature",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Creature [3]",
+  ['startedBy']="Beached Sea Creature",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=13,
   ['questLevel']='16',
-  ['rr']=77,
   ['rq']=927743120
  },
  [1893836664]={
@@ -24845,8 +24864,7 @@ QuestieHashMap = {
   ['level']=60,
   ['questLevel']='60',
   ['rr']=5,
-  ['rc']=2,
-  ['rq']=3088449501
+  ['rc']=2
  },
  [1645996690]={
   ['name']="Test of Faith",
@@ -25777,7 +25795,7 @@ QuestieHashMap = {
   ['finishedType']="monster",
   ['startedBy']="Collin Mauren",
   ['finishedBy']="Collin Mauren",
-  ['level']=19,
+  ['level']=17,
   ['questLevel']='26',
   ['rr']=77
  },
@@ -26663,7 +26681,7 @@ QuestieHashMap = {
   ['name']="Allegiance to the Old Gods",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Damp Note",
+  ['startedBy']="unknown",
   ['finishedBy']="Je'neu Sancrea",
   ['level']=22,
   ['questLevel']='22D',
@@ -26791,11 +26809,10 @@ QuestieHashMap = {
   ['name']="Beached Sea Turtle",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Turtle [3]",
+  ['startedBy']="Beached Sea Turtle",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=13,
   ['questLevel']='15',
-  ['rr']=77,
   ['rq']=927743120
  },
  [3862090861]={
@@ -31332,10 +31349,10 @@ QuestieHashMap = {
  },
  [172976144]={
   ['name']="Crown of the Earth",
-  ['startedType']="monster",
-  ['finishedType']="monster",
-  ['startedBy']="Corithras Moonrage",
-  ['finishedBy']="Corithras Moonrage",
+  ['startedType']="item",
+  ['finishedType']="unknown",
+  ['startedBy']="unknown",
+  ['finishedBy']="unknown",
   ['level']=6,
   ['questLevel']='11',
   ['rq']=8875032
@@ -33241,7 +33258,7 @@ QuestieHashMap = {
   ['name']="Ship Schedules",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Ship Schedule",
+  ['startedBy']="unknown",
   ['finishedBy']="Security Chief Bilgewhizzle",
   ['level']=40,
   ['questLevel']='45'
@@ -34450,7 +34467,7 @@ QuestieHashMap = {
   ['name']="The Lord of Blackrock",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Head of Nefarian",
+  ['startedBy']="unknown",
   ['finishedBy']="Highlord Bolvar Fordragon",
   ['level']=60,
   ['questLevel']='60',
@@ -35666,11 +35683,10 @@ QuestieHashMap = {
   ['name']="Beached Sea Creature",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Creature [2]",
+  ['startedBy']="Beached Sea Turtle",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=12,
   ['questLevel']='14',
-  ['rr']=77,
   ['rq']=927743120
  },
  [2158940168]={
@@ -36936,7 +36952,7 @@ QuestieHashMap = {
   ['name']="Guarding Secrets",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Blue-feathered Necklace",
+  ['startedBy']="unknown",
   ['finishedBy']="Trull Failbane",
   ['level']=54,
   ['questLevel']='59',
@@ -37729,7 +37745,6 @@ QuestieHashMap = {
   ['startedBy']="Mist",
   ['finishedBy']="Sentinel Arynia Cloudsbreak",
   ['level']=9,
-  ['rr']=77,
   ['questLevel']='12'
  },
  [2631372589]={
@@ -38220,11 +38235,10 @@ QuestieHashMap = {
   ['name']="Beached Sea Turtle",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Turtle [2]",
+  ['startedBy']="Beached Sea Creature",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=12,
   ['questLevel']='15',
-  ['rr']=77,
   ['rq']=927743120
  },
  [2173427650]={
@@ -41518,7 +41532,7 @@ QuestieHashMap = {
   ['name']="Cuergo's Gold",
   ['startedType']="item",
   ['finishedType']="object",
-  ['startedBy']="Cuergo's Treasure Map",
+  ['startedBy']="unknown",
   ['finishedBy']="Pirate's Treasure!",
   ['level']=42,
   ['questLevel']='45'
@@ -43209,7 +43223,7 @@ QuestieHashMap = {
  },
  [686682789]={
   ['name']="Wanted: Lieutenant Fangore",
-  ['startedType']="object",
+  ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Wanted: Lieutenant Fangore",
   ['finishedBy']="Magistrate Solomon",
@@ -44562,7 +44576,7 @@ QuestieHashMap = {
   ['name']="The Collector",
   ['startedType']="item",
   ['finishedType']="monster",
-  ['startedBy']="Gold Pickup Schedule",
+  ['startedBy']="unknown",
   ['finishedBy']="Marshal Dughan",
   ['level']=7,
   ['questLevel']='10',
@@ -44820,11 +44834,10 @@ QuestieHashMap = {
   ['name']="Beached Sea Creature",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Creature [1]",
+  ['startedBy']="Beached Sea Creature",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=11,
   ['questLevel']='13',
-  ['rr']=77,
   ['rq']=927743120
  },
  [142933576]={
@@ -45898,7 +45911,7 @@ QuestieHashMap = {
   ['name']="Beached Sea Turtle",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Turtle [4]",
+  ['startedBy']="Beached Sea Creature",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=14,
   ['questLevel']='19',
@@ -46168,7 +46181,7 @@ QuestieHashMap = {
   ['rq']=3632844778
  },
  [351455456]={
-  ['name']="The Tower of Althalaxx",
+  ['name']="The Tower of Althalaxx part 7",
   ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Delgren the Purifier",
@@ -49973,7 +49986,7 @@ QuestieHashMap = {
  },
  [4020215789]={
   ['name']="Wanted: Gath'Ilzogg",
-  ['startedType']="object",
+  ['startedType']="monster",
   ['finishedType']="monster",
   ['startedBy']="Wanted: Gath'Ilzogg",
   ['finishedBy']="Magistrate Solomon",
@@ -51533,7 +51546,7 @@ QuestieHashMap = {
   ['name']="Beached Sea Turtle",
   ['startedType']="object",
   ['finishedType']="monster",
-  ['startedBy']="Beached Sea Turtle [5]",
+  ['startedBy']="Beached Sea Turtle",
   ['finishedBy']="Gwennyth Bly'Leggonde",
   ['level']=15,
   ['questLevel']='19',
@@ -55499,234 +55512,38 @@ QuestieAdditionalStartFinishLookup = { -- {C,Z,X,Y}
     ["A-Me 01"] = {1, 20, 0.67657661437988, 0.16762030124664},
 }
 
-function GetEntityLocations(entity)
-    local locations = {}
-    local mapIds = {}
-    for sourceType, sources in pairs(entity) do
-        if sourceType == "drop" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetMonsterLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "rewardedby" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetMonsterLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "contained" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetObjectLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "contained_id" then
-            for sourceId, b in pairs(sources) do
-                local locationMeta, ids = GetNewObjectLocations(sourceId)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    local sourceName = locationMeta.name
-                    locationMeta.name = nil
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "containedi" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetItemLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "created" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetItemLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "transforms" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetMonsterLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "transformedby" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetItemLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "openedby" then
-            for sourceName, b in pairs(sources) do
-                local locationMeta, ids = GetItemLocations(sourceName)
-                if next(locationMeta) then
-                    if locations[sourceType] == nil then locations[sourceType] = {} end
-                    locations[sourceType][sourceName] = locationMeta
-                    --for c, zs in pairs(ids) do if mapIds[c] == nil then mapIds[c] = {} end for z, b in pairs(zs) do mapIds[c][z] = true end end
-                end
-            end
-        end
-        if sourceType == "locations" then
-            local added = false
-            local class = UnitClass("Player")
-            local race = UnitRace("Player")
-            for i, location in pairs(sources) do
-                if (not entity['locations_rr']) or (not entity['locations_rr'][i]) or checkRequirements(class, race, nil, entity['locations_rr'][i]) then
-                    local reformattedLocation
-                    if location[2] >= 1 then
-                        -- new location format
-                        reformattedLocation = location
-                    elseif QuestieZoneIDLookup[location[1]] then
-                        -- old location format
-                        local MapInfo = QuestieZoneIDLookup[location[1]]
-                        reformattedLocation = {MapInfo[4], MapInfo[5], location[2], location[3]}
-                    end
-
-                    if reformattedLocation then
-                        if locations[sourceType] == nil then locations[sourceType] = {} end
-                        table.insert(locations[sourceType], reformattedLocation)
-                        if added == false then
-                            local c, z = reformattedLocation[1], reformattedLocation[2]
-                            if mapIds[c] == nil then mapIds[c] = {} end
-                            mapIds[c][z] = true
-                            added = true
-                        end
-                    else
-                        --sources[i] = nil
-                    end
-                end
-            end
-        end
-        if sourceType == "name" then
-            locations[sourceType] = sources
-        end
-    end
-    return locations, mapIds
-end
-
-function GetMonsterLocations(monsterName)
-    if QuestieMonsters[monsterName] then
-        return GetEntityLocations(QuestieMonsters[monsterName])
-    elseif QuestieAdditionalStartFinishLookup[monsterName] then
-        return GetEntityLocations({
-            ["locations"] = {
-                [1] = QuestieAdditionalStartFinishLookup[monsterName]
-            },
-            ["locationCount"] = 1
-        })
-    end
-    return {}, {}
-end
-
-function GetObjectLocations(objectName)
-    if QuestieObjects[objectName] then
-        return GetEntityLocations(QuestieObjects[objectName])
-    else
-        -- todo shouldn't really check monsters, but someone moved some objects and items to the monsters list
-        return GetMonsterLocations(objectName)
-    end
-    return {}, {}
-end
-
-function GetNewObjectLocations(objectId)
-    if QuestieNewObjects[objectId] then
-        return GetEntityLocations(QuestieNewObjects[objectId])
-    end
-    return {}, {}
-end
-
-function GetItemLocations(itemName)
-    if QuestieItems[itemName] then
-        return GetEntityLocations(QuestieItems[itemName])
-    end
-    return {}, {}
-end
-
-function GetEventLocations(eventName)
-    if QuestieEvents[eventName] then
-        return GetEntityLocations(QuestieEvents[eventName])
-    end
-    return {}, {}
-end
-
-function GetReputationLocations(reputationName)
-    if QuestieReputationsByName[reputationName] then
-        return GetEntityLocations(QuestieReputationsByName[reputationName])
-    end
-    return {}, {}
-end
-
 QuestieZoneLevelMap = {
 }
 
-function addQuestToZoneLevelMap(c, z, questHash, questInfo, locationMeta)
-    local level = questInfo['level']
-    locationMeta['questName'] = questInfo['name']
-    if QuestieZoneLevelMap[c] == nil then
-        QuestieZoneLevelMap[c] = {};
-    end
-    if QuestieZoneLevelMap[c][z] == nil then
-        QuestieZoneLevelMap[c][z] = {};
-    end
-    if QuestieZoneLevelMap[c][z][level] == nil then
-        QuestieZoneLevelMap[c][z][level] = {};
-    end
-    QuestieZoneLevelMap[c][z][level][questHash] = locationMeta
-end
-
 local start = GetTime();
-for questHash, questInfo in pairs(QuestieHashMap) do
-    if questInfo['startedType'] == "monster" then
-        local locationMeta, mapIds = GetMonsterLocations(questInfo['startedBy'])
-        for c, zs in pairs(mapIds) do
-            for z, b in pairs(zs) do
-                addQuestToZoneLevelMap(c, z, questHash, questInfo, locationMeta)
+for k,v in pairs(QuestieHashMap) do
+    if v['startedType'] == "monster" then
+        local qhdb = QuestieMonsters[v['startedBy']];
+        local mapid = -1;
+        if qhdb == nil then
+            local derp = QuestieAdditionalStartFinishLookup[v['startedBy']];
+            if not (derp == nil) then
+                local c = derp[1];
+                local v = derp[2];
+                -- MAKE THIS CODE FASTER
+                for k,va in pairs(QuestieZones) do
+                    if va[2] == c and va[3] == v then
+                        mapid = va[1];
+                    end
+                end
             end
+        else
+            mapid = qhdb['locations'][1][1];
         end
-    end
-    if questInfo['startedType'] == "item" and questInfo['startedBy'] ~= "unknown" then
-        local locationMeta, mapIds = GetItemLocations(questInfo['startedBy'])
-        for c, zs in pairs(mapIds) do
-            for z, b in pairs(zs) do
-                addQuestToZoneLevelMap(c, z, questHash, questInfo, locationMeta)
+        if not (mapid == -1) then
+            if QuestieZoneLevelMap[mapid] == nil then
+                QuestieZoneLevelMap[mapid] = {};
             end
-        end
-    end
-    if questInfo['startedType'] == "object" then
-        local locationMeta, mapIds = GetObjectLocations(questInfo['startedBy'])
-        for c, zs in pairs(mapIds) do
-            for z, b in pairs(zs) do
-                addQuestToZoneLevelMap(c, z, questHash, questInfo, locationMeta)
+            if QuestieZoneLevelMap[mapid][v['level']] == nil then
+                QuestieZoneLevelMap[mapid][v['level']] = {};
             end
+            table.insert(QuestieZoneLevelMap[mapid][v['level']], k);
+        else
         end
     end
 end

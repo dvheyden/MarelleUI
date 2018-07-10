@@ -44,8 +44,8 @@ local initSizes
 --------------------------------------------------------------------------------------------------------------
 Astrolabe.LastPlayerPosition = {};
 Astrolabe.MinimapIcons = {};
-Astrolabe.MinimapUpdateTime = 0.2;
-Astrolabe.UpdateTimer = 0.2;
+Astrolabe.MinimapUpdateTime = 0.1;
+Astrolabe.UpdateTimer = 0;
 Astrolabe.ForceNextUpdate = false;
 Astrolabe.minimapOutside = false;
 local twoPi = math.pi * 2;
@@ -272,8 +272,8 @@ function Astrolabe:PlaceIconOnMinimap( icon, continent, zone, xPos, yPos )
     iconData.yDist = yDist;
     --show the new icon and force a placement update on the next screen draw
     icon:Show()
+    self.UpdateTimer = 0;
     Astrolabe.ForceNextUpdate = true;
-    Astrolabe:UpdateMinimapIconPositions();
     return 0;
 end
 
@@ -324,8 +324,7 @@ local function placeIconOnMinimap( minimap, minimapZoom, mapWidth, mapHeight, ic
     icon:ClearAllPoints();
     local signx,signy =1,1;
     -- Adding square map support by LaYt
-    if (Squeenix or (simpleMinimap_Skins and simpleMinimap_Skins:GetShape() == "square")
-		or (pfUI and pfUI.minimap)) then
+    if (Squeenix or (simpleMinimap_Skins and simpleMinimap_Skins:GetShape() == "square")) then
         if (xDist<0) then signx=-1; end
         if (yDist<0) then signy=-1; end
         if (math.abs(xDist) > (mapWidth/2*xScale)) then
