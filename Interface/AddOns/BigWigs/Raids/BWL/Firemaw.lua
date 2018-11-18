@@ -100,7 +100,7 @@ local timer = {
 	latestShadowflame = 14.5,
 	shadowflameCast = 2,
 	firstFlameBuffet = 2,
-	flameBuffet = 5,
+	flameBuffet = 2,
 }
 local icon = {
 	wingbuffet = "INV_Misc_MonsterScales_14",
