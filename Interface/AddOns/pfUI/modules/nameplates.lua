@@ -3,10 +3,6 @@ pfUI:RegisterModule("nameplates", function ()
   local font_size = C.nameplates.use_unitfonts == "1" and C.global.font_unit_size or C.global.font_size
 
   pfUI.nameplates = CreateFrame("Frame", nil, UIParent)
-  pfUI.nameplates.players = pfUI_playerDB
-  pfUI.nameplates.mobs = {}
-  pfUI.nameplates.targets = {}
-  pfUI.nameplates.scanqueue = {}
 
   -- catch all nameplates
   pfUI.nameplates.scanner = CreateFrame("Frame", "pfNameplateScanner", UIParent)
@@ -19,10 +15,9 @@ pfUI:RegisterModule("nameplates", function ()
       pfUI.nameplates.scanner.parentCount = parentCount
 
       for _, nameplate in ipairs({WorldFrame:GetChildren()}) do
-        if not nameplate.done and nameplate:GetObjectType() == "Button" then
+        if not nameplate.done and nameplate:GetObjectType() == NAMEPLATE_FRAMETYPE then
           local regions = nameplate:GetRegions()
           if regions and regions:GetObjectType() == "Texture" and regions:GetTexture() == "Interface\\Tooltips\\Nameplate-Border" then
-
             local visible = nameplate:IsVisible()
             nameplate:Hide()
             nameplate:SetScript("OnShow", pfUI.nameplates.OnShow)
@@ -31,41 +26,6 @@ pfUI:RegisterModule("nameplates", function ()
             if visible then nameplate:Show() end
             nameplate.done = true
           end
-        end
-      end
-    end
-
-    -- [[ scan missing names ]]
-    for index, name in pairs(pfUI.nameplates.scanqueue) do
-      -- remove entry if already scanned
-      if pfUI.nameplates.targets[name] == "OK" then
-        table.remove(pfUI.nameplates.scanqueue, index)
-      else
-        if UnitName("mouseover") == name then
-          if UnitIsPlayer("mouseover") then
-            local _, class = UnitClass("mouseover")
-            pfUI.nameplates.players[name] = {}
-            pfUI.nameplates.players[name]["class"] = class
-          elseif UnitClassification("mouseover") then
-            local elite = UnitClassification("mouseover")
-            pfUI.nameplates.mobs[name] = elite
-          end
-          pfUI.nameplates.targets[name] = "OK"
-
-        elseif not UnitName("target") then
-          TargetByName(name, true)
-
-          if UnitIsPlayer("target") then
-            local _, class = UnitClass("target")
-            pfUI.nameplates.players[name] = {}
-            pfUI.nameplates.players[name]["class"] = class
-          elseif UnitClassification("target") then
-            local elite = UnitClassification("target")
-            pfUI.nameplates.mobs[name] = elite
-          end
-          pfUI.nameplates.targets[name] = "OK"
-
-          ClearTarget()
         end
       end
     end
@@ -83,7 +43,15 @@ pfUI:RegisterModule("nameplates", function ()
       this.nameplate.parent = this
       this.healthbar = this:GetChildren()
       this.healthbar:SetScript("OnEnter", function() return nil end)
-      this.border, this.glow, this.name, this.level, this.levelicon , this.raidicon = this:GetRegions()
+      for i, frame in pairs({this:GetRegions()}) do
+        if NAMEPLATE_OBJECTORDER[i] == "_" then
+          frame.Show = function() return end
+          frame:Hide()
+        else
+          this[NAMEPLATE_OBJECTORDER[i]] = frame
+        end
+      end
+
       this.healthbar:SetParent(this.nameplate)
       this.border:SetParent(this.nameplate)
       this.glow:SetParent(this.nameplate)
@@ -120,7 +88,7 @@ pfUI:RegisterModule("nameplates", function ()
 
     -- add click handlers
     if C.nameplates["clickthrough"] == "0" then
-      if C.nameplates["legacy"] == "0" then
+      if C.nameplates["legacy"] == "0" and pfUI.client < 20000 then
         this.nameplate:SetScript("OnClick", function() this.parent:Click() end)
       else
         this.nameplate:EnableMouse(false)
@@ -343,14 +311,12 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     if C.nameplates.players == "1" then
-      if pfUI.nameplates.targets[this.name:GetText()] == "OK" then
-        if not pfUI.nameplates.players[this.name:GetText()] then this:Hide() end
-      end
+      local _, _, _, uplayer = GetUnitData(this.name:GetText(), true)
+      if uplayer then this:Hide() end
     end
 
-    this.needNameUpdate = true
     this.needClassColorUpdate = true
-    this.needLevelColorUpdate = true
+    this.needBasicColorUpdate = true
     this.needEliteUpdate = true
 
     this.setup = true
@@ -363,24 +329,21 @@ pfUI:RegisterModule("nameplates", function ()
     local healthbar = this.healthbar
     local border, glow, name, level, levelicon , raidicon, combopoints = this.border, this.glow, this.name, this.level, this.levelicon , this.raidicon, this.combopoints
     local unitname = name:GetText()
+    local uclass, ulevel, uelite, uplayer = GetUnitData(unitname, true)
 
-    -- add scan entry if not existing
-    if this.needNameUpdate and unitname ~= UNKNOWN then
-      if not pfUI.nameplates.targets[unitname] then
-        table.insert(pfUI.nameplates.scanqueue, unitname)
-      end
-      this.needNameUpdate = nil
+    if unitname == UNKNOWN then
+      this.needClassColorUpdate = true
+      this.needBasicColorUpdate = true
+      this.needEliteUpdate = true
     end
 
     -- hide non-player frames
-    if C.nameplates.players == "1" and not this.needNameUpdate then
-      if pfUI.nameplates.targets[unitname] == "OK" then
-        if not pfUI.nameplates.players[unitname] then this:Hide() end
-      end
+    if C.nameplates.players == "1" then
+      if uplayer then this:Hide() end
     end
 
     -- hide critters
-    if C.nameplates.critters == "1" and not this.needNameUpdate then
+    if C.nameplates.critters == "1" then
       local red, green, blue, _ = healthbar:GetStatusBarColor()
       local name_val = unitname
       for i, critter_val in pairs(L["critters"]) do
@@ -391,7 +354,7 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- hide totems
-    if C.nameplates.totems == "1" and not this.needNameUpdate then
+    if C.nameplates.totems == "1" then
       for totem in pairs(L["totems"]) do
         if string.find(unitname, totem) then
           this:Hide()
@@ -406,13 +369,13 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- level elite indicator
-    if this.needEliteUpdate and pfUI.nameplates.mobs[unitname] then
+    if this.needEliteUpdate and uelite then
       if level:GetText() ~= nil then
-        if pfUI.nameplates.mobs[unitname] == "elite" then
+        if uelite == "elite" then
           level:SetText(level:GetText() .. "+")
-        elseif pfUI.nameplates.mobs[unitname] == "rareelite" then
+        elseif uelite == "rareelite" then
           level:SetText(level:GetText() .. "R+")
-        elseif pfUI.nameplates.mobs[unitname] == "rare" then
+        elseif uelite == "rare" then
           level:SetText(level:GetText() .. "R")
         end
       end
@@ -420,71 +383,53 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- level colors
-    if this.needLevelColorUpdate then
+    if this.needBasicColorUpdate then
       local red, green, blue, _ = level:GetTextColor()
       if red > 0.99 and green == 0 and blue == 0 then
         level:SetTextColor(1,0.4,0.2,0.85)
       elseif red > 0.99 and green > 0.81 and green < 0.82 and blue == 0 then
         level:SetTextColor(1,1,1,0.85)
       end
-      this.needLevelColorUpdate = nil
-    end
 
-    -- healtbar: update colors
-    local red, green, blue, _ = healthbar:GetStatusBarColor()
-    if red ~= healthbar.wantR or green ~= healthbar.wantG or blue ~= healthbar.wantB then
-      -- set reaction color
+      -- healthbar: update colors
+      local red, green, blue, _ = healthbar:GetStatusBarColor()
       -- reaction: 0 enemy ; 1 neutral ; 2 player ; 3 npc
       if red > 0.9 and green < 0.2 and blue < 0.2 then
         healthbar.reaction = 0
-        healthbar:SetStatusBarColor(.9,.2,.3,0.8)
+        healthbar.r, healthbar.g, healthbar.b, healthbar.a = .9, .2, .3, .8
       elseif red > 0.9 and green > 0.9 and blue < 0.2 then
         healthbar.reaction = 1
-        healthbar:SetStatusBarColor(1,1,.3,0.8)
+        healthbar.r, healthbar.g, healthbar.b, healthbar.a = 1, 1, .3, .8
       elseif ( blue > 0.9 and red == 0 and green == 0 ) then
         healthbar.reaction = 2
-        healthbar:SetStatusBarColor(0.2,0.6,1,0.8)
+        healthbar.r, healthbar.g, healthbar.b, healthbar.a = .2, .6, 1, .8
       elseif red == 0 and green > 0.99 and blue == 0 then
         healthbar.reaction = 3
-        healthbar:SetStatusBarColor(0.6,1,0,0.8)
+        healthbar.r, healthbar.g, healthbar.b, healthbar.a = .6, 1, 0, .8
       end
 
-      healthbar.wantR, healthbar.wantG, healthbar.wantB  = healthbar:GetStatusBarColor()
-      this.needClassColorUpdate = true
+      this.needBasicColorUpdate = nil
     end
 
     -- add class colors
-    if this.needClassColorUpdate and pfUI.nameplates.targets[unitname] == "OK" then
-      -- show class names?
+    if this.needClassColorUpdate and uplayer and uclass then
       if healthbar.reaction == 0 then
-        if C.nameplates["enemyclassc"] == "1"
-        and pfUI.nameplates.players[unitname]
-        and pfUI.nameplates.players[unitname]["class"]
-        and RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]]
-        then
-          healthbar:SetStatusBarColor(
-            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].r,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].g,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].b,
-            0.9)
+        if C.nameplates["enemyclassc"] == "1" and RAID_CLASS_COLORS[uclass] then
+          local color = RAID_CLASS_COLORS[uclass]
+          healthbar.r, healthbar.g, healthbar.b, healthbar.a = color.r, color.g, color.b, .9
         end
       elseif healthbar.reaction == 2 then
-        if C.nameplates["friendclassc"] == "1"
-        and pfUI.nameplates.players[unitname]
-        and pfUI.nameplates.players[unitname]["class"]
-        and RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]]
-        then
-          healthbar:SetStatusBarColor(
-            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].r,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].g,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].b,
-            0.9)
+        if C.nameplates["friendclassc"] == "1" and RAID_CLASS_COLORS[uclass] then
+          local color = RAID_CLASS_COLORS[uclass]
+          healthbar.r, healthbar.g, healthbar.b, healthbar.a = color.r, color.g, color.b, .9
         end
       end
 
-      healthbar.wantR, healthbar.wantG, healthbar.wantB  = healthbar:GetStatusBarColor()
       this.needClassColorUpdate = nil
     end
+
+    -- color changes are done within the C-API, we need to overwrite on each paint
+    healthbar:SetStatusBarColor(healthbar.r, healthbar.g, healthbar.b, healthbar.a)
 
     -- name color
     local red, green, blue, _ = name:GetTextColor()
@@ -589,16 +534,17 @@ pfUI:RegisterModule("nameplates", function ()
 
     -- show castbar
     if healthbar.castbar and pfUI.castbar and C.nameplates["showcastbar"] == "1" then
-      local spellname, start, casttime, icon = libcast:GetCastInfo(unitname)
-      casttime = casttime / 1000
-      if not spellname then
+      local cast, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitCastingInfo(unitname)
+
+      if not cast then
         healthbar.castbar:Hide()
       else
-        healthbar.castbar:SetMinMaxValues(0,  casttime)
-        healthbar.castbar:SetValue(GetTime() -  start)
-        healthbar.castbar.text:SetText(round(start +  casttime - GetTime(),1))
+        local duration = endTime - startTime
+        healthbar.castbar:SetMinMaxValues(0,  duration/1000)
+        healthbar.castbar:SetValue(GetTime() - startTime/1000)
+        healthbar.castbar.text:SetText(round(startTime/1000 + duration/1000 - GetTime(),1))
         if C.nameplates.spellname == "1" and healthbar.castbar.spell then
-          healthbar.castbar.spell:SetText(spellname)
+          healthbar.castbar.spell:SetText(cast)
         else
           healthbar.castbar.spell:SetText("")
         end
@@ -608,7 +554,7 @@ pfUI:RegisterModule("nameplates", function ()
         end
 
         if icon then
-          healthbar.castbar.icon:SetTexture("Interface\\Icons\\" ..  icon)
+          healthbar.castbar.icon:SetTexture("Interface\\Icons\\" ..  texture)
           healthbar.castbar.icon:SetTexCoord(.1,.9,.1,.9)
         end
       end
@@ -634,7 +580,7 @@ pfUI:RegisterModule("nameplates", function ()
           this.debuffs[j].icon:SetTexCoord(.078, .92, .079, .937)
 
           if icon then
-            this.debuffs[j].cd = this.debuffs[j].cd or CreateFrame("Model", nil, this.debuffs[j], "CooldownFrameTemplate")
+            this.debuffs[j].cd = this.debuffs[j].cd or CreateFrame(COOLDOWN_FRAME_TYPE, nil, this.debuffs[j], "CooldownFrameTemplate")
             this.debuffs[j].cd.pfCooldownType = "ALL"
 
             local name, rank, texture, stacks, dtype, duration, timeleft = libdebuff:UnitDebuff("target", j)

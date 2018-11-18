@@ -14,12 +14,9 @@ pfUI:RegisterModule("castbar", function ()
 
     cb:SetHeight(C.global.font_size * 1.5)
     cb:SetFrameStrata("MEDIUM")
-    cb:Hide()
 
     cb.unitstr = unitstr
     cb.unitname = unitname
-
-    cb.delay = 0
 
     -- statusbar
     cb.bar = CreateFrame("StatusBar", nil, cb)
@@ -57,38 +54,58 @@ pfUI:RegisterModule("castbar", function ()
 
     cb:SetScript("OnUpdate", function()
       if this.drag and this.drag:IsShown() then
+        this:SetAlpha(1)
         return
       end
 
       if not UnitExists(this.unitstr) then
-        this:Hide()
-        this.fadeout = nil
+        this:SetAlpha(0)
       end
 
-      local name = this.unitstr and UnitName(this.unitstr) or this.unitname
-
       if this.fadeout and this:GetAlpha() > 0 then
-        if this:GetAlpha() == 0 or this.playername ~= name then
-          this:Hide()
+        if this:GetAlpha() == 0 then
           this.fadeout = nil
         end
 
         this:SetAlpha(this:GetAlpha()-0.05)
-        return
       end
 
-      local spellname, start, duration, icon, delay, channel = libcast:GetCastInfo(name)
-      if spellname then
+      local name = this.unitstr and UnitName(this.unitstr) or this.unitname
+      if not name then return end
+
+      local cast, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitCastingInfo(name)
+      if not cast then
+        -- scan for channel spells if no cast was found
+        cast, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitChannelInfo(name)
+      end
+
+      if cast then
+        local duration = endTime - startTime
         local max = duration / 1000
-        local cur = channel and duration / 1000 - delay + start - GetTime() or
-                    GetTime() - start - delay
+        local cur = GetTime() - startTime / 1000
+        local channel = UnitChannelInfo(name)
+
+        this:SetAlpha(1)
+
+        if this.endTime ~= endTime then
+          this.bar:SetStatusBarColor(strsplit(",", C.appearance.castbar[(channel and "channelcolor" or "castbarcolor")]))
+          this.bar:SetMinMaxValues(0, duration / 1000)
+          this.bar.left:SetText(cast)
+          this.fadeout = nil
+          this.endTime = endTime
+        end
+
+        if channel then
+          cur = max + startTime/1000 - GetTime()
+        end
+
         cur = cur > max and max or cur
         cur = cur < 0 and 0 or cur
 
         this.bar:SetValue(cur)
 
-        if delay > 0 then
-          delay = "|cffffaaaa" .. (channel and "-" or "+") .. round(delay,1) .. " |r "
+        if this.delay and this.delay > 0 then
+          local delay = "|cffffaaaa" .. (channel and "-" or "+") .. round(this.delay,1) .. " |r "
           this.bar.right:SetText(delay .. string.format("%.1f",cur) .. " / " .. round(max,1))
         else
           this.bar.right:SetText(string.format("%.1f",cur) .. " / " .. round(max,1))
@@ -99,30 +116,24 @@ pfUI:RegisterModule("castbar", function ()
         this.bar:SetMinMaxValues(1,100)
         this.bar:SetValue(100)
         this.fadeout = 1
+        this.delay = 0
       end
     end)
 
-    function cb.OnEvent(self)
-      local name = self.unitstr and UnitName(self.unitstr) or self.unitname
+    -- register for spell delay
+    cb:RegisterEvent(CASTBAR_EVENT_CAST_DELAY)
+    cb:RegisterEvent(CASTBAR_EVENT_CHANNEL_DELAY)
+    cb:SetScript("OnEvent", function()
+      if not UnitIsUnit(this.unitstr, "player") then return end
 
-      local spellname, start, casttime, icon, delay, channel = libcast:GetCastInfo(name)
-      if spellname then
-        self.bar:SetStatusBarColor(strsplit(",", C.appearance.castbar[(channel and "channelcolor" or "castbarcolor")]))
-        self.bar:SetMinMaxValues(0, casttime / 1000)
-        self.bar.left:SetText(spellname)
-
-        self:SetAlpha(1)
-        self:Show()
-        self.fadeout = nil
-        self.playername = name
-      else
-        self.bar:SetMinMaxValues(1,100)
-        self.bar:SetValue(100)
-        self.fadeout = 1
+      if event == CASTBAR_EVENT_CAST_DELAY then
+        this.delay = ( this.delay or 0 ) + arg1/1000
+      elseif event == CASTBAR_EVENT_CHANNEL_DELAY then
+        this.delay = ( this.delay or 0 ) + this.bar:GetValue() - arg1/1000
       end
-    end
+    end)
 
-    libcast:RegisterEventFunc(cb.OnEvent, cb)
+    cb:SetAlpha(0)
     return cb
   end
 

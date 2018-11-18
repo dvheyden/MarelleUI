@@ -31,13 +31,13 @@ pfUI:RegisterModule("buffwatch", function ()
     local counter = 1
     local l = string.len(text)
     for i = 1, l, 3 do
-      counter = math.mod(counter*8161, 4294967279) + (string.byte(text,i)*16776193) + ((string.byte(text,i+1) or (l-i+256))*8372226) + ((string.byte(text,i+2) or (l-i+256))*3932164)
+      counter = mod(counter*8161, 4294967279) + (string.byte(text,i)*16776193) + ((string.byte(text,i+1) or (l-i+256))*8372226) + ((string.byte(text,i+2) or (l-i+256))*3932164)
     end
-    counter = math.mod(8161, 4294967279) + (string.byte(text,l)*16776193) + ((string.byte(text,l+1) or (l-l+256))*8372226) + ((string.byte(text,l+2) or (l+256))*3932164)
+    counter = mod(8161, 4294967279) + (string.byte(text,l)*16776193) + ((string.byte(text,l+1) or (l-l+256))*8372226) + ((string.byte(text,l+2) or (l+256))*3932164)
 
-    local hash = math.mod(math.mod(counter, 4294967291),16777216)
-    local r = (hash - (math.mod(hash,65536))) / 65536
-    local g = ((hash - r*65536) - ( math.mod((hash - r*65536),256)) ) / 256
+    local hash = mod(mod(counter, 4294967291),16777216)
+    local r = (hash - (mod(hash,65536))) / 65536
+    local g = ((hash - r*65536) - ( mod((hash - r*65536),256)) ) / 256
     local b = hash - r*65536 - g*256
     rgbcache[text] = { r / 255, g / 255, b / 255 }
     return unpack(rgbcache[text])
@@ -58,7 +58,8 @@ pfUI:RegisterModule("buffwatch", function ()
 
   local function GetBuffData(unit, id, type, skipTooltip)
     if unit == "player" then
-      local bid = GetPlayerBuff(id-1, type)
+      local bid = GetPlayerBuff(PLAYER_BUFF_START_ID+id, type)
+      local stacks = GetPlayerBuffApplications(bid)
       local remaining = GetPlayerBuffTimeLeft(bid)
       local texture = GetPlayerBuffTexture(bid)
       local name
@@ -68,10 +69,10 @@ pfUI:RegisterModule("buffwatch", function ()
         name = scanner:Line(1)
       end
 
-      return remaining, texture, name
+      return remaining, texture, name, stacks
     elseif libdebuff then
       local name, rank, texture, stacks, dtype, duration, timeleft = libdebuff:UnitDebuff(unit, id)
-      return timeleft, texture, name
+      return timeleft, texture, name, stacks
     end
   end
 
@@ -93,7 +94,7 @@ pfUI:RegisterModule("buffwatch", function ()
         DEFAULT_CHAT_FRAME:AddMessage("|cff33ffcc" .. skill .. "|r" .. T["is now blacklisted."])
       end
     elseif this.parent.unit == "player" then
-      CancelPlayerBuff(GetPlayerBuff(this.id-1,this.type))
+      CancelPlayerBuff(GetPlayerBuff(PLAYER_BUFF_START_ID+this.id,this.type))
     end
   end
 
@@ -101,7 +102,7 @@ pfUI:RegisterModule("buffwatch", function ()
     GameTooltip:SetOwner(this, "NONE")
 
     if this.unit == "player" then
-      GameTooltip:SetPlayerBuff(GetPlayerBuff(this.id-1,this.type))
+      GameTooltip:SetPlayerBuff(GetPlayerBuff(PLAYER_BUFF_START_ID+this.id,this.type))
     elseif this.type == "HARMFUL" then
       GameTooltip:SetUnitDebuff(this.unit, this.id)
     elseif this.type == "HELPFUL" then
@@ -182,6 +183,12 @@ pfUI:RegisterModule("buffwatch", function ()
     frame.icon:SetPoint("LEFT", frame, "LEFT", 0, 0)
     frame.icon:SetTexCoord(.07,.93,.07,.93)
 
+    frame.stacks = frame.bar:CreateFontString("Status", "DIALOG", "GameFontWhite")
+    frame.stacks:SetFont(font, C.global.font_size, "OUTLINE")
+    frame.stacks:SetAllPoints(frame.icon)
+    frame.stacks:SetJustifyH("CENTER")
+    frame.stacks:SetJustifyV("CENTER")
+
     frame.parent = parent
     frame:SetScript("OnUpdate", StatusBarOnUpdate)
     frame:SetScript("OnShow", StatusBarRefreshParent)
@@ -203,18 +210,20 @@ pfUI:RegisterModule("buffwatch", function ()
   local function RefreshBuffBarFrame(frame)
     -- reinitialize all active buffs
     for i=1,32 do
-      local timeleft, texture, name = GetBuffData(frame.unit, i, frame.type)
+      local timeleft, texture, name, stacks = GetBuffData(frame.unit, i, frame.type)
 
       if texture and name and name ~= "" and BuffIsVisible(frame.config, name) and timeleft and timeleft ~= 0 then
         frame.buffs[i][1] = timeleft
         frame.buffs[i][2] = i
         frame.buffs[i][3] = name
         frame.buffs[i][4] = texture
+        frame.buffs[i][5] = stacks
       else
         frame.buffs[i][1] = 0
         frame.buffs[i][2] = nil
         frame.buffs[i][3] = nil
         frame.buffs[i][4] = nil
+        frame.buffs[i][5] = 0
       end
     end
 
@@ -247,6 +256,7 @@ pfUI:RegisterModule("buffwatch", function ()
           frame.bars[bar].cacheName = data[3]
           frame.bars[bar].text:SetText(data[3])
 
+          -- calculate dynamic auto color
           local r, g, b
           if frame.type == "HARMFUL" then
             r, g, b = 1, .2, .2
@@ -256,15 +266,19 @@ pfUI:RegisterModule("buffwatch", function ()
             end
           else
             r,g,b = str2rgb(data[3])
-            frame.bars[bar].bar:SetStatusBarColor(r,g,b,1)
           end
 
+          -- set auto background color
           if frame.config.dtypebg == "1" then
             frame.bars[bar].bar:SetStatusBarColor(r,g,b,1)
           end
+
+          -- set auto border color
           if frame.config.dtypeborder == "1" then
             frame.bars[bar].backdrop:SetBackdropBorderColor(r,g,b,1)
           end
+
+          -- set auto text color
           if frame.config.dtypetext == "1" then
             frame.bars[bar].text:SetTextColor(r,g,b,1)
           end
@@ -280,6 +294,12 @@ pfUI:RegisterModule("buffwatch", function ()
         if frame.bars[bar].cacheMaxDuration ~= frame.durations[data[4]][2] then
           frame.bars[bar].cacheMaxDuration = frame.durations[data[4]][2]
           frame.bars[bar].bar:SetMinMaxValues(0, frame.durations[data[4]][2])
+        end
+
+        if data[5] > 1 then
+          frame.bars[bar].stacks:SetText(data[5])
+        else
+          frame.bars[bar].stacks:SetText("")
         end
 
         frame.bars[bar]:Show()

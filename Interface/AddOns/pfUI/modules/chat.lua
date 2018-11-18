@@ -1,15 +1,4 @@
 pfUI:RegisterModule("chat", function ()
-  if pfUI.firstrun then
-    local txt = T["|cff33ffccChat: \"Loot & Spam\"|r\n\nDo you want me to create and manage a specific Chatframe called \"Loot & Spam\"?\nThis chat will display world channels, loot information and miscellaneous messages,\nthat would otherwise clutter your main chatframe."]
-    pfUI.firstrun:AddStep("chat_right", function() pfUI.chat.SetupRightChat(true) end, function() pfUI.chat.SetupRightChat(false) end, txt)
-
-    local txt = T["|cff33ffccChat: \"Layout\"|r\n\nDo you want me to adjust the layout of your chatframes?\nThis would make sure, that every window is placed on its dedicated position."]
-    pfUI.firstrun:AddStep("chat_position", function() pfUI.chat.SetupPositions() end, nil, txt)
-
-    local txt = T["|cff33ffccChat: \"Channels\"|r\n\nDo you want me to setup the chat channels of your chatframes?\nThis would set important or personal messages to the left chat\nand world channels and lootinformation to the right chat."]
-    pfUI.firstrun:AddStep("chat_channels", function() pfUI.chat.SetupChannels() end, nil, txt)
-  end
-
   local panelfont = C.panel.use_unitfonts == "1" and pfUI.font_unit or pfUI.font_default
   local panelfont_size = C.panel.use_unitfonts == "1" and C.global.font_unit_size or C.global.font_size
 
@@ -348,13 +337,6 @@ pfUI:RegisterModule("chat", function ()
 
   pfUI.chat:RegisterEvent("PLAYER_ENTERING_WORLD")
   pfUI.chat:RegisterEvent("UI_SCALE_CHANGED")
-  pfUI.chat:RegisterEvent("FRIENDLIST_UPDATE")
-  pfUI.chat:RegisterEvent("GUILD_ROSTER_UPDATE")
-  pfUI.chat:RegisterEvent("RAID_ROSTER_UPDATE")
-  pfUI.chat:RegisterEvent("PARTY_MEMBERS_CHANGED")
-  pfUI.chat:RegisterEvent("PLAYER_TARGET_CHANGED")
-  pfUI.chat:RegisterEvent("WHO_LIST_UPDATE")
-  pfUI.chat:RegisterEvent("CHAT_MSG_SYSTEM")
 
   local function ChatOnMouseWheel()
     if (arg1 > 0) then
@@ -423,11 +405,12 @@ pfUI:RegisterModule("chat", function ()
 
       if i == 3 and C.chat.right.enable == "1" then
         -- Loot & Spam
+        local bottompadding = pfUI.panel and not pfUI_config.position["pfPanelRight"] and panelheight or default_border
         tab:SetParent(pfUI.chat.right.panelTop)
         frame:SetParent(pfUI.chat.right)
         frame:ClearAllPoints()
         frame:SetPoint("TOPLEFT", pfUI.chat.right ,"TOPLEFT", default_border, -panelheight)
-        frame:SetPoint("BOTTOMRIGHT", pfUI.chat.right ,"BOTTOMRIGHT", -default_border, panelheight)
+        frame:SetPoint("BOTTOMRIGHT", pfUI.chat.right ,"BOTTOMRIGHT", -default_border, bottompadding)
         frame:Show()
       elseif i == 2 and C.chat.global.combathide == "1" then
         -- Combat Log
@@ -435,12 +418,13 @@ pfUI:RegisterModule("chat", function ()
         FCF_Close(frame)
       elseif frame.isDocked then
         -- Left Chat
+        local bottompadding = pfUI.panel and not pfUI_config.position["pfPanelLeft"] and panelheight or default_border
         FCF_DockFrame(frame)
         tab:SetParent(pfUI.chat.left.panelTop)
         frame:SetParent(pfUI.chat.left)
         frame:ClearAllPoints()
         frame:SetPoint("TOPLEFT", pfUI.chat.left ,"TOPLEFT", default_border, -panelheight)
-        frame:SetPoint("BOTTOMRIGHT", pfUI.chat.left ,"BOTTOMRIGHT", -default_border, panelheight)
+        frame:SetPoint("BOTTOMRIGHT", pfUI.chat.left ,"BOTTOMRIGHT", -default_border, bottompadding)
       else
         FCF_UnDockFrame(frame)
         frame:SetParent(UIParent)
@@ -597,76 +581,12 @@ pfUI:RegisterModule("chat", function ()
   end
 
   pfUI.chat:SetScript("OnEvent", function()
-      if event == "PLAYER_ENTERING_WORLD" or event == "UI_SCALE_CHANGED" then
-        pfUI.chat:RefreshChat()
-        FCF_DockUpdate()
-        if C.chat.right.enable == "0" and C.chat.right.alwaysshow == "0" then
-          pfUI.chat.right:Hide()
-        end
-      elseif event == "FRIENDLIST_UPDATE" or event == "PLAYER_ENTERING_WORLD" then
-        local Name, Class, Level
-        for i = 1, GetNumFriends() do
-          Name, Level, Class = GetFriendInfo(i)
-          Class = L["class"][Class] or nil
-          if Name and Level and Class and pfUI_playerDB then
-            pfUI_playerDB[Name] = { class = Class, level = Level }
-          end
-        end
-      elseif event == "GUILD_ROSTER_UPDATE" or event == "PLAYER_ENTERING_WORLD" then
-        local Name, Class, Level
-        for i = 1, GetNumGuildMembers() do
-          Name, _, _, Level, Class = GetGuildRosterInfo(i)
-          Class = L["class"][Class] or nil
-          if Name and Level and Class and pfUI_playerDB then
-            pfUI_playerDB[Name] = { class = Class, level = Level }
-          end
-        end
-
-      elseif event == "RAID_ROSTER_UPDATE" or event == "PLAYER_ENTERING_WORLD" then
-        local Name, Class, SubGroup, Level
-        for i = 1, GetNumRaidMembers() do
-          Name, _, SubGroup, Level, Class = GetRaidRosterInfo(i)
-          Class = L["class"][Class] or nil
-          if Name and Level and Class and pfUI_playerDB then
-            pfUI_playerDB[Name] = { class = Class, level = Level }
-          end
-        end
-
-      elseif event == "PARTY_MEMBERS_CHANGED" or event == "PLAYER_ENTERING_WORLD" then
-        local Name, Class, Level, Unit
-        for i = 1, GetNumPartyMembers() do
-          Unit = "party" .. i
-          _, Class = UnitClass(Unit)
-          Name = UnitName(Unit)
-          Level = UnitLevel(Unit)
-          if Name and Level and Class and pfUI_playerDB then
-            pfUI_playerDB[Name] = { class = Class, level = Level }
-          end
-        end
-
-      elseif event == "PLAYER_TARGET_CHANGED" then
-        local Name, Class, Level
-        if not UnitIsPlayer("target") or not UnitIsFriend("player", "target") then
-          return
-        end
-        _, Class = UnitClass("target")
-        Level = UnitLevel("target")
-        Name = UnitName("target")
-        if Name and Level and Class and pfUI_playerDB then
-          pfUI_playerDB[Name] = { class = Class, level = Level }
-        end
-
-      elseif event == "WHO_LIST_UPDATE" or event == "CHAT_MSG_SYSTEM" then
-        local Name, Class, Level
-        for i = 1, GetNumWhoResults() do
-          Name, _, Level, _, Class, _ = GetWhoInfo(i)
-          Class = L["class"][Class] or nil
-          if Name and Level and Class and pfUI_playerDB then
-            pfUI_playerDB[Name] = { class = Class, level = Level }
-          end
-        end
-      end
-    end)
+    pfUI.chat:RefreshChat()
+    FCF_DockUpdate()
+    if C.chat.right.enable == "0" and C.chat.right.alwaysshow == "0" then
+      pfUI.chat.right:Hide()
+    end
+  end)
 
   for i=1, NUM_CHAT_WINDOWS do
     _G["ChatFrame" .. i .. "UpButton"]:Hide()
@@ -861,9 +781,8 @@ pfUI:RegisterModule("chat", function ()
             for name in gfind(text, "|Hplayer:(.-)|h") do
               local color = unknowncolorhex
               local match = false
-              -- search player in database
-              if pfUI_playerDB[name] and pfUI_playerDB[name].class ~= nil then
-                local class = pfUI_playerDB[name].class
+              local class = GetUnitData(name)
+              if class then
                 if class ~= UNKNOWN then
                   color = string.format("%02x%02x%02x",
                     RAID_CLASS_COLORS[class].r * 255,

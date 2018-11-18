@@ -32,9 +32,12 @@ env\translations_ruRU.lua
 env\tables.lua
 env\profiles.lua
 
+# compat
+compat\vanilla.lua
+compat\tbc.lua
+
 # api
 api\api.lua
-api\tbc.lua
 api\config.lua
 api\ui-widgets.lua
 api\unitframes.lua
@@ -45,6 +48,7 @@ libs\libspell.lua
 libs\libcast.lua
 libs\libdebuff.lua
 libs\librange.lua
+libs\libunitscan.lua
 
 # skins
 skins\blizzard\character.lua
@@ -54,7 +58,6 @@ skins\blizzard\talents.lua
 skins\blizzard\inspect.lua
 
 # modules
-modules\firstrun.lua
 modules\gui.lua
 modules\unlock.lua
 modules\hoverbind.lua
@@ -110,3 +113,4 @@ modules\pettarget.lua
 modules\mapreveal.lua
 modules\unusable.lua
 modules\socialmod.lua
+modules\firstrun.lua
