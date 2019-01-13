@@ -143,27 +143,17 @@ end
 -- 'pattern'    [string]         unformatted pattern
 -- returns:     [string]         simplified gfind compatible pattern
 local sanitize_cache = {}
-function pfUI.api.SanitizePattern(pattern, dbg)
+function pfUI.api.SanitizePattern(pattern)
   if not sanitize_cache[pattern] then
     local ret = pattern
     -- escape brackets
     ret = gsub(ret, "%((.+)%)", "%%(%1%%)")
     -- remove capture indexes
     ret = gsub(ret, "%d%$","")
-
     -- catch all characters
-    ret = gsub(ret, "(%%%a)","%(%1+%)")
-
-    -- convert all %s to .+
-    ret = gsub(ret, "%%s%+",".+")
-
-    -- set priority to numbers over strings
-    ret = gsub(ret, "%(.%+%)%(%%d%+%)","%(.-%)%(%%d%+%)")
-
-    -- cache it
+    ret = gsub(ret, "%%%a","(.+)")
     sanitize_cache[pattern] = ret
   end
-
   return sanitize_cache[pattern]
 end
 
@@ -175,17 +165,19 @@ end
 function pfUI.api.cmatch(str, pat)
   -- read capture indexes
   local a,b,c,d,e = GetCaptures(pat)
-  local _, _, va, vb, vc, vd, ve = string.find(str, pfUI.api.SanitizePattern(pat))
 
-  -- put entries into the proper return values
-  local ra, rb, rc, rd, re
-  ra = e == "1" and ve or d == "1" and vd or c == "1" and vc or b == "1" and vb or va
-  rb = e == "2" and ve or d == "2" and vd or c == "2" and vc or a == "2" and va or vb
-  rc = e == "3" and ve or d == "3" and vd or a == "3" and va or b == "3" and vb or vc
-  rd = e == "4" and ve or a == "4" and va or c == "4" and vc or b == "4" and vb or vd
-  re = a == "5" and va or d == "5" and vd or c == "5" and vc or b == "5" and vb or ve
+  for va, vb, vc, vd, ve in string.gfind(str, pfUI.api.SanitizePattern(pat)) do
+    -- initialize return values
+    local ra, rb, rc, rd, re
 
-  return ra, rb, rc, rd, re
+    -- put entries into the proper return values
+    ra = e == "1" and ve or d == "1" and vd or c == "1" and vc or b == "1" and vb or va
+    rb = e == "2" and ve or d == "2" and vd or c == "2" and vc or a == "2" and va or vb
+    rc = e == "3" and ve or d == "3" and vd or a == "3" and va or b == "3" and vb or vc
+    rd = e == "4" and ve or a == "4" and va or c == "4" and vc or b == "4" and vb or vd
+    re = a == "5" and va or d == "5" and vd or c == "5" and vc or b == "5" and vb or ve
+    return ra, rb, rc, rd, re
+  end
 end
 
 -- [ GetItemLinkByName ]
@@ -686,7 +678,7 @@ function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
   -- use legacy backdrop handling
   if legacy then
     local backdrop = pfUI.backdrop
-    if backdropSetting then f:SetBackdrop(backdropSetting) end
+    if backdropSetting then backdrop = backdropSetting end
     f:SetBackdrop(backdrop)
     f:SetBackdropColor(br, bg, bb, ba)
     f:SetBackdropBorderColor(er, eg, eb , ea)
@@ -698,19 +690,20 @@ function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
 
     -- use new backdrop behaviour
     if not f.backdrop then
-      if f:GetBackdrop() then f:SetBackdrop(nil) end
+      f:SetBackdrop(nil)
 
+      local backdrop = pfUI.backdrop
       local b = CreateFrame("Frame", nil, f)
       if tonumber(border) > 1 then
         local border = tonumber(border) - 1
+        backdrop.insets = {left = -1, right = -1, top = -1, bottom = -1}
         b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
         b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
-        b:SetBackdrop(pfUI.backdrop)
       else
         local border = tonumber(border)
+        backdrop.insets = {left = 0, right = 0, top = 0, bottom = 0}
         b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
         b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
-        b:SetBackdrop(pfUI.backdrop_thin)
       end
 
       local level = f:GetFrameLevel()
@@ -721,6 +714,7 @@ function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
       end
 
       f.backdrop = b
+      b:SetBackdrop(backdrop)
     end
 
     local b = f.backdrop
@@ -730,16 +724,22 @@ function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
 
   -- add shadow
   if not f.backdrop_shadow and pfUI_config.appearance.border.shadow == "1" then
+    local size = 8
+    local inset = size-1
     local anchor = f.backdrop or f
+    local intensity = tonumber(pfUI_config.appearance.border.shadow_intensity)
 
     f.backdrop_shadow = CreateFrame("Frame", nil, anchor)
     f.backdrop_shadow:SetFrameStrata("BACKGROUND")
     f.backdrop_shadow:SetFrameLevel(1)
 
-    f.backdrop_shadow:SetPoint("TOPLEFT", anchor, "TOPLEFT", -7, 7)
-    f.backdrop_shadow:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", 7, -7)
-    f.backdrop_shadow:SetBackdrop(pfUI.backdrop_shadow)
-    f.backdrop_shadow:SetBackdropBorderColor(0,0,0,tonumber(pfUI_config.appearance.border.shadow_intensity))
+    f.backdrop_shadow:SetPoint("TOPLEFT", anchor, "TOPLEFT", -inset, inset)
+    f.backdrop_shadow:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", inset, -inset)
+    f.backdrop_shadow:SetBackdrop({
+      edgeFile = "Interface\\AddOns\\pfUI\\img\\glow2", edgeSize = size,
+      insets = {left = 0, right = 0, top = 0, bottom = 0},
+    })
+    f.backdrop_shadow:SetBackdropBorderColor(0,0,0,intensity)
   end
 end
 

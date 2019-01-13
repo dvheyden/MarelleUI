@@ -236,8 +236,6 @@ pfUI:RegisterModule("buffwatch", function ()
         and data[3] and data[3] ~= "" -- buff has a name
         and data[4] and data[4] ~= "" -- buff has a texture
       then
-        local uuid = data[4] .. data[3] -- we use that to cache some values for buffs
-
         -- update bar data
         frame.bars[bar] = frame.bars[bar] or CreateStatusBar(bar, frame)
         frame.bars[bar].id = data[2]
@@ -247,16 +245,11 @@ pfUI:RegisterModule("buffwatch", function ()
 
         -- update max duration the cached remaining values is less than
         -- the real one, indicates a buff renewal
-        frame.durations[uuid] = frame.durations[uuid] or {}
-        if not frame.durations[uuid][1] or frame.durations[uuid][1] < data[1] then
-          frame.durations[uuid][2] = data[1] -- max
+        frame.durations[data[4]] = frame.durations[data[4]] or {}
+        if not frame.durations[data[4]][1] or frame.durations[data[4]][1] < data[1] then
+          frame.durations[data[4]][2] = data[1] -- max
         end
-        frame.durations[uuid][1] = data[1] -- current
-
-        -- cache max stacks for the buff
-        if not frame.charges[uuid] or frame.charges[uuid] < data[5] then
-          frame.charges[uuid] = data[5]
-        end
+        frame.durations[data[4]][1] = data[1] -- current
 
         -- set name
         if frame.bars[bar].cacheName ~= data[3] then
@@ -298,26 +291,13 @@ pfUI:RegisterModule("buffwatch", function ()
         end
 
         -- cache maxduration
-        if frame.bars[bar].cacheMaxDuration ~= frame.durations[uuid][2] then
-          frame.bars[bar].cacheMaxDuration = frame.durations[uuid][2]
-          frame.bars[bar].bar:SetMinMaxValues(0, frame.durations[uuid][2])
+        if frame.bars[bar].cacheMaxDuration ~= frame.durations[data[4]][2] then
+          frame.bars[bar].cacheMaxDuration = frame.durations[data[4]][2]
+          frame.bars[bar].bar:SetMinMaxValues(0, frame.durations[data[4]][2])
         end
 
-        -- set stacks
         if data[5] > 1 then
-          local stacks_percentage = data[5] / (frame.charges[uuid] * .01)
-          if stacks_percentage >= 90 then
-            sr, sg, sb, sa = .3, 1, .3, 1
-          elseif stacks_percentage >= 60 then
-            sr, sg, sb, sa = 1, 1, .3, 1
-          elseif stacks_percentage >= 0 then
-            sr, sg, sb, sa = 1, .3, .3, 1
-          end
-          if frame.config.colorstacks == "1" then
-            frame.bars[bar].stacks:SetText("|cff" .. string.format("%02x%02x%02x", sr*255, sg*255, sb*255) .. data[5])
-          else
-            frame.bars[bar].stacks:SetText(data[5])
-          end
+          frame.bars[bar].stacks:SetText(data[5])
         else
           frame.bars[bar].stacks:SetText("")
         end
@@ -365,7 +345,6 @@ pfUI:RegisterModule("buffwatch", function ()
     frame.type = type
     frame.bars = { }
     frame.durations = { }
-    frame.charges = { }
     frame.buffs = { }
     for i=1,32 do
       frame.buffs[i] = { }
