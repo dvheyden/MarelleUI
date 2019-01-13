@@ -1,6 +1,0 @@
-## Interface: 11200
-## Title: cooline
-## SavedVariablesPerCharacter: cooline_settings
-
-settings.lua
-cooline.lua
