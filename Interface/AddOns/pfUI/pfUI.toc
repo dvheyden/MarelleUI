@@ -2,7 +2,7 @@
 ## Title: |cff33ffccpf|cffffffffUI
 ## Author: Shagu
 ## Notes: A complete user interface replacement.
-## Version: 3.17
+## Version: 4.0
 ## SavedVariables: pfUI_profiles, pfUI_addon_profiles, pfUI_cache
 ## SavedVariablesPerCharacter: pfUI_config, pfUI_init, pfUI_playerDB
 
@@ -56,6 +56,35 @@ skins\blizzard\spellbook.lua
 skins\blizzard\friends.lua
 skins\blizzard\talents.lua
 skins\blizzard\inspect.lua
+skins\blizzard\macro.lua
+skins\blizzard\miscellaneous.lua
+skins\blizzard\gossipquest.lua
+skins\blizzard\professions.lua
+skins\blizzard\auction.lua
+skins\blizzard\questlog.lua
+skins\blizzard\mail.lua
+skins\blizzard\readycheck.lua
+skins\blizzard\battlefield_minimap.lua
+skins\blizzard\battlefield_score.lua
+skins\blizzard\survey.lua
+skins\blizzard\keybindings.lua
+skins\blizzard\merchant.lua
+skins\blizzard\popup_dialogs.lua
+skins\blizzard\stable.lua
+skins\blizzard\trade.lua
+skins\blizzard\trainer.lua
+skins\blizzard\battlefield.lua
+skins\blizzard\dressup.lua
+skins\blizzard\game_menu.lua
+skins\blizzard\guild_registrar.lua
+skins\blizzard\help.lua
+skins\blizzard\options-interface.lua
+skins\blizzard\options-sound.lua
+skins\blizzard\options-video.lua
+skins\blizzard\petition.lua
+skins\blizzard\taxi.lua
+skins\blizzard\tooltips.lua
+skins\blizzard\tabard.lua
 
 # modules
 modules\gui.lua
@@ -65,6 +94,8 @@ modules\updatenotify.lua
 modules\actionbar.lua
 modules\hunterbar.lua
 modules\chat.lua
+modules\whisperproxy.lua
+modules\chatcopy.lua
 modules\bubbles.lua
 modules\addons.lua
 modules\minimap.lua
@@ -114,3 +145,6 @@ modules\mapreveal.lua
 modules\unusable.lua
 modules\socialmod.lua
 modules\firstrun.lua
+modules\addonbuttons.lua
+modules\afkcam.lua
+modules\screenshot.lua

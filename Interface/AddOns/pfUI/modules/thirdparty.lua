@@ -505,11 +505,18 @@ pfUI:RegisterModule("thirdparty", function ()
         pfUI.bag.right.sort:SetScript("OnEnter", function ()
           pfUI.bag.right.sort.backdrop:SetBackdropBorderColor(1,1,.25,1)
           pfUI.bag.right.sort.texture:SetVertexColor(1,1,.25,1)
+          GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+          GameTooltip:SetText(GetAddOnMetadata("SortBags","Title"))
+          GameTooltip:AddLine(GetAddOnMetadata("SortBags","Notes"),1,1,1)
+          GameTooltip:Show()
         end)
 
         pfUI.bag.right.sort:SetScript("OnLeave", function ()
           CreateBackdrop(pfUI.bag.right.sort)
           pfUI.bag.right.sort.texture:SetVertexColor(.25,.25,.25,1)
+          if GameTooltip:IsOwned(this) then
+            GameTooltip:Hide()
+          end          
         end)
 
         pfUI.bag.right.sort:SetScript("OnClick", function()
@@ -542,11 +549,18 @@ pfUI:RegisterModule("thirdparty", function ()
         pfUI.bag.left.sort:SetScript("OnEnter", function ()
           pfUI.bag.left.sort.backdrop:SetBackdropBorderColor(1,1,.25,1)
           pfUI.bag.left.sort.texture:SetVertexColor(1,1,.25,1)
+          GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+          GameTooltip:SetText(GetAddOnMetadata("SortBags","Title"))
+          GameTooltip:AddLine(GetAddOnMetadata("SortBags","Notes"),1,1,1)
+          GameTooltip:Show()
         end)
 
         pfUI.bag.left.sort:SetScript("OnLeave", function ()
           CreateBackdrop(pfUI.bag.left.sort)
           pfUI.bag.left.sort.texture:SetVertexColor(.25,.25,.25,1)
+          if GameTooltip:IsOwned(this) then
+            GameTooltip:Hide()
+          end
         end)
 
         pfUI.bag.left.sort:SetScript("OnClick", function()
@@ -559,9 +573,9 @@ pfUI:RegisterModule("thirdparty", function ()
   HookAddonOrVariable("MrPlow", function()
     if C.thirdparty.mrplow.enable == "0" then return end
 
-    pfUI.thirdparty.bagsort = "mrplow" -- dont't check for sortbags, use mrplow as default
     local MrPlowL = AceLibrary and AceLibrary("AceLocale-2.2"):new("MrPlow")
     if not (MrPlowL and MrPlowL["Bank"]) then return end
+    pfUI.thirdparty.bagsort = "mrplow" -- dont't check for sortbags, use mrplow as default
 
     pfUI.thirdparty.mrplow = CreateFrame("Frame", nil)
     pfUI.thirdparty.mrplow:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -600,11 +614,18 @@ pfUI:RegisterModule("thirdparty", function ()
         pfUI.bag.right.sort:SetScript("OnEnter", function ()
           pfUI.bag.right.sort.backdrop:SetBackdropBorderColor(1,1,.25,1)
           pfUI.bag.right.sort.texture:SetVertexColor(1,1,.25,1)
+          GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+          GameTooltip:SetText(MrPlowL["Mr Plow"])
+          GameTooltip:AddLine(MrPlowL["The Works"],1,1,1)
+          GameTooltip:Show()
         end)
 
         pfUI.bag.right.sort:SetScript("OnLeave", function ()
           CreateBackdrop(pfUI.bag.right.sort)
           pfUI.bag.right.sort.texture:SetVertexColor(.25,.25,.25,1)
+          if GameTooltip:IsOwned(this) then
+            GameTooltip:Hide()
+          end
         end)
 
         pfUI.bag.right.sort:SetScript("OnClick", function()
@@ -637,11 +658,18 @@ pfUI:RegisterModule("thirdparty", function ()
         pfUI.bag.left.sort:SetScript("OnEnter", function ()
           pfUI.bag.left.sort.backdrop:SetBackdropBorderColor(1,1,.25,1)
           pfUI.bag.left.sort.texture:SetVertexColor(1,1,.25,1)
+          GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+          GameTooltip:SetText(MrPlowL["Mr Plow"])
+          GameTooltip:AddLine(MrPlowL["Bank"],1,1,1)
+          GameTooltip:Show()
         end)
 
         pfUI.bag.left.sort:SetScript("OnLeave", function ()
           CreateBackdrop(pfUI.bag.left.sort)
           pfUI.bag.left.sort.texture:SetVertexColor(.25,.25,.25,1)
+          if GameTooltip:IsOwned(this) then
+            GameTooltip:Hide()
+          end
         end)
 
         pfUI.bag.left.sort:SetScript("OnClick", function()
@@ -664,6 +692,72 @@ pfUI:RegisterModule("thirdparty", function ()
     FlightMapTimesText:ClearAllPoints()
     FlightMapTimesText:SetPoint("CENTER", FlightMapTimesFrame, "CENTER", 0, 0)
     FlightMapTimesText:SetFont(pfUI.font_default, 12, "OUTLINE")
+  end)
+
+  HookAddonOrVariable("TheoryCraft_SetUpButton", function()
+    if C.thirdparty.theorycraft.enable == "0" then return end
+
+    -- set pfUI bar font
+    if TheoryCraft_Settings then
+      TheoryCraft_Settings["FontPath"] = C.bars.font
+    end
+
+    if not pfUI.bars then return end
+
+    -- make theorycraft aware of pfUI bars
+    for i=1,10 do
+      for j=1,10 do
+        TheoryCraft_SetUpButton(pfUI.bars[i][j]:GetName(), "Normal")
+      end
+    end
+  end)
+
+  HookAddonOrVariable("SM_GetActionSpell", function()
+    if C.thirdparty.supermacro.enable == "0" then return end
+    if not pfUI.bars then return end
+
+    -- refresh super macro texture
+    local function SMRefresh()
+      local slot = this:GetID()
+      local text = GetActionText(slot)
+
+      if text then
+        if _G.SM_ACTION_SPELL and _G.SM_ACTION_SPELL["regular"] and _G.SM_ACTION_SPELL["regular"][text] then
+          this.icon:SetTexture(_G.SM_ACTION_SPELL["regular"][text].texture)
+        end
+      end
+    end
+
+    -- hook events to include SuperMacro refreshs
+    local ButtonEvent = pfUI.bars[1][1]:GetScript("OnEvent")
+    local function NewButtonEvent()
+      ButtonEvent()
+      SMRefresh()
+    end
+
+    -- hook events to include SuperMacro refreshs
+    local ButtonEnter = pfUI.bars[1][1]:GetScript("OnEnter")
+    local function NewButtonEnter()
+      ButtonEnter()
+      SM_ActionButton_SetTooltip()
+    end
+
+    -- reassign the new event handler
+    for i=1,10 do
+      for j=1,12 do
+        pfUI.bars[i][j]:SetScript("OnEvent", NewButtonEvent)
+        pfUI.bars[i][j]:SetScript("OnEnter", NewButtonEnter)
+      end
+    end
+
+    -- trigger the event whenever SuperMacro got an update
+    hooksecurefunc("SM_UpdateActionSpell", function()
+      for i=1,10 do
+        for j=1,12 do
+          pfUI.bars[i][j].forceupdate = true
+        end
+      end
+    end)
   end)
 
   HookAddonOrVariable("AtlasLoot", function()
@@ -715,10 +809,16 @@ pfUI:RegisterModule("thirdparty", function ()
     DruidManaBar:SetStatusBarColor(pr, pg, pb)
     DruidManaBar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
 
+    local f = pfUI.uf.player
+    DruidManaBar:SetWidth((f.config.pwidth ~= "-1" and f.config.pwidth or f.config.width))
+    DruidManaBar:SetHeight(f.config.pheight)
+    DruidManaBar.text:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
+    DruidManaBar.text:SetFontObject(GameFontWhite)
+
     CreateBackdrop(DruidManaBar)
 
     DruidManaBar:SetScript("OnMouseUp", function(button)
-      pfUI.uf.player:Click(button)
+      f:Click(button)
     end)
 
     DruidManaBar:ClearAllPoints()
@@ -726,7 +826,7 @@ pfUI:RegisterModule("thirdparty", function ()
     UpdateMovable(DruidManaBar)
   end)
 
-  HookAddonOrVariable("HealComm", function()
+  local EnableHealComm = function()
     -- hook healcomm's addon message to parse single-player events
     if AceLibrary and AceLibrary:HasInstance("HealComm-1.0") and pfUI.prediction then
       local HealComm = AceLibrary("HealComm-1.0")
@@ -744,5 +844,97 @@ pfUI:RegisterModule("thirdparty", function ()
       pfUI.prediction.sender:UnregisterAllEvents()
       pfUI.prediction.sender.enabled = nil
     end
+  end
+
+  HookAddonOrVariable("HealComm", EnableHealComm)
+  HookAddonOrVariable("LunaUnitFrames", EnableHealComm)
+
+  HookAddonOrVariable("NoteIt", function()
+    if C.thirdparty.noteit.enable == "0" then return end
+
+    -- Main window
+    pfUI.api.StripTextures(NoteInputFrame, true)
+    CreateBackdrop(NoteInputFrame, nil, nil, .75)
+    NoteInputFrame.backdrop:SetPoint("TOPLEFT", 10, -12)
+    NoteInputFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 30)
+
+    -- close button
+    pfUI.api.SkinCloseButton(NoteInputFrameCloseButton, NoteInputFrame, -37, -17)
+
+    -- Options button
+    pfUI.api.SkinButton(NoteInputOptionsButton)
+    NoteInputOptionsButton:ClearAllPoints()
+    NoteInputOptionsButton:SetPoint("TOPLEFT", NoteInputTextBackground, "BOTTOMLEFT", 0, -15)
+    NoteInputOptionsButton:SetWidth(145)
+
+    -- Delete button
+    pfUI.api.SkinButton(NoteInputDeleteButton)
+    NoteInputDeleteButton:ClearAllPoints()
+    NoteInputDeleteButton:SetPoint("TOPLEFT", NoteInputOptionsButton, "BOTTOMLEFT", 0, -4)
+    NoteInputDeleteButton:SetWidth(145)
+
+    -- Save button
+    pfUI.api.SkinButton(NoteInputFrameSaveButton)
+    NoteInputFrameSaveButton:ClearAllPoints()
+    NoteInputFrameSaveButton:SetPoint("TOPRIGHT", NoteInputTextBackground, "BOTTOMRIGHT", 0, -15)
+    NoteInputFrameSaveButton:SetWidth(145)
+
+    --  Cancel button
+    pfUI.api.SkinButton(NoteInputFrameExitButton)
+    NoteInputFrameExitButton:ClearAllPoints()
+    NoteInputFrameExitButton:SetPoint("TOPLEFT", NoteInputFrameSaveButton, "BOTTOMLEFT", 0, -4)
+    NoteInputFrameExitButton:SetWidth(145)
+
+    -- Window title
+    NoteInputTitleText:SetTextColor(1,1,.25,1)
+
+    -- Scrollbars
+    pfUI.api.SkinScrollbar(NoteInputNameChooseFrameScrollBar)
+    pfUI.api.SkinScrollbar(NoteInputNoteFrameScrollBar)
+
+    -- Search/Input label frame
+    NoteInputNameLabel:ClearAllPoints()
+    NoteInputNameLabel:SetPoint("TOPLEFT", NoteInputTitleText, "BOTTOMLEFT", -10, 0)
+
+    -- Search/Input input frame
+    pfUI.api.StripTextures(NoteInputNameEditBox)
+    CreateBackdrop(NoteInputNameEditBox)
+    NoteInputNameEditBox:SetTextInsets(5,5,5,5)
+    NoteInputNameEditBox:ClearAllPoints()
+    NoteInputNameEditBox:SetPoint("TOPLEFT", NoteInputNameLabel, "BOTTOMLEFT", 0, 0)
+    NoteInputNameEditBox:SetPoint("TOPRIGHT", NoteInputNameLabel, "BOTTOMRIGHT", 0, 0)
+    NoteInputNameEditBox:SetHeight(20)
+
+    -- Frame holding the list (i think)
+    pfUI.api.StripTextures(NoteInputNameChooseFrame)
+    CreateBackdrop(NoteInputNameChooseFrame)
+    NoteInputNameChooseFrame:ClearAllPoints()
+    NoteInputNameChooseFrame:SetPoint("TOPLEFT", NoteInputNameEditBox, "BOTTOMLEFT", 0, -10)
+    NoteInputNameChooseFrame:SetPoint("TOPRIGHT", NoteInputNameEditBox, "BOTTOMRIGHT", -20, 0)
+    NoteInputNameChooseFrame:SetHeight(100)
+
+    -- Note label frame
+    NoteInputNoteLabel:ClearAllPoints()
+    NoteInputNoteLabel:SetPoint("TOPLEFT", NoteInputNameChooseFrame, "BOTTOMLEFT", 0, 0)
+    NoteInputNoteLabel:SetPoint("TOPRIGHT", NoteInputNameChooseFrame, "BOTTOMRIGHT", 0, 0)
+
+    -- Note input frame
+    pfUI.api.StripTextures(NoteInputNoteFrame)
+    CreateBackdrop(NoteInputNoteFrame)
+    NoteInputNoteEditBox:SetTextInsets(5,5,5,5)
+    NoteInputNoteFrame:ClearAllPoints()
+    NoteInputNoteFrame:SetPoint("TOPLEFT", NoteInputNoteLabel, "BOTTOMLEFT", 0, 0)
+    NoteInputNoteFrame:SetPoint("TOPRIGHT", NoteInputNoteLabel, "BOTTOMRIGHT", 0, 0)
+    NoteInputNoteFrame:SetHeight(140)
+
+    -- Weird frames
+    NoteInputNameChooseBackground:Hide()
+    NoteInputTextBackground:Hide()
+
+    NoteInputTextBackground:ClearAllPoints()
+    NoteInputTextBackground:SetPoint("TOPLEFT", NoteInputNameChooseFrame, "BOTTOMLEFT", -2, -38)
+    NoteInputTextBackground:SetPoint("TOPRIGHT", NoteInputNameChooseFrame, "BOTTOMRIGHT", 22, -38)
+
+
   end)
 end)

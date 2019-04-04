@@ -115,124 +115,60 @@ end
 
 function pfUI.api.CreateScrollFrame(name, parent)
   local f = CreateFrame("ScrollFrame", name, parent)
-  local br, bg, bb, ba = pfUI.api.GetStringColor(pfUI_config.appearance.border.background)
-  f.Scroll = function(self, step)
-    local current = self:GetVerticalScroll()
-    local new = current + step*-25
-    local max = self:GetVerticalScrollRange() + 25
 
-    if max > 25 then
-      if new < 0 then
-        self:SetVerticalScroll(0)
-      elseif new > max then
-        self:SetVerticalScroll(max)
-      else
-        self:SetVerticalScroll(new)
-      end
+  -- create slider
+  f.slider = CreateFrame("Slider", nil, f)
+  f.slider:SetOrientation('VERTICAL')
+  f.slider:SetPoint("TOPLEFT", f, "TOPRIGHT", -7, 0)
+  f.slider:SetPoint("BOTTOMRIGHT", 0, 0)
+  f.slider:SetThumbTexture("Interface\\AddOns\\pfUI\\img\\col")
+  f.slider.thumb = f.slider:GetThumbTexture()
+  f.slider.thumb:SetHeight(50)
+  f.slider.thumb:SetTexture(.3,1,.8,.5)
+
+  f.slider:SetScript("OnValueChanged", function()
+    f:SetVerticalScroll(this:GetValue())
+    f.UpdateScrollState()
+  end)
+
+  f.UpdateScrollState = function()
+    f.slider:SetMinMaxValues(0, f:GetVerticalScrollRange())
+    f.slider:SetValue(f:GetVerticalScroll())
+
+    local m = f:GetHeight()+f:GetVerticalScrollRange()
+    local v = f:GetHeight()
+    local ratio = v / m
+
+    if ratio < 1 then
+      local size = math.floor(v * ratio)
+      f.slider.thumb:SetHeight(size)
+      f.slider:Show()
+    else
+      f.slider:Hide()
+    end
+  end
+
+  f.Scroll = function(self, step)
+    local step = step or 0
+
+    local current = f:GetVerticalScroll()
+    local max = f:GetVerticalScrollRange()
+    local new = current - step
+
+    if new >= max then
+      f:SetVerticalScroll(max)
+    elseif new <= 0 then
+      f:SetVerticalScroll(0)
+    else
+      f:SetVerticalScroll(new)
     end
 
-    self:UpdateScrollState()
+    f:UpdateScrollState()
   end
 
   f:EnableMouseWheel(1)
-
-  f.deco_up = CreateFrame("Frame", nil, f)
-  f.deco_up:SetPoint("TOPLEFT", f, "TOPLEFT", -4, 4)
-  f.deco_up:SetPoint("BOTTOMRIGHT", f, "TOPRIGHT", 4, -25)
-
-  f.deco_up.fader = f.deco_up:CreateTexture("OVERLAY")
-  f.deco_up.fader:SetTexture(1,1,1,1)
-  f.deco_up.fader:SetGradientAlpha("VERTICAL", br, bg, bb, 0, br, bg, bb, 1)
-  f.deco_up.fader:SetAllPoints(f.deco_up)
-
-  f.deco_up_indicator = CreateFrame("Button", nil, f.deco_up)
-  f.deco_up_indicator:SetFrameLevel(128)
-  f.deco_up_indicator:Hide()
-  f.deco_up_indicator:SetPoint("TOP", f.deco_up, "TOP", 0, -6)
-  f.deco_up_indicator:SetHeight(12)
-  f.deco_up_indicator:SetWidth(12)
-  f.deco_up_indicator.modifier = 0.03
-  f.deco_up_indicator:SetScript("OnClick", function()
-    local f = this:GetParent():GetParent()
-    f:Scroll(3)
-  end)
-
-  f.deco_up_indicator:SetScript("OnUpdate", function()
-    local alpha = this:GetAlpha()
-    local fpsmod = GetFramerate() / 30
-
-    if alpha >= .75 then
-      this.modifier = -0.03 / fpsmod
-    elseif alpha <= .25 then
-      this.modifier = 0.03  / fpsmod
-    end
-
-    this:SetAlpha(alpha + this.modifier)
-  end)
-
-  f.deco_up_indicator.tex = f.deco_up_indicator:CreateTexture("OVERLAY")
-  f.deco_up_indicator.tex:SetTexture("Interface\\AddOns\\pfUI\\img\\up")
-  f.deco_up_indicator.tex:SetAllPoints(f.deco_up_indicator)
-
-  f.deco_down = CreateFrame("Frame", nil, f)
-  f.deco_down:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", -4, -4)
-  f.deco_down:SetPoint("TOPRIGHT", f, "BOTTOMRIGHT", 4, 25)
-
-  f.deco_down.fader = f.deco_down:CreateTexture("OVERLAY")
-  f.deco_down.fader:SetTexture(1,1,1,1)
-  f.deco_down.fader:SetGradientAlpha("VERTICAL", br, bg, bb, 1, br, bg, bb, 0)
-  f.deco_down.fader:SetAllPoints(f.deco_down)
-
-  f.deco_down_indicator = CreateFrame("Button", nil, f.deco_down)
-  f.deco_down_indicator:SetFrameLevel(128)
-  f.deco_down_indicator:Hide()
-  f.deco_down_indicator:SetPoint("BOTTOM", f.deco_down, "BOTTOM", 0, 6)
-  f.deco_down_indicator:SetHeight(12)
-  f.deco_down_indicator:SetWidth(12)
-  f.deco_down_indicator.modifier = 0.03
-  f.deco_down_indicator:SetScript("OnClick", function()
-    local f = this:GetParent():GetParent()
-    f:Scroll(-3)
-  end)
-
-  f.deco_down_indicator:SetScript("OnUpdate", function()
-    local alpha = this:GetAlpha()
-    local fpsmod = GetFramerate() / 30
-
-    if alpha >= .75 then
-      this.modifier = -0.03 / fpsmod
-    elseif alpha <= .25 then
-      this.modifier = 0.03 / fpsmod
-    end
-
-    this:SetAlpha(alpha + this.modifier)
-  end)
-
-  f.deco_down_indicator.tex = f.deco_down_indicator:CreateTexture("OVERLAY")
-  f.deco_down_indicator.tex:SetTexture("Interface\\AddOns\\pfUI\\img\\down")
-  f.deco_down_indicator.tex:SetAllPoints(f.deco_down_indicator)
-
-  f.UpdateScrollState = function(self)
-    -- Update Scroll Indicators: Hide/Show if required.
-    local current = floor(self:GetVerticalScroll())
-    local max = floor(self:GetVerticalScrollRange() + 25)
-
-    if current > 0 then
-      self.deco_up_indicator:Show()
-    else
-      self.deco_up_indicator:Hide()
-    end
-
-    if max > 25 and current < max then
-      self.deco_down_indicator:Show()
-      self.deco_down_indicator:SetAlpha(.75)
-    else
-      self.deco_down_indicator:Hide()
-    end
-  end
-
   f:SetScript("OnMouseWheel", function()
-    this:Scroll(arg1)
+    this:Scroll(arg1*10)
   end)
 
   return f
@@ -250,7 +186,7 @@ function pfUI.api.CreateScrollChild(name, parent)
 
   -- OnShow is fired too early, postpone to the first frame draw
   f:SetScript("OnUpdate", function()
-    this:GetParent():UpdateScrollState()
+    this:GetParent():Scroll()
     this:SetScript("OnUpdate", nil)
   end)
 
@@ -287,13 +223,55 @@ function pfUI.api.EnableClickRotate(frame)
   end)
 end
 
+
+local SetHighlightEnter = function()
+  if this.funce then this:funce() end
+  if this.locked then return end
+  (this.backdrop or this):SetBackdropBorderColor(this.cr,this.cg,this.cb,1)
+end
+
+local SetHighlightLeave = function()
+  if this.funcl then this:funcl() end
+  if this.locked then return end
+  (this.backdrop or this):SetBackdropBorderColor(this.rr,this.rg,this.rb,1)
+end
+
+function pfUI.api.SetHighlight(frame, cr, cg, cb)
+  if not frame then return end
+  if not cr or not cg or not cb then
+    local _, class = UnitClass("player")
+    local color = RAID_CLASS_COLORS[class]
+    cr, cg, cb = color.r , color.g, color.b
+  end
+
+  frame.cr, frame.cg, frame.cb = cr, cg, cb
+  frame.rr, frame.rg, frame.rb = GetStringColor(pfUI_config.appearance.border.color)
+
+  if not frame.pfEnterLeave then
+    frame.funce = frame:GetScript("OnEnter")
+    frame.funcl = frame:GetScript("OnLeave")
+    frame:SetScript("OnEnter", SetHighlightEnter)
+    frame:SetScript("OnLeave", SetHighlightLeave)
+    frame.pfEnterLeave = true
+  end
+end
+
+function pfUI.api.HandleIcon(frame, icon)
+  if not frame or not icon then return end
+
+  SetAllPointsOffset(icon, frame, 3)
+  icon:SetTexCoord(.08, .92, .08, .92)
+end
+
 -- [ Skin Button ]
 -- Applies pfUI skin to buttons:
--- 'button'     [frame/string]  the button that should be skinned.
--- 'cr'         [int]           mouseover color (red), defaults to classcolor.
--- 'cg'         [int]           mouseover color (green), defaults to classcolor.
--- 'cb'         [int]           mouseover color (blue), defaults to classcolor.
-function pfUI.api.SkinButton(button, cr, cg, cb)
+-- 'button'            [frame/string]  the button that should be skinned.
+-- 'cr'                [int]           mouseover color (red), defaults to classcolor.
+-- 'cg'                [int]           mouseover color (green), defaults to classcolor.
+-- 'cb'                [int]           mouseover color (blue), defaults to classcolor.
+-- 'icon'              [texture]       the button icon that should be skinned.
+-- 'disableHighlight'  [bool]          disable mouseover highlight.
+function pfUI.api.SkinButton(button, cr, cg, cb, icon, disableHighlight)
   local b = getglobal(button)
   if not b then b = button end
   if not b then return end
@@ -303,22 +281,66 @@ function pfUI.api.SkinButton(button, cr, cg, cb)
     cr, cg, cb = color.r , color.g, color.b
   end
   pfUI.api.CreateBackdrop(b, nil, true)
-  b:SetNormalTexture(nil)
-  b:SetHighlightTexture(nil)
+  b:SetNormalTexture("")
+  b:SetHighlightTexture("")
   b:SetPushedTexture(nil)
   b:SetDisabledTexture(nil)
-  local funce = b:GetScript("OnEnter")
-  local funcl = b:GetScript("OnLeave")
-  b:SetScript("OnEnter", function()
-    if funce then funce() end
-    pfUI.api.CreateBackdrop(b, nil, true)
-    b:SetBackdropBorderColor(cr,cg,cb,1)
-  end)
-  b:SetScript("OnLeave", function()
-    if funcl then funcl() end
-    pfUI.api.CreateBackdrop(b, nil, true)
-  end)
+
+  if not disableHighlight then
+    SetHighlight(b, cr, cg, cb)
+  end
+
+  if icon then
+    HandleIcon(b, icon)
+  end
+
   b:SetFont(pfUI.font_default, pfUI_config.global.font_size, "OUTLINE")
+
+  b.LockHighlight = function()
+    b:SetBackdropBorderColor(cr,cg,cb,1)
+    b.locked = true
+  end
+  b.UnlockHighlight = function()
+    if not MouseIsOver(b) then
+      b:SetBackdropBorderColor(GetStringColor(pfUI_config.appearance.border.color))
+    end
+    b.locked = false
+  end
+end
+
+-- [ Skin Collapse Button ]
+-- Applies pfUI skin to collapse/expand buttons:
+-- 'button'   [frame/string]  the button that should be skinned.
+function pfUI.api.SkinCollapseButton(button, all)
+  local b = getglobal(button)
+  if not b then b = button end
+  if not b then return end
+
+  b.icon = CreateFrame("Button", b:GetName().."CollapseButton", b)
+  local size = 10
+  if all then size = 14 end
+  b.icon:SetWidth(size)
+  b.icon:SetHeight(size)
+  b.icon:SetPoint("LEFT", 2, 2)
+  CreateBackdrop(b.icon)
+  b.icon.text = b.icon:CreateFontString(nil, "OVERLAY")
+  b.icon.text:SetFontObject(GameFontWhite)
+  b.icon.text:SetPoint("CENTER", -1, 0)
+  b:SetNormalTexture(nil)
+  b.SetNormalTexture = function(self, tex)
+    if not tex or tex == "" then
+      self.icon:Hide()
+    else
+      self.icon.text:SetText(strfind(tex, "MinusButton") and "-" or "+")
+      self.icon:Show()
+    end
+  end
+
+  local highlight = _G[b:GetName().."Highlight"]
+  if highlight then
+    highlight:SetTexture("")
+    highlight.SetTexture = function(self, tex) return end
+  end
 end
 
 -- [ Skin Rotate Button]
@@ -350,7 +372,7 @@ end
 -- 'offsetX'     [integer]  offsets the button horizontally
 -- 'offsetY'     [integer]  offsets the button vertically
 function pfUI.api.SkinCloseButton(button, parentFrame, offsetX, offsetY)
-  SkinButton(button)
+  SkinButton(button, 1, .25, .25)
 
   button:SetWidth(15)
   button:SetHeight(15)
@@ -367,7 +389,7 @@ function pfUI.api.SkinCloseButton(button, parentFrame, offsetX, offsetY)
   button.texture:SetVertexColor(1,.25,.25,1)
 end
 
-function pfUI.api.SkinArrowButton(button, dir)
+function pfUI.api.SkinArrowButton(button, dir, size)
   SkinButton(button)
 
   button:SetHitRectInsets(-3,-3,-3,-3)
@@ -377,12 +399,18 @@ function pfUI.api.SkinArrowButton(button, dir)
   button:SetHighlightTexture(nil)
   button:SetDisabledTexture(nil)
 
+  if size then
+    button:SetWidth(size)
+    button:SetHeight(size)
+  end
+
   if not button.icon then
     button.icon = button:CreateTexture(nil, "ARTWORK")
-    button.icon:SetTexture("Interface\\AddOns\\pfUI\\img\\" .. dir)
     button.icon:SetAlpha(.8)
     SetAllPointsOffset(button.icon, button, 3)
   end
+
+  button.icon:SetTexture("Interface\\AddOns\\pfUI\\img\\" .. dir)
 
   if not button.pfScripted then
     local enable = button.Enable
@@ -402,7 +430,8 @@ function pfUI.api.SkinArrowButton(button, dir)
   end
 end
 
-function pfUI.api.SkinScrollbar(frame, parent)
+function pfUI.api.SkinScrollbar(frame, always)
+  local parent = frame:GetParent()
   local name = frame:GetName()
   local up = _G[name .. "ScrollUpButton"]
   local down = _G[name .. "ScrollDownButton"]
@@ -427,7 +456,7 @@ function pfUI.api.SkinScrollbar(frame, parent)
   end
 
   -- always show parent frame
-  if parent then
+  if always then
     parent:Show()
     parent.Hide = function(self) frame.thumb:Hide() end
     parent.Show = function(self) frame.thumb:Show() end
@@ -449,13 +478,20 @@ end
 
 -- [ StripTextures ]
 -- Strips all textures off a frame.
--- 'frame'     [frame]  the frame that should be stripped.
-function pfUI.api.StripTextures(frame, hide)
-  for i,v in ipairs({frame:GetRegions()}) do
+-- 'frame'     [frame]   the frame that should be stripped.
+-- 'layer'     [string]  texture layer.
+function pfUI.api.StripTextures(frame, hide, layer)
+  for _,v in ipairs({frame:GetRegions()}) do
     if v.SetTexture then
-      v:SetTexture(nil)
-      if hide then
-        v:Hide()
+      local check = true
+      if layer and v:GetDrawLayer() ~= layer then check = false end
+
+      if check then
+        if hide then
+          v:Hide()
+        else
+          v:SetTexture(nil)
+        end
       end
     end
   end
@@ -466,15 +502,16 @@ function pfUI.api.SetAllPointsOffset(frame, parent, offset)
   frame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offset, offset)
 end
 
-function pfUI.api.SkinCheckbox(frame)
+function pfUI.api.SkinCheckbox(frame, size)
   frame:SetNormalTexture("")
   frame:SetPushedTexture("")
   frame:SetHighlightTexture("")
-  frame:SetWidth(18)
-  frame:SetHeight(18)
+  if size then
+    frame:SetWidth(size)
+    frame:SetHeight(size)
+  end
   CreateBackdrop(frame)
-  frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -4)
-  frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -4, 4)
+  SetAllPointsOffset(frame.backdrop, frame, 4)
 end
 
 function pfUI.api.SkinDropDown(frame, cr, cg, cb)
@@ -489,13 +526,12 @@ function pfUI.api.SkinDropDown(frame, cr, cg, cb)
   button:SetHighlightTexture(nil)
   button:SetDisabledTexture(nil)
 
-  StripTextures(button)
   CreateBackdrop(button)
 
   button.backdrop:ClearAllPoints()
   button.backdrop:SetWidth(18)
   button.backdrop:SetHeight(18)
-  button.backdrop:SetPoint("RIGHT", button, "RIGHT", -2, 0)
+  button.backdrop:SetPoint("RIGHT", frame.backdrop, "RIGHT", -2, 0)
 
   if not button.icon then
     button.icon = button:CreateTexture(nil, "OVERLAY")
@@ -511,30 +547,24 @@ function pfUI.api.SkinDropDown(frame, cr, cg, cb)
     cr, cg, cb = color.r , color.g, color.b
   end
 
-  local funce = button:GetScript("OnEnter")
-  button:SetScript("OnEnter", function()
-    if funce then funce() end
-    this.backdrop:SetBackdropBorderColor(cr,cg,cb,1)
-  end)
-
-  local funcl = button:GetScript("OnLeave")
-  button:SetScript("OnLeave", function()
-    if funcl then funcl() end
-    this.backdrop:SetBackdropBorderColor(pfUI.api.GetStringColor(pfUI_config.appearance.border.color))
-  end)
+  SetHighlight(button, cr, cg, cb)
 
   local funcc = button:GetScript("OnClick")
   button:SetScript("OnClick", function()
     if funcc then funcc() end
     UIDropDownMenu_JustifyText("RIGHT", this:GetParent())
     DropDownList1:SetPoint("TOPLEFT", this:GetParent().backdrop, "BOTTOMLEFT", 0, -4)
-    DropDownList1:SetPoint("TOPRIGHT", this:GetParent().backdrop, "BOTTOMRIGHT", 0, -4)
-    CreateBackdrop(DropDownList1Backdrop, nil, true, .8)
-    DropDownList1.maxWidth = this:GetWidth() > 80 and this:GetWidth() or 80
 
-    for i=1, UIDROPDOWNMENU_MAXBUTTONS do
-      _G["DropDownList1Button" .. i]:SetWidth(DropDownList1.maxWidth)
+    local DropDownListWidth = DropDownList1:GetWidth()
+    local DropDownFrameWidth = this:GetParent().backdrop:GetWidth()
+    if DropDownListWidth < DropDownFrameWidth then
+      local diff = DropDownFrameWidth - DropDownListWidth
+      DropDownList1:SetWidth(DropDownList1:GetWidth() + diff)
+      for i=1, UIDROPDOWNMENU_MAXBUTTONS do
+        _G["DropDownList1Button" .. i]:SetWidth(_G["DropDownList1Button" .. i]:GetWidth() + diff)
+      end
     end
+    CreateBackdrop(DropDownList1Backdrop, nil, true, .8)
   end)
 
   frame.button = button
@@ -555,18 +585,44 @@ function pfUI.api.SkinTab(frame, fixed)
   end
 end
 
--- [ GetCloseButton ]
--- Get the close button from a frame.
--- 'frame'     [frame]  the frame that should be searched for the button.
-function pfUI.api.GetCloseButton(frame)
-  for i,v in ipairs({frame:GetChildren()}) do
-    if v.GetObjectType and v:GetObjectType() == "Button" and v.GetNormalTexture and v:GetNormalTexture() then
-      if v:GetNormalTexture().GetTexture and v:GetNormalTexture():GetTexture() == "Interface\\Buttons\\UI-Panel-MinimizeButton-Up" then
-        return v
+function pfUI.api.SkinSlider(frame)
+  local orientation = frame:GetOrientation()
+  local thumb = frame:GetThumbTexture()
+
+  CreateBackdrop(frame, nil, true)
+  thumb:SetTexture(1, .82, 0)
+
+  for i,region in ipairs({frame:GetRegions()}) do
+    if region:GetObjectType() == 'FontString' then
+      local point, anchor, anchorPoint, x, y = region:GetPoint()
+      if orientation == 'VERTICAL' then
+        if string.find(anchorPoint, "TOP") then -- top text
+          region:ClearAllPoints()
+          region:SetPoint("BOTTOM", anchor, "TOP", 0, 4)
+        elseif string.find(anchorPoint, "BOTTOM") then -- bottom text
+          region:ClearAllPoints()
+          region:SetPoint("TOP", anchor, "BOTTOM", 0, -4)
+        end
+        anchor:SetHeight(anchor:GetHeight() - 4)
+      else
+        if string.find(anchorPoint, 'BOTTOM') then
+          region:SetPoint(point, anchor, anchorPoint, x, y - 6)
+        elseif string.find(anchorPoint, 'TOP') then
+          region:SetPoint(point, anchor, anchorPoint, x, y + 2)
+        end
       end
     end
   end
-  return nil
+
+  if orientation == 'VERTICAL' then
+    frame:SetWidth(10)
+    thumb:SetHeight(22)
+    thumb:SetWidth(frame:GetWidth())
+  else
+    frame:SetHeight(10)
+    thumb:SetHeight(frame:GetHeight())
+    thumb:SetWidth(17)
+  end
 end
 
 -- [ Question Dialog ]
@@ -578,9 +634,9 @@ end
 --                              accessed with "GetParent().input".
 function pfUI.api.CreateQuestionDialog(text, yes, no, editbox)
   -- do not allow multiple instances of question dialogs
-  if pfQuestionDialog and pfQuestionDialog:IsShown() then
-    pfQuestionDialog:Hide()
-    pfQuestionDialog = nil
+  if _G["pfQuestionDialog"] and _G["pfQuestionDialog"]:IsShown() then
+    _G["pfQuestionDialog"]:Hide()
+    _G["pfQuestionDialog"] = nil
     return
   end
 
@@ -782,4 +838,34 @@ function pfUI.api.CreateInfoBox(text, time, parent, height)
 
   infobox:SetFrameStrata("FULLSCREEN_DIALOG")
   infobox:Show()
+end
+
+function pfUI.api.SkinMoneyInputFrame(frame)
+  local gold_editbox = _G[frame:GetName().."Gold"]
+  StripTextures(gold_editbox, true, "BACKGROUND")
+  CreateBackdrop(gold_editbox, nil, true)
+  local goldIcon = GetNoNameObject(gold_editbox, "Texture", nil, "MoneyIcons")
+  goldIcon:Show()
+  goldIcon:ClearAllPoints()
+  goldIcon:SetPoint("LEFT", gold_editbox, "RIGHT", 2, 0)
+
+  local silver_editbox = _G[frame:GetName().."Silver"]
+  StripTextures(silver_editbox, true, "BACKGROUND")
+  CreateBackdrop(silver_editbox, nil, true)
+  silver_editbox:ClearAllPoints()
+  silver_editbox:SetPoint("LEFT", goldIcon, "RIGHT", 2, 0)
+  local silverIcon = GetNoNameObject(silver_editbox, "Texture", nil, "MoneyIcons")
+  silverIcon:Show()
+  silverIcon:ClearAllPoints()
+  silverIcon:SetPoint("LEFT", silver_editbox, "RIGHT", 2, 0)
+
+  local copper_editbox = _G[frame:GetName().."Copper"]
+  StripTextures(copper_editbox, true, "BACKGROUND")
+  CreateBackdrop(copper_editbox, nil, true)
+  copper_editbox:ClearAllPoints()
+  copper_editbox:SetPoint("LEFT", silverIcon, "RIGHT", 2, 0)
+  local copperIcon = GetNoNameObject(copper_editbox, "Texture", nil, "MoneyIcons")
+  copperIcon:Show()
+  copperIcon:ClearAllPoints()
+  copperIcon:SetPoint("LEFT", copper_editbox, "RIGHT", 2, 0)
 end

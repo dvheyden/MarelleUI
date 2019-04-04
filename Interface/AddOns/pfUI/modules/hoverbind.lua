@@ -1,14 +1,23 @@
 pfUI:RegisterModule("hoverbind", function ()
   local default_border = C.appearance.border.default
   local keymap = {
-    ["BonusActionButton"]         = "ACTIONBUTTON",
-    ["MultiBarBottomLeftButton"]  = "MULTIACTIONBAR1BUTTON",
-    ["MultiBarBottomRightButton"] = "MULTIACTIONBAR2BUTTON",
-    ["MultiBarRightButton"]       = "MULTIACTIONBAR3BUTTON",
-    ["MultiBarLeftButton"]        = "MULTIACTIONBAR4BUTTON",
-    ["ShapeshiftButton"]          = "SHAPESHIFTBUTTON",
-    ["PetActionButton"]           = "BONUSACTIONBUTTON",
+    -- buttons to binding association
+    ["pfActionBarMainButton"]     = "ACTIONBUTTON",
+    ["pfActionBarTopButton"]      = "MULTIACTIONBAR1BUTTON",
+    ["pfActionBarLeftButton"]     = "MULTIACTIONBAR2BUTTON",
+    ["pfActionBarRightButton"]    = "MULTIACTIONBAR3BUTTON",
+    ["pfActionBarVerticalButton"] = "MULTIACTIONBAR4BUTTON",
+    ["pfActionBarStancesButton"]  = "SHAPESHIFTBUTTON",
+    ["pfActionBarPetButton"]      = "BONUSACTIONBUTTON",
+
+    -- special buttons
+    ["pfActionBarPagingButton"]     = "PFPAGING",
+    ["pfActionBarStanceBar1Button"] = "PFSTANCEONE",
+    ["pfActionBarStanceBar2Button"] = "PFSTANCETWO",
+    ["pfActionBarStanceBar3Button"] = "PFSTANCETHREE",
+    ["pfActionBarStanceBar4Button"] = "PFSTANCEFOUR",
   }
+
   local modifiers = {
     ["ALT"]   = "ALT-",
     ["CTRL"]  = "CTRL-",
@@ -54,7 +63,7 @@ pfUI:RegisterModule("hoverbind", function ()
     local hovername = (frame and frame.GetName) and (frame:GetName()) or ""
     local binding = pfUI.hoverbind:GetBinding(hovername)
     if arg1 == "ESCAPE" and not binding then pfUI.hoverbind:Hide() return end
-    if (binding) then
+    if binding then
       if arg1 == "ESCAPE" then
         local key = (GetBindingKey(binding))
         if (key) then
@@ -75,7 +84,7 @@ pfUI:RegisterModule("hoverbind", function ()
   end)
 
   function pfUI.hoverbind:GetBinding(button_name)
-    local found,_,buttontype,buttonindex = string.find(button_name,"^(%a+)(%d+)$")
+    local found,_,buttontype,buttonindex = string.find(button_name,"^(.-)(%d+)$")
     if found then
       if keymap[buttontype] then
         return string.format("%s%d",keymap[buttontype],buttonindex)

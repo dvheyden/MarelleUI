@@ -26,7 +26,7 @@ pfUI:RegisterModule("panel", function()
             noon = " PM"
           end
           time = date("%I:%M %p")
-          servertime = string.format("%.2d:%.2d", h, m) .. noon
+          servertime = string.format("%.2d:%.2d %s", h, m, noon)
         else
           time = date("%H:%M")
           servertime = string.format("%.2d:%.2d", h, m)
@@ -54,11 +54,27 @@ pfUI:RegisterModule("panel", function()
       widget:SetScript("OnUpdate",function()
         if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + 1 end
 
+        local h, m = GetGameTime()
+        local noon = "AM"
+        local time = ""
         if C.global.twentyfour == "0" then
-          pfUI.panel:OutputPanel("time", date("%I:%M:%S %p"), widget.Tooltip, widget.Click)
+          if C.global.servertime == "1" then
+            if h > 12 then
+              h = h - 12
+              noon = "PM"
+            end
+            time = string.format("%.2d:%.2d %s", h, m, noon)
+          else
+            time = date("%I:%M:%S %p")
+          end
         else
-          pfUI.panel:OutputPanel("time", date("%H:%M:%S"), widget.Tooltip, widget.Click)
+          if C.global.servertime == "1" then
+            time = string.format("%.2d:%.2d", h, m)
+          else
+            time = date("%H:%M:%S")
+          end
         end
+        pfUI.panel:OutputPanel("time", time, widget.Tooltip, widget.Click)
       end)
 
       widget.timerFrame = CreateFrame("Frame", "pfUITimer", UIParent)
@@ -163,10 +179,11 @@ pfUI:RegisterModule("panel", function()
 
     do -- XP & Kills To Level
       local widget = CreateFrame("Frame", "pfPanelWidgetXP", UIParent)
+      local curexp, difexp, maxexp, remexp, oldexp, remstring
       widget:RegisterEvent("PLAYER_ENTERING_WORLD")
       widget:RegisterEvent("PLAYER_XP_UPDATE")
       widget:SetScript("OnEvent", function()
-        if UnitLevel("player") ~= 60 then
+        if UnitLevel("player") < _G.MAX_PLAYER_LEVEL then
           curexp = UnitXP("player")
           if oldexp ~= nil then
             difexp = curexp - oldexp
@@ -208,7 +225,7 @@ pfUI:RegisterModule("panel", function()
             local bagsize = GetContainerNumSlots(bag)
             maxslots = maxslots + bagsize
             for j = 1,bagsize do
-              link = GetContainerItemLink(bag,j)
+              local link = GetContainerItemLink(bag,j)
               if link then
                 usedslots = usedslots + 1
               end
@@ -279,7 +296,7 @@ pfUI:RegisterModule("panel", function()
         local online = 0
         local all = GetNumFriends()
         for friendIndex=1, all do
-          friend_name, friend_level, friend_class, friend_area, friend_connected = GetFriendInfo(friendIndex)
+          local friend_name, friend_level, friend_class, friend_area, friend_connected = GetFriendInfo(friendIndex)
           if ( friend_connected ) then
             online = online + 1
           end
@@ -715,16 +732,16 @@ pfUI:RegisterModule("panel", function()
   pfUI.panel.autohide:RegisterEvent("PLAYER_ENTERING_WORLD")
   pfUI.panel.autohide:SetScript("OnEvent", function()
     if C.panel.hide_leftchat == "1" then
-      CreateAutohide(pfUI.panel.left)
+      EnableAutohide(pfUI.panel.left, 2)
     end
     if C.panel.hide_rightchat == "1" then
-      CreateAutohide(pfUI.panel.right)
+      EnableAutohide(pfUI.panel.right, 2)
     end
     if C.panel.hide_minimap == "1" then
-      CreateAutohide(pfUI.panel.minimap)
+      EnableAutohide(pfUI.panel.minimap, 2)
     end
     if C.panel.hide_microbar == "1" then
-      CreateAutohide(pfUI.panel.microbutton)
+      EnableAutohide(pfUI.panel.microbutton, 2)
     end
   end)
 end)

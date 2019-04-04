@@ -1,23 +1,35 @@
 pfUI:RegisterModule("skin", function ()
-  -- movable default frames
-  EnableMovable("CharacterFrame", nil, { "PaperDollFrame",
-      "PetPaperDollFrame", "ReputationFrame", "SkillFrame", "HonorFrame" } )
+  -- align UIParent panels
+  pfUI.panelalign = CreateFrame("Frame", "pfUIParentPanelAlign", UIParent)
+  pfUI.panelalign:SetScript("OnUpdate", function()
+    local left = UIParent.left
+    local center = UIParent.center
 
-  EnableMovable("QuestLogFrame")
-  EnableMovable("FriendsFrame")
-  EnableMovable("SpellBookFrame")
-  EnableMovable("GossipFrame")
-  EnableMovable("TradeFrame")
-  EnableMovable("MerchantFrame")
-  EnableMovable("DressUpFrame")
+    -- detect outer frame backdrops
+    if left and not left.rightObj then
+      left.rightObj = left.backdrop or left
+      for _, frame in pairs({left:GetChildren()}) do
+        if frame.backdrop and frame.backdrop.GetRight and frame.backdrop:GetRight() > left.rightObj:GetRight() then
+          left.rightObj = frame.backdrop
+        end
+      end
+    end
 
-  EnableMovable("TalentFrame", "Blizzard_TalentUI")
-  EnableMovable("TradeSkillFrame", "Blizzard_TradeSkillUI")
-  EnableMovable("ClassTrainerFrame", "Blizzard_TrainerUI")
-  EnableMovable("InspectFrame", "Blizzard_InspectUI", { "InspectHonorFrame" })
+    -- reset anchors
+    if not left or not left:IsShown() or not center or not center:IsShown() then
+      UIParent.pfLeftAligned = nil
+      return
+    elseif center and center:IsShown() and left and left:IsShown() then
+      local width = left.rightObj:GetRight()
+      if width ~= UIParent.pfLeftAligned then
+        center:SetPoint("TOPLEFT", "UIParent", "TOPLEFT", width + 10, -104)
+        UIParent.pfLeftAligned = width
+      end
+    end
+  end)
 
   -- durability frame
-  pfUI.durability = CreateFrame("Frame","pfDurability",UIParent)
+  pfUI.durability = CreateFrame("Frame", "pfDurability", UIParent)
   if pfUI.minimap then
     pfUI.durability:SetPoint("TOPLEFT", pfUI.minimap, "BOTTOMLEFT", 0, -35)
   else
@@ -44,43 +56,12 @@ pfUI:RegisterModule("skin", function ()
     end)
   end
 
-  _, class = UnitClass("player")
-  local color = RAID_CLASS_COLORS[class]
-  local cr, cg, cb = color.r , color.g, color.b
-
-  local buttons = {
-    "GameMenuButtonOptions",
-    "GameMenuButtonSoundOptions",
-    "GameMenuButtonUIOptions",
-    "GameMenuButtonKeybindings",
-    "GameMenuButtonMacros",
-    "GameMenuButtonLogout",
-    "GameMenuButtonQuit",
-    "GameMenuButtonContinue",
-    "StaticPopup1Button1",
-    "StaticPopup1Button2",
-    "StaticPopup2Button1",
-    "StaticPopup2Button2",
-  }
-
   local boxes = {
-    "StaticPopup1",
-    "StaticPopup2",
-    "GameMenuFrame",
     "DropDownList1MenuBackdrop",
     "DropDownList2MenuBackdrop",
     "DropDownList1Backdrop",
     "DropDownList2Backdrop",
   }
-
-  local editboxes = {
-    "StaticPopup1EditBox",
-    "StaticPopup1WideEditBox",
-  }
-
-  GameMenuFrameHeader:SetTexture(nil)
-  GameMenuFrame:SetHeight(GameMenuFrame:GetHeight()+2)
-  GameMenuFrame:SetWidth(GameMenuFrame:GetWidth()-30)
 
   local pfUIButton = CreateFrame("Button", "GameMenuButtonPFUI", GameMenuFrame, "GameMenuButtonTemplate")
   pfUIButton:SetPoint("TOP", 0, -10)
@@ -94,113 +75,10 @@ pfUI:RegisterModule("skin", function ()
   local point, relativeTo, relativePoint, xOffset, yOffset = GameMenuButtonOptions:GetPoint()
   GameMenuButtonOptions:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset - 22)
 
-  for _, button in pairs(buttons) do
-    SkinButton(button)
-  end
-
   for _, box in pairs(boxes) do
     local b = getglobal(box)
     CreateBackdrop(b, nil, true, .8)
   end
-
-  for _, edit in pairs(editboxes) do
-    local b = getglobal(edit)
-    b:SetHeight(20)
-    StripTextures(b)
-    CreateBackdrop(b, nil, true, .8)
-  end
-
-  for i,v in ipairs({GameMenuFrame:GetRegions()}) do
-    if v.SetTextColor then
-      v:SetTextColor(1,1,1,1)
-      v:SetPoint("TOP", GameMenuFrame, "TOP", 0, 16)
-      v:SetFont(pfUI.font_default, C.global.font_size + 2, "OUTLINE")
-    end
-  end
-
-  local alpha = tonumber(C.tooltip.alpha)
-
-  -- skin worldmap tooltips
-  WorldMapTooltip:SetScript("OnShow", function()
-    CreateBackdrop(WorldMapTooltip, nil, nil, alpha)
-  end)
-
-  -- skin item tooltips
-  CreateBackdrop(ShoppingTooltip1, nil, nil, alpha)
-  CreateBackdrop(ShoppingTooltip2, nil, nil, alpha)
-  CreateBackdrop(ItemRefTooltip, nil, nil, alpha)
-
-  ShoppingTooltip1:SetClampedToScreen(true)
-  ShoppingTooltip1:SetScript("OnShow", function()
-    local a, b, c, d, e = this:GetPoint()
-    local border = tonumber(C.appearance.border.default)
-    if not d or d == 0 then d = (border*2) + ( d or 0 ) + 1 end
-    if a then this:SetPoint(a, b, c, d, e) end
-  end)
-
-  ShoppingTooltip2:SetClampedToScreen(true)
-  ShoppingTooltip2:SetScript("OnShow", function()
-    local a, b, c, d, e = this:GetPoint()
-    local border = tonumber(C.appearance.border.default)
-    if not d or d == 0 then d = (border*2) + ( d or 0 ) + 1 end
-    if a then this:SetPoint(a, b, c, d, e) end
-  end)
-
-  CreateBackdrop(TicketStatusFrame)
-  TicketStatusFrame:ClearAllPoints()
-  TicketStatusFrame:SetPoint("TOP", 0, -5)
-  UpdateMovable(TicketStatusFrame)
-  function TicketStatusFrame_OnEvent()
-    if ( event == "PLAYER_ENTERING_WORLD" ) then
-      GetGMTicket()
-    else
-      if ( arg1 ~= 0 ) then
-        this:Show()
-        refreshTime = GMTICKET_CHECK_INTERVAL
-      else
-        this:Hide()
-      end
-    end
-  end
-
-  UI_OPTIONS_FRAME:SetScript("OnShow", function()
-    -- default events
-    UIOptionsFrame_Load();
-    MultiActionBar_Update();
-    MultiActionBar_ShowAllGrids();
-    Disable_BagButtons();
-    UpdateMicroButtons();
-
-    -- customize
-    UIOptionsBlackground:Hide()
-
-    UI_OPTIONS_FRAME:SetMovable(true)
-    UI_OPTIONS_FRAME:EnableMouse(true)
-    UI_OPTIONS_FRAME:SetScale(.8)
-    UI_OPTIONS_FRAME:SetScript("OnMouseDown",function()
-      UI_OPTIONS_FRAME:StartMoving()
-    end)
-
-    UI_OPTIONS_FRAME:SetScript("OnMouseUp",function()
-      UI_OPTIONS_FRAME:StopMovingOrSizing()
-    end)
-  end)
-
-  -- due to the fontsize, the auctionhouse dropdown menu is misplaced.
-  -- This hackfix rearranges it, by setting the width of it, as soon as
-  -- the auctionhouse window is ready to get hooked.
-  local pfAuctionHouseFix = CreateFrame("Frame", nil)
-  pfAuctionHouseFix:RegisterEvent("ADDON_LOADED")
-  pfAuctionHouseFix:SetScript("OnEvent", function ()
-    if not pfAuctionFrame_OnShow and AuctionFrame_OnShow then
-      pfAuctionFrame_OnShow = AuctionFrame_OnShow
-      function AuctionFrame_OnShow ()
-        pfAuctionFrame_OnShow()
-        BrowseLevelText:SetWidth(70)
-      end
-      pfAuctionHouseFix:UnregisterAllEvents()
-    end
-  end)
 
   if C.global.errors_limit == "1" then
     UIErrorsFrame:SetHeight(25)

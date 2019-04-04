@@ -14,10 +14,32 @@ mod = math.mod or mod
 -- 'subject'    [string]        String to split.
 -- return:      [list]          a list of strings.
 function pfUI.api.strsplit(delimiter, subject)
+  if not subject then return nil end
   local delimiter, fields = delimiter or ":", {}
   local pattern = string.format("([^%s]+)", delimiter)
   string.gsub(subject, pattern, function(c) fields[table.getn(fields)+1] = c end)
   return unpack(fields)
+end
+
+-- [ checkversion ]
+-- Compares a given version (major,minor,fix) and compares it to the current
+-- 'chkmajor'   [number]        the major number to check
+-- 'chkminor'   [number]        the minor number to check
+-- 'chkfix'     [number]        the fix number to check
+--
+-- return:      [boolean]       true when the current version is smaller or equal
+--                              to the given value, otherwise returns nil.
+local major, minor, fix = nil, nil, nil
+function pfUI.api.checkversion(chkmajor, chkminor, chkfix)
+  if not major and not minor and not fix then
+    -- load and convert current version
+    major, minor, fix = pfUI.api.strsplit(".", tostring(pfUI_config.version))
+    major, minor, fix = tonumber(major) or 0, tonumber(minor) or 0, tonumber(fix) or 0
+  end
+
+  local chkversion = chkmajor + chkminor/100 + chkfix/10000
+  local curversion = major + minor/100 + fix/10000
+  return curversion <= chkversion and true or nil
 end
 
 -- [ UnitInRange ]
@@ -146,20 +168,16 @@ local sanitize_cache = {}
 function pfUI.api.SanitizePattern(pattern, dbg)
   if not sanitize_cache[pattern] then
     local ret = pattern
-    -- escape brackets
-    ret = gsub(ret, "%((.+)%)", "%%(%1%%)")
+    -- escape magic characters
+    ret = gsub(ret, "([%+%-%*%(%)%?%[%]%^])", "%%%1")
     -- remove capture indexes
     ret = gsub(ret, "%d%$","")
-
     -- catch all characters
     ret = gsub(ret, "(%%%a)","%(%1+%)")
-
     -- convert all %s to .+
     ret = gsub(ret, "%%s%+",".+")
-
     -- set priority to numbers over strings
     ret = gsub(ret, "%(.%+%)%(%%d%+%)","%(.-%)%(%%d%+%)")
-
     -- cache it
     sanitize_cache[pattern] = ret
   end
@@ -344,6 +362,13 @@ function pfUI.api.HookAddonOrVariable(addon, func)
   lurker:RegisterEvent("VARIABLES_LOADED")
   lurker:RegisterEvent("PLAYER_ENTERING_WORLD")
   lurker:SetScript("OnEvent",function()
+    -- only run when config is available
+    if event == "ADDON_LOADED" and not this.foundConfig then
+      return
+    elseif event == "VARIABLES_LOADED" then
+      this.foundConfig = true
+    end
+
     if IsAddOnLoaded(addon) or _G[addon] then
       this:func()
       this:UnregisterAllEvents()
@@ -758,7 +783,7 @@ end
 -- [ Bar Layout Formfactor ] --
 -- 'option'  string option as used in pfUI_config.bars[bar].option
 -- returns:  integer formfactor
-local formfactors = {} -- we'll use memoization so we only compute once, then lookup.
+local formfactors = {}
 setmetatable(formfactors, {__mode = "v"}) -- weak table so values not referenced are collected on next gc
 function pfUI.api.BarLayoutFormfactor(option)
   if formfactors[option] then
@@ -777,69 +802,77 @@ function pfUI.api.BarLayoutFormfactor(option)
 end
 
 -- [ Bar Layout Size ] --
--- 'bar'  frame reference,
--- 'barsize'  integer number of buttons,
--- 'formfactor'  string formfactor in cols x rows,
--- 'visiblesize' integer buttons actually spawned
-function pfUI.api.BarLayoutSize(bar,barsize,formfactor,iconsize,bordersize,visiblesize)
+-- 'bar'        frame reference,
+-- 'barsize'    integer number of buttons,
+-- 'formfactor' string formfactor in cols x rows,
+-- 'padding'    the spacing between buttons
+function pfUI.api.BarLayoutSize(bar,barsize,formfactor,iconsize,bordersize,padding)
   assert(barsize > 0 and barsize <= NUM_ACTIONBAR_BUTTONS,"BarLayoutSize: barsize "..tostring(barsize).." is invalid")
   local formfactor = pfUI.api.BarLayoutFormfactor(formfactor)
   local cols, rows = unpack(pfGridmath[barsize][formfactor])
-  if (visiblesize) and (visiblesize < barsize) then
-    cols = math.min(cols,visiblesize)
-    rows = math.min(math.ceil(visiblesize/cols),visiblesize)
-  end
-  local width = (iconsize + bordersize*3) * cols - bordersize
-  local height = (iconsize + bordersize*3) * rows - bordersize
+  local width = (iconsize + bordersize*2+padding) * cols + padding
+  local height = (iconsize + bordersize*2+padding) * rows + padding
   bar._size = {width,height}
   return bar._size
 end
 
 -- [ Bar Button Anchor ] --
--- 'button'  frame reference
--- 'basename'  name of button frame without index
+-- 'button'       frame reference
+-- 'basename'     name of button frame without index
 -- 'buttonindex'  index number of button on bar
--- 'formfactor'  string formfactor in cols x rows
-function pfUI.api.BarButtonAnchor(button,basename,buttonindex,barsize,formfactor,iconsize,bordersize)
+-- 'formfactor'   string formfactor in cols x rows
+-- 'iconsize'     size of the button
+-- 'bordersize'   default bordersize
+-- 'padding'      the spacing between buttons
+function pfUI.api.BarButtonAnchor(button,basename,buttonindex,barsize,formfactor,iconsize,bordersize,padding)
   assert(barsize > 0 and barsize <= NUM_ACTIONBAR_BUTTONS,"BarButtonAnchor: barsize "..tostring(barsize).." is invalid")
   local formfactor = pfUI.api.BarLayoutFormfactor(formfactor)
   local parent = button:GetParent()
   local cols, rows = unpack(pfGridmath[barsize][formfactor])
   if buttonindex == 1 then
-    button._anchor = {"TOPLEFT", parent, "TOPLEFT", bordersize, -bordersize}
+    button._anchor = {"TOPLEFT", parent, "TOPLEFT", bordersize+padding, -bordersize-padding}
   else
     local col = buttonindex-((math.ceil(buttonindex/cols)-1)*cols)
-    button._anchor = col==1 and {"TOP",getglobal(basename..(buttonindex-cols)),"BOTTOM",0,-(bordersize*3)} or {"LEFT",getglobal(basename..(buttonindex-1)),"RIGHT",(bordersize*3),0}
+    button._anchor = col==1 and {"TOP",getglobal(basename..(buttonindex-cols)),"BOTTOM",0,-(bordersize*2+padding)} or {"LEFT",getglobal(basename..(buttonindex-1)),"RIGHT",(bordersize*2+padding),0}
   end
   return button._anchor
 end
 
--- [ Create Autohide ] --
+-- [ Enable Autohide ] --
 -- 'frame'  the frame that should be hidden
-function pfUI.api.CreateAutohide(frame)
+function pfUI.api.EnableAutohide(frame, timeout)
   if not frame then return end
-  frame.hover = CreateFrame("Frame", frame:GetName() .. "Autohide", frame)
+
+  frame.hover = frame.hover or CreateFrame("Frame", frame:GetName() .. "Autohide", frame)
   frame.hover:SetParent(frame)
   frame.hover:SetAllPoints(frame)
   frame.hover.parent = frame
+  frame.hover:Show()
 
-  frame.hover:RegisterEvent("PLAYER_LEAVING_WORLD")
-  frame.hover:SetScript("OnEvent", function()
-    this:Hide()
-  end)
-
+  local timeout = timeout
   frame.hover:SetScript("OnUpdate", function()
     if MouseIsOver(this, 10, -10, -10, 10) then
-      this.activeTo = GetTime() + tonumber(pfUI_config.bars.hide_time)
+      this.activeTo = GetTime() + timeout
       this.parent:SetAlpha(1)
     elseif this.activeTo then
       if this.activeTo < GetTime() and this.parent:GetAlpha() > 0 then
         this.parent:SetAlpha(this.parent:GetAlpha() - 0.1)
       end
     else
-      this.activeTo = GetTime() + tonumber(pfUI_config.bars.hide_time)
+      this.activeTo = GetTime() + timeout
     end
   end)
+end
+
+-- [ Disable Autohide ] --
+-- 'frame'  the frame that should get the autohide removed
+function pfUI.api.DisableAutohide(frame)
+  if not frame then return end
+  if not frame.hover then return end
+
+  frame.hover:SetScript("OnUpdate", nil)
+  frame.hover:Hide()
+  frame:SetAlpha(1)
 end
 
 -- [ GetColoredTime ] --
@@ -903,4 +936,58 @@ function pfUI.api.GetColorGradient(perc)
     gradientcolors[perc].g,
     gradientcolors[perc].b,
     gradientcolors[perc].h
+end
+
+-- [ GetNoNameObject ] --
+-- 'frame'      [string]       parent frame
+-- 'scantype'   [string]       scanning Region or Children
+-- 'objtype'    [string]
+-- 'layer'      [string]
+-- 'arg1'       [string]
+-- return object
+
+-- NOTE: special symbols must be escaped by the SAME symbol!
+-- e.g. symbol '\':  '\\'
+-- symbol '-': '--'
+function pfUI.api.GetNoNameObject(frame, objtype, layer, arg1, arg2)
+  local objects
+  if objtype == "Texture" or objtype == "FontString" then
+    objects = {frame:GetRegions()}
+  else
+    objects = {frame:GetChildren()}
+  end
+
+  for _, object in ipairs(objects) do
+    local check = true
+    if object:GetObjectType() ~= objtype or (layer and object:GetDrawLayer() ~= layer) then check = false end
+
+    if check then
+      if objtype == "Texture" and object.SetTexture and object:GetTexture() ~= "Interface\\BUTTONS\\WHITE8X8" then
+        if arg1 then
+          local texture = object:GetTexture()
+          if texture and not string.find(texture, arg1) then check = false end
+        end
+
+        if check then return object end
+      elseif objtype == "FontString" and object.SetText then
+        if arg1 then
+          local text = object:GetText()
+          if text and not string.find(text, arg1) then check = false end
+        end
+
+        if check then return object end
+      elseif objtype == "Button" and object.GetNormalTexture and object:GetNormalTexture() then
+        if arg1 then
+          local texture = object:GetNormalTexture():GetTexture()
+          if texture and not string.find(texture, arg1) then check = false end
+        end
+        if arg2 then
+          local text = object:GetText()
+          if text and not string.find(text, arg2) then check = false end
+        end
+
+        if check then return object end
+      end
+    end
+  end
 end
