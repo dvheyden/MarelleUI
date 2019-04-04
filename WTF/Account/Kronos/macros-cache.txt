@@ -41,7 +41,6 @@ MACRO 31 "POWER" Spell_Lightning_LightningBolt01
 /script SpellStopCasting()
 /script UseInventoryItem(13)
 /script SpellStopCasting()
-/cast Frostbolt(Rank 11)
 END
 MACRO 28 "Sapper/BW" Ability_Creature_Cursed_01
 /script UseContainerItem(0, 1)
