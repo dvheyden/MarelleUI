@@ -314,54 +314,6 @@ RABui_Settings = {
 				["extralabel"] = "",
 			},
 			[2] = {
-				["cmd"] = "bok 12345678",
-				["label"] = "Kings",
-				["color"] = {
-					[1] = 1,
-					[2] = 0.596078431372549,
-					[3] = 0.9607843137254902,
-				},
-				["priority"] = 10,
-				["extralabel"] = "",
-				["out"] = "RAID",
-			},
-			[3] = {
-				["cmd"] = "bom 12345678",
-				["label"] = "Might",
-				["color"] = {
-					[1] = 1,
-					[2] = 0.596078431372549,
-					[3] = 0.9607843137254902,
-				},
-				["priority"] = 10,
-				["extralabel"] = "",
-				["out"] = "RAID",
-			},
-			[4] = {
-				["cmd"] = "bos 12345678",
-				["label"] = "Salvation",
-				["color"] = {
-					[1] = 1,
-					[2] = 0.596078431372549,
-					[3] = 0.9607843137254902,
-				},
-				["priority"] = 10,
-				["extralabel"] = "",
-				["out"] = "RAID",
-			},
-			[5] = {
-				["cmd"] = "bow 12345678",
-				["label"] = "Wisdom",
-				["color"] = {
-					[1] = 1,
-					[2] = 0.596078431372549,
-					[3] = 0.9607843137254902,
-				},
-				["priority"] = 10,
-				["extralabel"] = "",
-				["out"] = "RAID",
-			},
-			[6] = {
 				["cmd"] = "motw 12345678",
 				["label"] = "Mark of the Wild",
 				["color"] = {
@@ -373,7 +325,7 @@ RABui_Settings = {
 				["extralabel"] = "",
 				["out"] = "RAID",
 			},
-			[7] = {
+			[3] = {
 				["cmd"] = "pwf 12345678",
 				["label"] = "Fortitude",
 				["color"] = {
@@ -385,7 +337,7 @@ RABui_Settings = {
 				["extralabel"] = "",
 				["out"] = "RAID",
 			},
-			[8] = {
+			[4] = {
 				["cmd"] = "ds 12345678",
 				["label"] = "Divine Spirit",
 				["color"] = {
@@ -397,7 +349,7 @@ RABui_Settings = {
 				["extralabel"] = "",
 				["out"] = "RAID",
 			},
-			[9] = {
+			[5] = {
 				["cmd"] = "firepot 12345678",
 				["label"] = "Fire Protection",
 				["color"] = {
@@ -409,7 +361,7 @@ RABui_Settings = {
 				["extralabel"] = "",
 				["out"] = "RAID",
 			},
-			[10] = {
+			[6] = {
 				["cmd"] = "naturepot 12345678",
 				["label"] = "Nature Protection",
 				["color"] = {
@@ -421,7 +373,7 @@ RABui_Settings = {
 				["extralabel"] = "",
 				["out"] = "RAID",
 			},
-			[11] = {
+			[7] = {
 				["cmd"] = "shadowpot 12345678",
 				["label"] = "Shadow Protection",
 				["color"] = {
@@ -433,7 +385,7 @@ RABui_Settings = {
 				["extralabel"] = "",
 				["out"] = "RAID",
 			},
-			[12] = {
+			[8] = {
 				["cmd"] = "ss 12345678",
 				["label"] = "Soulstone",
 				["color"] = {
