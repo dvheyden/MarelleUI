@@ -145,8 +145,8 @@ pfUI:RegisterModule("addonbuttons", function ()
     sum_size = 0
     buttons_count = GetNumButtons()
     for i, button_name in ipairs(pfUI.addonbuttons.buttons) do
-      if getglobal(button_name) ~= nil then
-        sum_size = sum_size + getglobal(button_name):GetHeight()
+      if _G[button_name] ~= nil then
+        sum_size = sum_size + _G[button_name]:GetHeight()
       end
     end
     calculated_scale = GetButtonSize() / (sum_size / buttons_count)
@@ -194,7 +194,7 @@ pfUI:RegisterModule("addonbuttons", function ()
     ScanForButtons()
     for i, button_name in ipairs(pfUI_cache["abuttons"]["add"]) do
       if not TableMatch(pfUI.addonbuttons.buttons, button_name) then
-        if getglobal(button_name) ~= nil then
+        if _G[button_name] ~= nil then
           table.insert(pfUI.addonbuttons.buttons, button_name)
         end
       end
@@ -205,7 +205,7 @@ pfUI:RegisterModule("addonbuttons", function ()
       end
     end
     for i, button_name in ipairs(pfUI.addonbuttons.buttons) do
-      if getglobal(button_name) == nil then
+      if _G[button_name] == nil then
         table.remove(pfUI.addonbuttons.buttons, TableMatch(pfUI.addonbuttons.buttons, button_name))
       end
     end
@@ -249,7 +249,7 @@ pfUI:RegisterModule("addonbuttons", function ()
 
   local function RestoreButton(frame)
     if frame.backup ~= nil then
-      getglobal(frame.backup.top_frame_name):SetParent(frame.backup.parent_name)
+      _G[frame.backup.top_frame_name]:SetParent(frame.backup.parent_name)
       frame:SetClampedToScreen(frame.backup.is_clamped_to_screen)
       frame:SetMovable(frame.backup.is_movable)
       frame:SetScale(frame.backup.scale)
@@ -310,10 +310,17 @@ pfUI:RegisterModule("addonbuttons", function ()
     end
   end
 
-  local function ManualAddOrRemove(action)
-    local button = GetMouseFocus()
+  local function ManualAddOrRemove(msg)
+    local _, _, action, arg = string.find(msg, "%s?(%w+)%s?(.*)")
 
-    if action ~= "reset" and action ~= "add" and action ~= "del" then
+    local button
+    if arg and arg ~= "" then
+      button = _G[arg]
+    else
+      button = GetMouseFocus()
+    end
+
+    if action == "" or (action ~= "reset" and action ~= "add" and action ~= "del") then
       DEFAULT_CHAT_FRAME:AddMessage("|cff33ffccpf|rUI Addon Button Panel:")
       DEFAULT_CHAT_FRAME:AddMessage("|cff33ffcc/abp add|r - " .. T["Add button to the frame"])
       DEFAULT_CHAT_FRAME:AddMessage("|cff33ffcc/abp del|r - " .. T["Remove button from the frame"])
@@ -323,11 +330,11 @@ pfUI:RegisterModule("addonbuttons", function ()
 
     if action == "reset" then
       for i, button_name in ipairs(pfUI_cache["abuttons"]["add"]) do
-        if getglobal(button_name) ~= nil then
+        if _G[button_name] ~= nil then
           if TableMatch(pfUI.addonbuttons.buttons, button_name) then
             table.remove(pfUI.addonbuttons.buttons, TableMatch(pfUI.addonbuttons.buttons, button_name))
           end
-          RestoreButton(getglobal(button_name))
+          RestoreButton(_G[button_name])
         end
       end
       pfUI_cache["abuttons"]["add"] = {}
@@ -376,9 +383,9 @@ pfUI:RegisterModule("addonbuttons", function ()
   function pfUI.addonbuttons:ProcessButtons()
     UpdatePanel()
     for i, button_name in ipairs(pfUI.addonbuttons.buttons) do
-      if getglobal(button_name) ~= nil then
-        BackupButton(getglobal(button_name))
-        MoveButton(i, getglobal(button_name))
+      if _G[button_name] ~= nil then
+        BackupButton(_G[button_name])
+        MoveButton(i, _G[button_name])
       end
     end
   end

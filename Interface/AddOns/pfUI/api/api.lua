@@ -380,15 +380,15 @@ end
 -- Add functions to a FIFO queue for execution after a short delay.
 -- '...'        [vararg]        function, [arguments]
 local timer
-function pfUI.api.QueueFunction(...)
-  if not (timer) then
-    timer = CreateFrame("frame")
+function pfUI.api.QueueFunction(a1,a2,a3,a4,a5,a6,a7,a8,a9)
+  if not timer then
+    timer = CreateFrame("Frame")
     timer.queue = {}
     timer.interval = TOOLTIP_UPDATE_TIME
     timer.DeQueue = function()
       local item = table.remove(timer.queue,1)
-      if (item) then
-        item[1](unpack(item[2]))
+      if item then
+        item[1](item[2],item[3],item[4],item[5],item[6],item[7],item[8],item[9])
       end
       if table.getn(timer.queue) == 0 then
         timer:Hide() -- no need to run the OnUpdate when the queue is empty
@@ -402,9 +402,7 @@ function pfUI.api.QueueFunction(...)
       end
     end)
   end
-  assert(type(arg[1])=="function","QueueFunction: arg1 is not a function")
-  local func = table.remove(arg, 1)
-  table.insert(timer.queue,{func,arg})
+  table.insert(timer.queue,{a1,a2,a3,a4,a5,a6,a7,a8,a9})
   timer:Show() -- start the OnUpdate
 end
 
@@ -524,6 +522,53 @@ function pfUI.api.wipe(src)
   return src
 end
 
+-- [ Load Movable ]
+-- Loads the positions of a Frame.
+-- 'frame'      [frame]        the frame that should be positioned.
+-- 'init'       [bool]         treats the current position as initial data
+function pfUI.api.LoadMovable(frame, init)
+  -- update position data
+  if not frame.posdata or init then
+    frame.posdata = { scale = frame:GetScale(), pos = {} }
+    for i=1,frame:GetNumPoints() do
+      frame.posdata.pos[i] = { frame:GetPoint(i) }
+    end
+  end
+
+  if pfUI_config["position"][frame:GetName()] then
+    if pfUI_config["position"][frame:GetName()]["scale"] then
+      frame:SetScale(pfUI_config["position"][frame:GetName()].scale)
+    end
+
+    if pfUI_config["position"][frame:GetName()]["xpos"] then
+      local anchor = pfUI_config["position"][frame:GetName()]["anchor"] or "TOPLEFT"
+      frame:ClearAllPoints()
+      frame:SetPoint(anchor, pfUI_config["position"][frame:GetName()].xpos, pfUI_config["position"][frame:GetName()].ypos)
+    end
+  elseif frame.posdata and frame.posdata.pos[1] then
+    frame:ClearAllPoints()
+    frame:SetScale(frame.posdata.scale)
+
+    for id, point in pairs(frame.posdata.pos) do
+      frame:SetPoint(unpack(point))
+    end
+  end
+end
+
+-- [ Save Movable ]
+-- Save the positions of a Frame.
+-- 'frame'      [frame]        the frame that should be saved.
+function pfUI.api.SaveMovable(frame)
+  local anchor, _, _, xpos, ypos = frame:GetPoint()
+  if not C.position[frame:GetName()] then
+    C.position[frame:GetName()] = {}
+  end
+
+  C.position[frame:GetName()]["xpos"] = round(xpos)
+  C.position[frame:GetName()]["ypos"] = round(ypos)
+  C.position[frame:GetName()]["anchor"] = anchor
+end
+
 -- [ Update Movable ]
 -- Loads and update the configured position of the specified frame.
 -- It also creates an entry in the movables table.
@@ -540,31 +585,7 @@ function pfUI.api.UpdateMovable(frame, init)
     pfUI.movables[name] = frame
   end
 
-  -- update position data
-  if not frame.posdata or init then
-    frame.posdata = { scale = frame:GetScale(), pos = {} }
-    for i=1,frame:GetNumPoints() do
-      frame.posdata.pos[i] = { frame:GetPoint(i) }
-    end
-  end
-
-  if pfUI_config["position"][frame:GetName()] then
-    if pfUI_config["position"][frame:GetName()]["scale"] then
-      frame:SetScale(pfUI_config["position"][frame:GetName()].scale)
-    end
-
-    if pfUI_config["position"][frame:GetName()]["xpos"] then
-      frame:ClearAllPoints()
-      frame:SetPoint("TOPLEFT", pfUI_config["position"][frame:GetName()].xpos, pfUI_config["position"][frame:GetName()].ypos)
-    end
-  elseif frame.posdata and frame.posdata.pos[1] then
-    frame:ClearAllPoints()
-    frame:SetScale(frame.posdata.scale)
-
-    for id, point in pairs(frame.posdata.pos) do
-      frame:SetPoint(unpack(point))
-    end
-  end
+  LoadMovable(frame, init)
 end
 
 -- [ Remove Movable ]
@@ -573,35 +594,6 @@ end
 function pfUI.api.RemoveMovable(frame)
   local name = frame:GetName()
   pfUI.movables[name] = nil
-end
-
--- [ Load Movable ]
--- Loads the positions of a Frame.
--- 'frame'      [frame]        the frame that should be positioned.
-function pfUI.api.LoadMovable(frame)
-  if pfUI_config["position"][frame:GetName()] then
-    if pfUI_config["position"][frame:GetName()]["scale"] then
-      frame:SetScale(pfUI_config["position"][frame:GetName()].scale)
-    end
-
-    if pfUI_config["position"][frame:GetName()]["xpos"] then
-      frame:ClearAllPoints()
-      frame:SetPoint("TOPLEFT", pfUI_config["position"][frame:GetName()].xpos, pfUI_config["position"][frame:GetName()].ypos)
-    end
-  end
-end
-
--- [ Save Movable ]
--- Save the positions of a Frame.
--- 'frame'      [frame]        the frame that should be saved.
-function pfUI.api.SaveMovable(frame)
-  local _, _, _, xpos, ypos = frame:GetPoint()
-  if not C.position[frame:GetName()] then
-    C.position[frame:GetName()] = {}
-  end
-
-  C.position[frame:GetName()]["xpos"] = round(xpos)
-  C.position[frame:GetName()]["ypos"] = round(ypos)
 end
 
 -- [ SetAutoPoint ]
@@ -833,7 +825,7 @@ function pfUI.api.BarButtonAnchor(button,basename,buttonindex,barsize,formfactor
     button._anchor = {"TOPLEFT", parent, "TOPLEFT", bordersize+padding, -bordersize-padding}
   else
     local col = buttonindex-((math.ceil(buttonindex/cols)-1)*cols)
-    button._anchor = col==1 and {"TOP",getglobal(basename..(buttonindex-cols)),"BOTTOM",0,-(bordersize*2+padding)} or {"LEFT",getglobal(basename..(buttonindex-1)),"RIGHT",(bordersize*2+padding),0}
+    button._anchor = col==1 and {"TOP",_G[basename..(buttonindex-cols)],"BOTTOM",0,-(bordersize*2+padding)} or {"LEFT",_G[basename..(buttonindex-1)],"RIGHT",(bordersize*2+padding),0}
   end
   return button._anchor
 end

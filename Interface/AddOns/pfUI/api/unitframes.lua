@@ -992,22 +992,23 @@ function pfUI.uf:RefreshUnit(unit, component)
 
   local C = pfUI_config
   -- show groupframes as raid
-  if C["unitframes"]["raidforgroup"] == "1" then
-    if strsub(unit:GetName(),0,6) == "pfRaid" then
-      local id = tonumber(strsub(unit:GetName(),7,8))
+  if strsub(unit:GetName(),0,6) == "pfRaid" then
+    local id = tonumber(strsub(unit:GetName(),7,8))
 
-      if not UnitInRaid("player") and GetNumPartyMembers() > 0 then
-        if id == 1 then
-          unit.id = ""
-          unit.label = "player"
-        elseif id <= 5 then
-          unit.id = id - 1
-          unit.label = "party"
-        end
-      elseif unit.label == "party" or unit.label == "player" then
-        unit.id = id
-        unit.label = "raid"
+    if not UnitInRaid("player") and GetNumPartyMembers() == 0 and C.unitframes.selfinraid == "1" and id == 1 then
+      unit.id = ""
+      unit.label = "player"
+    elseif not UnitInRaid("player") and GetNumPartyMembers() > 0 and C.unitframes.raidforgroup == "1" then
+      if id == 1 then
+        unit.id = ""
+        unit.label = "player"
+      elseif id <= 5 then
+        unit.id = id - 1
+        unit.label = "party"
       end
+    elseif unit.label == "party" or unit.label == "player" then
+      unit.id = id
+      unit.label = "raid"
     end
   end
 
@@ -1049,7 +1050,7 @@ function pfUI.uf:RefreshUnit(unit, component)
 
       -- hide self in group if solo or hide in raid is set
       elseif unit.fname == "Group0" or unit.fname == "PartyPet0" or unit.fname == "Party0Target" then
-        if ( GetNumPartyMembers() <= 0 ) or ( C["unitframes"]["group"]["hide_in_raid"] == "1" and UnitInRaid("player") ) then
+        if ( C["unitframes"]["group"]["hide_in_raid"] == "1" and UnitInRaid("player") ) then
           unit:Hide()
           return
         end
@@ -1521,11 +1522,11 @@ function pfUI.uf:ClickAction(button)
     elseif label == "pet" then
       ToggleDropDownMenu(1, nil, PetFrameDropDown, "cursor")
     elseif label == "party" then
-      ToggleDropDownMenu(1, nil, getglobal("PartyMemberFrame" .. this.id .. "DropDown"), "cursor")
+      ToggleDropDownMenu(1, nil, _G["PartyMemberFrame" .. this.id .. "DropDown"], "cursor")
     elseif label == "raid" then
       local name = this.lastUnit
       FriendsDropDown.displayMode = "MENU"
-      FriendsDropDown.initialize = function() UnitPopup_ShowMenu(getglobal(UIDROPDOWNMENU_OPEN_MENU), "PARTY", unitstr, name, id) end
+      FriendsDropDown.initialize = function() UnitPopup_ShowMenu(_G[UIDROPDOWNMENU_OPEN_MENU], "PARTY", unitstr, name, id) end
       ToggleDropDownMenu(1, nil, FriendsDropDown, "cursor")
     end
   else

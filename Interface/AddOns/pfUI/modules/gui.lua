@@ -1,4 +1,4 @@
-pfUI:RegisterModule("gui", function ()
+pfUI:RegisterModule("gui", 20400, function ()
   local Reload, U, PrepareDropDownButton, CreateConfig, CreateTabFrame, CreateArea, CreateGUIEntry, EntryUpdate
 
   -- "searchDB" gets populated when CreateConfig is called. The table holds
@@ -74,9 +74,9 @@ pfUI:RegisterModule("gui", function ()
 
       -- basic frame
       local frame = CreateFrame("Frame", nil, this)
+      frame:SetWidth(this.parent:GetRight()-this.parent:GetLeft()-20)
       frame:SetHeight(22)
-      frame:SetPoint("TOPLEFT", 5, (this.objectCount*-23)-5)
-      frame:SetWidth(this.parent:GetParent():GetWidth()/this.parent:GetEffectiveScale()-20)
+      frame:SetPoint("TOPLEFT", this, "TOPLEFT", 5, (this.objectCount*-23)-5)
 
       -- populate search index
       if caption and this and this.GetParent and widget ~= "button" and widget ~= "header" then
@@ -1425,9 +1425,10 @@ pfUI:RegisterModule("gui", function ()
     end)
 
     CreateGUIEntry(T["Group Frames"], T["General"], function()
-      CreateConfig(U["group"], T["Show Self in Group Frames"], C.unitframes, "selfingroup", "checkbox")
-      CreateConfig(nil, T["Hide Group Frames While In Raid"], C.unitframes.group, "hide_in_raid", "checkbox")
       CreateConfig(nil, T["Use Raid Frames To Display Group Members"], C.unitframes, "raidforgroup", "checkbox")
+      CreateConfig(nil, T["Always Show Self In Raid Frames"], C.unitframes, "selfinraid", "checkbox")
+      CreateConfig(nil, T["Always Show Self In Group Frames"], C.unitframes, "selfingroup", "checkbox")
+      CreateConfig(nil, T["Hide Group Frames While In Raid"], C.unitframes.group, "hide_in_raid", "checkbox")
       CreateConfig(nil, T["Show Hots as Buff Indicators"], C.unitframes, "show_hots", "checkbox")
       CreateConfig(nil, T["Show Hots of all Classes"], C.unitframes, "all_hots", "checkbox")
       CreateConfig(nil, T["Show Procs as Buff Indicators"], C.unitframes, "show_procs", "checkbox")
@@ -1711,7 +1712,9 @@ pfUI:RegisterModule("gui", function ()
         if id ~= 11 and id ~= 12 then
           CreateConfig(U["bars"], T["Show Macro Text"], C.bars["bar"..id], "showmacro", "checkbox")
           CreateConfig(U["bars"], T["Show Item Count Text"], C.bars["bar"..id], "showcount", "checkbox")
-        elseif id ~= 11 then
+        end
+
+        if id ~= 11 then
           CreateConfig(U["bars"], T["Show Empty Buttons"], C.bars["bar"..id], "showempty", "checkbox")
         end
 

@@ -1,4 +1,4 @@
-pfUI:RegisterModule("skin", function ()
+pfUI:RegisterModule("skin", 20400, function ()
   -- align UIParent panels
   pfUI.panelalign = CreateFrame("Frame", "pfUIParentPanelAlign", UIParent)
   pfUI.panelalign:SetScript("OnUpdate", function()
@@ -46,12 +46,12 @@ pfUI:RegisterModule("skin", function ()
 
   if C.appearance.cd.blizzard == "1" then
     hooksecurefunc("PaperDollItemSlotButton_Update", function()
-        local cooldown = getglobal(this:GetName().."Cooldown")
+        local cooldown = _G[this:GetName().."Cooldown"]
         if cooldown then cooldown.pfCooldownType = "ALL" end
     end)
 
     hooksecurefunc("SpellButton_UpdateButton", function()
-      local cooldown = getglobal(this:GetName().."Cooldown")
+      local cooldown = _G[this:GetName().."Cooldown"]
       if cooldown then cooldown.pfCooldownType = "ALL" end
     end)
   end
@@ -63,20 +63,8 @@ pfUI:RegisterModule("skin", function ()
     "DropDownList2Backdrop",
   }
 
-  local pfUIButton = CreateFrame("Button", "GameMenuButtonPFUI", GameMenuFrame, "GameMenuButtonTemplate")
-  pfUIButton:SetPoint("TOP", 0, -10)
-  pfUIButton:SetText(T["|cff33ffccpf|cffffffffUI|cffcccccc Config"])
-  pfUIButton:SetScript("OnClick", function()
-    pfUI.gui:Show()
-    HideUIPanel(GameMenuFrame)
-  end)
-  SkinButton(pfUIButton)
-
-  local point, relativeTo, relativePoint, xOffset, yOffset = GameMenuButtonOptions:GetPoint()
-  GameMenuButtonOptions:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset - 22)
-
   for _, box in pairs(boxes) do
-    local b = getglobal(box)
+    local b = _G[box]
     CreateBackdrop(b, nil, true, .8)
   end
 

@@ -19,6 +19,20 @@ pfUI:RegisterModule("actionbar", function ()
     if f.Hide then f:Hide() end
   end
 
+  -- also abbreviate mouse buttons
+  local OrigGetBindingText = GetBindingText
+  local function GetBindingText(msg, mod, abbrev)
+    local txt = OrigGetBindingText(msg, mod, abbrev)
+    if abbrev then
+      txt = string.gsub(txt, _G[string.format("%s%s", mod, "BUTTON3")], "MB3")
+      txt = string.gsub(txt, _G[string.format("%s%s", mod, "BUTTON4")], "MB4")
+      txt = string.gsub(txt, _G[string.format("%s%s", mod, "BUTTON5")], "MB5")
+      txt = string.gsub(txt, _G[string.format("%s%s", mod, "MOUSEWHEELDOWN")], "MWD")
+      txt = string.gsub(txt, _G[string.format("%s%s", mod, "MOUSEWHEELUP")], "MWU")
+    end
+    return txt
+  end
+
   kill(MainMenuBar)
 
   local blizzard_elements = { MultiBarBottomLeft,
@@ -241,8 +255,10 @@ pfUI:RegisterModule("actionbar", function ()
 
     if not self.showempty and self.backdrop and not texture and showgrid == 0 then
       self.backdrop:Hide()
+      self.hide = true
     else
       self.backdrop:Show()
+      self.hide = nil
     end
 
     -- update cooldown
@@ -325,9 +341,9 @@ pfUI:RegisterModule("actionbar", function ()
     end
 
     -- keybinds
-    if self.bar == bar and self.bar ~= 11 and self.bar ~= 12 then
+    if not self.hide and self.bar == bar and self.bar ~= 11 and self.bar ~= 12 then
       self.keybind:SetText(GetBindingText(GetBindingKey("ACTIONBUTTON"..id), "KEY_", 1))
-    elseif buttontypes[self.bar] then
+    elseif not self.hide and buttontypes[self.bar] then
       self.keybind:SetText(GetBindingText(GetBindingKey(buttontypes[self.bar]..id), "KEY_", 1))
     else
       self.keybind:SetText("")
@@ -611,6 +627,7 @@ pfUI:RegisterModule("actionbar", function ()
     f.keybind:SetTextColor(unpack(bind_color))
     f.keybind:SetJustifyH("RIGHT")
     f.keybind:SetJustifyV("TOP")
+    f.keybind:SetNonSpaceWrap(false)
 
     -- item count options
     if showcount == "1" then f.count:Show() else f.count:Hide() end
@@ -857,11 +874,23 @@ pfUI:RegisterModule("actionbar", function ()
   -- create actionbars
   pfUI.bars = bars
 
-  function pfUI.bars:UpdateConfig()
+  pfUI.bars.UpdateGrid = function(self, state)
+    showgrid = state
+    for j=1,12 do
+      for i=1,12 do
+        if pfUI.bars[i][j] then
+          pfUI.bars[i][j].forceupdate = true
+        end
+      end
+    end
+  end
+
+  pfUI.bars.UpdateConfig = function(self)
     for i=1,12 do
       CreateActionBar(i)
     end
   end
+
   pfUI.bars:UpdateConfig()
 
   -- helper function to update by slot
