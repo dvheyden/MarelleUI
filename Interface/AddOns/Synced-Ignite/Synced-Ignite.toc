@@ -1,0 +1,6 @@
+## Interface: 11200
+## Title: Synced Ignite Tracker
+## Notes: Keeps track of the Synced guilds ignite debuff
+## Authors: Marelle
+## Version: 0.1
+Synced-Ignite.xml

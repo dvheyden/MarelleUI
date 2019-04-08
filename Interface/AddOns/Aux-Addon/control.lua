@@ -1,147 +1,121 @@
-Aux.control = {}
+module 'aux'
 
-local event_listeners = {}
-local update_listeners = {}
+local T = require 'T'
 
-function Aux.control.on_event()
-	for listener, _ in pairs(event_listeners) do
-		if event == listener.event and not listener.deleted then
-			listener.action()
+local event_frame = CreateFrame'Frame'
+
+local listeners, threads = T.acquire(), T.acquire()
+
+local thread_id
+function M.thread_id() return thread_id end
+
+function handle.LOAD()
+	event_frame:SetScript('OnUpdate', UPDATE)
+	event_frame:SetScript('OnEvent', EVENT)
+end
+
+function EVENT()
+	for id, listener in listeners do
+		if listener.killed then
+			listeners[id] = nil
+		elseif event == listener.event then
+			listener.cb(listener.kill)
 		end
 	end
 end
 
-function Aux.control.on_update()
-	event_listeners = Aux.util.set_filter(event_listeners, function(l) return not l.deleted end)
-	update_listeners = Aux.util.set_filter(update_listeners, function(l) return not l.deleted end)
-	
-	for listener, _ in pairs(update_listeners) do
-		if not listener.deleted then
-			listener.action()
+do
+	function UPDATE()
+		for _, listener in listeners do
+			local event, needed = listener.event, false
+			for _, listener in listeners do
+				needed = needed or listener.event == event and not listener.killed
+			end
+			if not needed then
+				event_frame:UnregisterEvent(event)
+			end
+		end
+
+		for id, thread in threads do
+			if thread.killed or not thread.k then
+				threads[id] = nil
+			else
+				local k = thread.k
+				thread.k = nil
+				thread_id = id
+				k()
+				thread_id = nil
+			end
 		end
 	end
 end
 
-
-
-function Aux.control.event_listener(event, action)
-	local self = {}
-	
-	local listener = { event=event, action=action }
-	
-	function self.set_action(action)
-		listener.action = action
+do
+	local id = 0
+	function unique_id()
+		id = id + 1
+		return id
 	end
-	
-	function self.start()
-		Aux.util.set_add(event_listeners, listener)
-		if not Aux.util.any(event_listeners, function(l) return l.event == event end) then
-			AuxControlFrame:RegisterEvent(event)
-		end
-		return self
-	end
-	
-	function self.stop()
-		listener.deleted = true
-		if not Aux.util.any(event_listeners, function(l) return l.event == event end) then
-			AuxControlFrame:UnregisterEvent(event)
-		end
-		return self
-	end
-	
-	return self
 end
 
-function Aux.control.update_listener(action)
-	local self = {}
-	
-	local listener = { action=action }
-
-	function self.set_action(action)
-		listener.action = action
+function M.kill_listener(listener_id)
+	local listener = listeners[listener_id]
+	if listener then
+		listener.killed = true
 	end
-	
-	function self.start()
-		Aux.util.set_add(update_listeners, listener)
-		return self
-	end
-	
-	function self.stop()
-		listener.deleted = true
-		return self
-	end
-	
-	return self
 end
 
-	
-
-function Aux.control.on_next_update(callback)
-	local listener = Aux.control.update_listener()
-	
-	listener.set_action(function()
-		listener:stop()
-		return callback()
-	end)
-	
-	listener.start()
+function M.kill_thread(thread_id)
+	local thread = threads[thread_id]
+	if thread then
+		thread.killed = true
+	end
 end
 
-function Aux.control.on_next_event(event, callback)
-	local listener = Aux.control.event_listener(event)
-	
-	listener.set_action(function()
-		listener:stop()
-		return callback()
-	end)
-	
-	listener.start()
+function M.event_listener(event, cb)
+	local listener_id = unique_id()
+	listeners[listener_id] = T.map(
+		'event', event,
+		'cb', cb,
+		'kill', T.vararg-function(arg) if getn(arg) == 0 or arg[1] then kill_listener(listener_id) end end
+	)
+	event_frame:RegisterEvent(event)
+	return listener_id
 end
 
-function Aux.control.as_soon_as(p, callback)
-	local listener = Aux.control.update_listener()	
-	
-	listener.set_action(function()
-		if p() then
-			listener.stop()
-			return callback()
-		end
-	end)
-	
-	listener.start()
+function M.on_next_event(event, callback)
+	event_listener(event, function(kill) callback(); kill() end)
 end
 
+do
+	local mt = {
+		__call = function(self)
+			T.temp(self)
+			return self.f(unpack(self))
+		end,
+	}
 
+	M.thread = T.vararg-function(arg)
+		T.static(arg)
+		arg.f = tremove(arg, 1)
+		local thread_id = unique_id()
+		threads[thread_id] = T.map('k', setmetatable(arg, mt))
+		return thread_id
+	end
 
-function Aux.control.controller()
-	local self = {}
-	
-	local state
-	
-	local listener = Aux.control.update_listener()
-	listener.set_action(function()
-		if state and state.p() then
-			local k = state.k
-			state = nil
-			return k()
-		end
-	end)
-	listener.start()
-	
-	function self.wait(p, k)
-		state = {
-			k = k,
-			p = p,
-		}
+	M.wait = T.vararg-function(arg)
+		T.static(arg)
+		arg.f = tremove(arg, 1)
+		threads[thread_id].k = setmetatable(arg, mt)
 	end
-	
-	function self.reset()
-		state = nil
+end
+
+M.when = T.vararg-function(arg)
+	local c = tremove(arg, 1)
+	local k = tremove(arg, 1)
+	if c() then
+		return k(unpack(arg))
+	else
+		return wait(when, c, k, unpack(arg))
 	end
-	
-	function self.cleanup()
-		listener.stop()
-	end
-	
-	return self
 end

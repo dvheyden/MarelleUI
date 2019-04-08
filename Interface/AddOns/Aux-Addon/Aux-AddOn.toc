@@ -1,34 +1,54 @@
 ## Interface: 11200
-## Title: Aux
-## Notes: A lightweight addon designed to help manage auctions
-## SavedVariablesPerCharacter: aux_recently_searched, aux_view, AUX_AUCTION_DURATION
-## SavedVariables: aux_database, aux_auctionable_items
+## Author: shirsig
+## Title: aux
+## Notes: Auction House replacement
+## SavedVariables: aux
 
-slash.lua
-core.xml
-gui.lua
-control.xml
-persistence.lua
+libs\package.lua
+libs\T.lua
+
+aux-addon.lua
 util.lua
-money.lua
-groups.lua
+control.lua
+color.lua
+gui\core.lua
+frame.lua
+util\persistence.lua
+util\sort.lua
+util\money.lua
+core\cache.lua
+util\info.lua
+core\history.lua
+core\disenchant.lua
+util\filter.lua
+util\completion.lua
+core\slash.lua
+core\scan.lua
+util\scan.lua
+core\stack.lua
+core\post.lua
+core\tooltip.lua
+core\shortcut.lua
 
-scan.lua
-scan_util.lua
-stack.lua
-post.lua
-sheet.lua
-listing_util.lua
-history.lua
-info.xml
-completion.xml
+gui\listing.lua
+gui\auction_listing.lua
+gui\item_listing.lua
 
-item_search_frame.xml
-filter_search_frame.xml
-post_frame.xml
-auctions_frame.xml
-bids_frame.xml
-scan_frame.xml
+tabs\search\core.lua
+tabs\search\results.lua
+tabs\search\saved.lua
+tabs\search\filter.lua
+tabs\search\frame.lua
 
-static.xml
+tabs\post\core.lua
+tabs\post\frame.lua
+
+tabs\auctions\core.lua
+tabs\auctions\frame.lua
+
+tabs\bids\core.lua
+tabs\bids\frame.lua
+
+core\crafting.lua
+
 
