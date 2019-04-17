@@ -26,6 +26,10 @@ LOOT_BUTTON_FRAME_TYPE = "Button"
 
 PLAYER_BUFF_START_ID = 0
 
+ACTIONBAR_SECURE_TEMPLATE_BAR = "SecureStateHeaderTemplate"
+ACTIONBAR_SECURE_TEMPLATE_BUTTON = "SecureActionButtonTemplate"
+UNITFRAME_SECURE_TEMPLATE = "SecureUnitButtonTemplate"
+
 --[[ TBC API Extensions ]]--
 function UnitBuff(unitstr, i)
   -- fake return values to be vanilla alike

@@ -1,4 +1,4 @@
-pfUI:RegisterModule("bags", function ()
+pfUI:RegisterModule("bags", 20400, function ()
   local default_border = C.appearance.border.default
   if C.appearance.border.bags ~= "-1" then
     default_border = C.appearance.border.bags
@@ -485,7 +485,7 @@ pfUI:RegisterModule("bags", function ()
             CreateBackdrop(f.frame, default_border)
             f.frame.backdrop:SetBackdropBorderColor(.2,1,.8,1)
           end
-          SlotEnter()
+          SlotEnter(this)
         end)
 
         local SlotLeave = frame.bagslots.slots[slot].frame:GetScript("OnLeave")

@@ -22,6 +22,10 @@ LOOT_BUTTON_FRAME_TYPE = "LootButton"
 
 PLAYER_BUFF_START_ID = -1
 
+ACTIONBAR_SECURE_TEMPLATE_BAR = nil
+ACTIONBAR_SECURE_TEMPLATE_BUTTON = nil
+UNITFRAME_SECURE_TEMPLATE = nil
+
 --[[ Vanilla API Extensions ]]--
 function hooksecurefunc(name, func, append)
   if not _G[name] then return end
@@ -43,12 +47,4 @@ function hooksecurefunc(name, func, append)
   end
 
   _G[name] = pfUI.hooks[tostring(func)]["function"]
-end
-
-function HookScript(f, script, func)
-  local prev = f:GetScript(script)
-  f:SetScript(script, function()
-    if prev then prev() end
-    func()
-  end)
 end

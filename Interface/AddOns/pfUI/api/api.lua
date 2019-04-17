@@ -151,7 +151,7 @@ local capture_cache = {}
 function pfUI.api.GetCaptures(pat)
   local r = capture_cache
   if not r[pat] then
-    for a, b, c, d, e in string.gfind(gsub(pat, "%((.+)%)", "%1"), gsub(pat, "%d%$", "%%(.-)$")) do
+    for a, b, c, d, e in gfind(gsub(pat, "%((.+)%)", "%1"), gsub(pat, "%d%$", "%%(.-)$")) do
       r[pat] = { a, b, c, d, e}
     end
   end
@@ -263,7 +263,17 @@ function pfUI.api.GetBagFamily(bag)
     if bagsubtype == "DEFAULT" then return "BAG" end
     if bagsubtype == "SOULBAG" then return "SOULBAG" end
     if bagsubtype == "QUIVER" then return "QUIVER" end
-    if bagsubtype == nil then return "SPECIAL" end
+    if bagsubtype == nil and GetContainerNumFreeSlots then
+      -- handle new bag classes introduced in TBC
+      local _, subtype = GetContainerNumFreeSlots(bag)
+      if subtype and subtype > 0 then
+        return "SPECIAL"
+      else
+        return "BAG"
+      end
+    elseif bagsubtype == nil then
+      return "SPECIAL"
+    end
   end
 
   return nil
@@ -349,6 +359,19 @@ do -- create a scope so we don't have to worry about upvalue collisions
     unitinfo.lclass,unitinfo.class = _G.UNKNOWN, "UNKNOWN"
     return unitinfo
   end
+end
+
+-- [ HookScript ]
+-- Securely post-hooks a script handler.
+-- 'f'          [frame]             the frame which needs a hook
+-- 'script'     [string]            the handler to hook
+-- 'func'       [function]          the function that should be added
+function HookScript(f, script, func)
+  local prev = f:GetScript(script)
+  f:SetScript(script, function()
+    if prev then prev() end
+    func()
+  end)
 end
 
 -- [ HookAddonOrVariable ]
@@ -702,7 +725,7 @@ function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
 
   -- use legacy backdrop handling
   if legacy then
-    local backdrop = pfUI.backdrop
+    local backdrop = border == 1 and pfUI.backdrop_thin or pfUI.backdrop
     if backdropSetting then f:SetBackdrop(backdropSetting) end
     f:SetBackdrop(backdrop)
     f:SetBackdropColor(br, bg, bb, ba)
