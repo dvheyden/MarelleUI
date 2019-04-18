@@ -401,7 +401,7 @@ pfUI:RegisterModule("actionbar", 20400, function ()
   local function ButtonDrag(self)
     local self = self or this
 
-    if _G.LOCK_ACTIONBAR == "1" then return end
+    if _G.LOCK_ACTIONBAR == "1" and not (pfUI_config.bars.shiftdrag == "1" and IsShiftKeyDown()) then return end
 
     if self.bar == 12 then
       PickupPetAction(self.id)
@@ -737,10 +737,9 @@ pfUI:RegisterModule("actionbar", 20400, function ()
       return
     end
 
-    -- we changed bar size and stored layout is invalid, fallback
+    -- the stored layout is invalid, temporary fallback
     if not pfGridmath[buttons][BarLayoutFormfactor(formfactor)] then
       formfactor = BarLayoutOptions(buttons)[1]
-      C.bars["bar"..i].formfactor = formfactor
     end
 
     local font = pfUI.font_unit
