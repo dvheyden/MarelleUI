@@ -161,9 +161,10 @@ function pfUI:GetEnvironment()
     end})
   end
 
-  if pfUI_config then pfUI.env.C = pfUI_config end
   if not pfUI.env.L then pfUI.env.L = (pfUI_locale[GetLocale()] or pfUI_locale["enUS"]) end
   if not pfUI.env._G then pfUI.env._G = getfenv(0) end
+
+  pfUI.env.C = pfUI_config
 
   return pfUI.env
 end
