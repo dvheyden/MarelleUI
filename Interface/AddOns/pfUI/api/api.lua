@@ -454,6 +454,8 @@ end
 -- 'name'       [frame/string]  Name of the Frame that should be movable
 -- 'addon'      [string]        Addon that must be loaded before being able to access the frame
 -- 'blacklist'  [table]         A list of frames that should be deactivated for mouse usage
+local function MoveMouseDown() this:StartMoving() end
+local function MoveMouseUp() this:StopMovingOrSizing() end
 function pfUI.api.EnableMovable(name, addon, blacklist)
   if addon then
     local scan = CreateFrame("Frame")
@@ -470,13 +472,9 @@ function pfUI.api.EnableMovable(name, addon, blacklist)
 
         frame:SetMovable(true)
         frame:EnableMouse(true)
-        frame:SetScript("OnMouseDown",function()
-          this:StartMoving()
-        end)
+        frame:SetScript("OnMouseDown", MoveMouseDown)
+        frame:SetScript("OnMouseUp", MoveMouseUp)
 
-        frame:SetScript("OnMouseUp",function()
-          this:StopMovingOrSizing()
-        end)
         this:UnregisterAllEvents()
       end
     end)
@@ -491,13 +489,8 @@ function pfUI.api.EnableMovable(name, addon, blacklist)
     if type(name) == "string" then frame = _G[name] end
     frame:SetMovable(true)
     frame:EnableMouse(true)
-    frame:SetScript("OnMouseDown",function()
-      this:StartMoving()
-    end)
-
-    frame:SetScript("OnMouseUp",function()
-      this:StopMovingOrSizing()
-    end)
+    frame:SetScript("OnMouseDown", MoveMouseDown)
+    frame:SetScript("OnMouseUp", MoveMouseUp)
   end
 end
 
@@ -960,11 +953,10 @@ end
 -- 'layer'      [string]
 -- 'arg1'       [string]
 -- return object
-
--- NOTE: special symbols must be escaped by the SAME symbol!
--- e.g. symbol '\':  '\\'
--- symbol '-': '--'
 function pfUI.api.GetNoNameObject(frame, objtype, layer, arg1, arg2)
+  local arg1 = arg1 and gsub(arg1, "([%+%-%*%(%)%?%[%]%^])", "%%%1")
+  local arg2 = arg2 and gsub(arg2, "([%+%-%*%(%)%?%[%]%^])", "%%%1")
+
   local objects
   if objtype == "Texture" or objtype == "FontString" then
     objects = {frame:GetRegions()}
@@ -980,25 +972,25 @@ function pfUI.api.GetNoNameObject(frame, objtype, layer, arg1, arg2)
       if objtype == "Texture" and object.SetTexture and object:GetTexture() ~= "Interface\\BUTTONS\\WHITE8X8" then
         if arg1 then
           local texture = object:GetTexture()
-          if texture and not string.find(texture, arg1) then check = false end
+          if texture and not string.find(texture, arg1, 1) then check = false end
         end
 
         if check then return object end
       elseif objtype == "FontString" and object.SetText then
         if arg1 then
           local text = object:GetText()
-          if text and not string.find(text, arg1) then check = false end
+          if text and not string.find(text, arg1, 1) then check = false end
         end
 
         if check then return object end
       elseif objtype == "Button" and object.GetNormalTexture and object:GetNormalTexture() then
         if arg1 then
           local texture = object:GetNormalTexture():GetTexture()
-          if texture and not string.find(texture, arg1) then check = false end
+          if texture and not string.find(texture, arg1, 1) then check = false end
         end
         if arg2 then
           local text = object:GetText()
-          if text and not string.find(text, arg2) then check = false end
+          if text and not string.find(text, arg2, 1) then check = false end
         end
 
         if check then return object end

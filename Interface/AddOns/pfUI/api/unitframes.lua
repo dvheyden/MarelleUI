@@ -240,8 +240,11 @@ function pfUI.uf:UpdateConfig()
     f.hp.bar:SetOrientation("HORIZONTAL")
   end
 
-  if C.unitframes.custombg == "1" then
-    local cr, cg, cb, ca = pfUI.api.strsplit(",", C.unitframes.custombgcolor)
+  local custombg = f.config.defcolor == "0" and f.config.custombg or C.unitframes.custombg
+  local custombgcolor = f.config.defcolor == "0" and f.config.custombgcolor or C.unitframes.custombgcolor
+
+  if custombg == "1" then
+    local cr, cg, cb, ca = pfUI.api.strsplit(",", custombgcolor)
     cr, cg, cb, ca = tonumber(cr), tonumber(cg), tonumber(cb), tonumber(ca)
     f.hp.bar.texture = f.hp.bar.texture or f.hp:CreateTexture(nil,"BACKGROUND")
     f.hp.bar.texture:SetTexture(cr,cg,cb,ca)
@@ -1102,36 +1105,48 @@ function pfUI.uf:RefreshUnit(unit, component)
 
   -- Raid Icon
   if unit.raidIcon and ( component == "all" or component == "raidIcon" ) then
-    local raidIcon = GetRaidTargetIndex(unitstr)
-    if raidIcon and UnitName(unitstr) then
-      SetRaidTargetIconTexture(unit.raidIcon.texture, raidIcon)
-      unit.raidIcon:Show()
-    else
+    if unit.config.raidicon == "0" then
       unit.raidIcon:Hide()
+    else
+      local raidIcon = GetRaidTargetIndex(unitstr)
+      if raidIcon and UnitName(unitstr) then
+        SetRaidTargetIconTexture(unit.raidIcon.texture, raidIcon)
+        unit.raidIcon:Show()
+      else
+        unit.raidIcon:Hide()
+      end
     end
   end
 
   -- Leader Icon
   if unit.leaderIcon and ( component == "all" or component == "leaderIcon" ) then
-    if GetNumPartyMembers() == 0 and GetNumRaidMembers() == 0 then
+    if unit.config.leadericon == "0" then
       unit.leaderIcon:Hide()
-    elseif UnitIsPartyLeader(unitstr) then
-      unit.leaderIcon:Show()
     else
-      unit.leaderIcon:Hide()
+      if GetNumPartyMembers() == 0 and GetNumRaidMembers() == 0 then
+        unit.leaderIcon:Hide()
+      elseif UnitIsPartyLeader(unitstr) then
+        unit.leaderIcon:Show()
+      else
+        unit.leaderIcon:Hide()
+      end
     end
   end
 
   -- Loot Icon
   if unit.lootIcon and ( component == "all" or component == "lootIcon" ) then
-    -- no third return value here.. but leaving this as a hint
-    local method, group, raid = GetLootMethod()
-    local name = group and UnitName(group == 0 and "player" or "party"..group) or raid and UnitName("raid"..raid) or nil
-
-    if name and name == UnitName(unitstr) then
-      unit.lootIcon:Show()
-    else
+    if unit.config.looticon == "0" then
       unit.lootIcon:Hide()
+    else
+      -- no third return value here.. but leaving this as a hint
+      local method, group, raid = GetLootMethod()
+      local name = group and UnitName(group == 0 and "player" or "party"..group) or raid and UnitName("raid"..raid) or nil
+
+      if name and name == UnitName(unitstr) then
+        unit.lootIcon:Show()
+      else
+        unit.lootIcon:Hide()
+      end
     end
   end
 
@@ -1480,37 +1495,69 @@ function pfUI.uf:RefreshUnit(unit, component)
     end
   end
 
+  -- set healthbar color
+  local custom_active = nil
+  local customfullhp = unit.config.defcolor == "0" and unit.config.customfullhp or C.unitframes.customfullhp
+  local customcolor = unit.config.defcolor == "0" and unit.config.customcolor or C.unitframes.customcolor
+  local custom = unit.config.defcolor == "0" and unit.config.custom or C.unitframes.custom
+
   local r, g, b, a = .2, .2, .2, 1
-  if UnitIsPlayer(unitstr) then
-    local _, class = UnitClass(unitstr)
-    local color = RAID_CLASS_COLORS[class]
-    if color then r, g, b = color.r, color.g, color.b end
-  elseif unit.label == "pet" then
-    local happiness = GetPetHappiness()
-    if happiness == 1 then
-      r, g, b = 1, 0, 0
-    elseif happiness == 2 then
-      r, g, b = 1, 1, 0
+  if customfullhp == "1" and UnitHealth(unitstr) == UnitHealthMax(unitstr) then
+    r, g, b, a = pfUI.api.strsplit(",", customcolor)
+    custom_active = true
+  elseif custom == "0" then
+    if UnitIsPlayer(unitstr) then
+      local _, class = UnitClass(unitstr)
+      local color = RAID_CLASS_COLORS[class]
+      if color then r, g, b = color.r, color.g, color.b end
+    elseif unit.label == "pet" then
+      local happiness = GetPetHappiness()
+      if happiness == 1 then
+        r, g, b = 1, 0, 0
+      elseif happiness == 2 then
+        r, g, b = 1, 1, 0
+      else
+        r, g, b = 0, 1, 0
+      end
     else
-      r, g, b = 0, 1, 0
+      local color = UnitReactionColor[UnitReaction(unitstr, "player")]
+      if color then r, g, b = color.r, color.g, color.b end
     end
-  else
-    local color = UnitReactionColor[UnitReaction(unitstr, "player")]
-    if color then r, g, b = color.r, color.g, color.b end
+  elseif custom == "1"  then
+    r, g, b, a = pfUI.api.strsplit(",", customcolor)
+    custom_active = true
+  elseif custom == "2" then
+    if UnitHealthMax(unitstr) > 0 then
+      r, g, b = GetColorGradient(UnitHealth(unitstr) / UnitHealthMax(unitstr))
+    else
+      r, g, b = 0, 0, 0
+    end
   end
 
-  if C.unitframes.custom == "1" then
-    r, g, b, a = pfUI.api.strsplit(",", C.unitframes.customcolor)
-  elseif C.unitframes.pastel == "1" then
+  if C.unitframes.pastel == "1" and not custom_active then
     r, g, b = (r + .5) * .5, (g + .5) * .5, (b + .5) * .5
   end
 
   unit.hp.bar:SetStatusBarColor(r, g, b, a)
 
-  local p = ManaBarColor[UnitPowerType(unitstr)]
-  local pr, pg, pb = 0, 0, 0
-  if p then pr, pg, pb = p.r + .5, p.g +.5, p.b +.5 end
-  unit.power.bar:SetStatusBarColor(pr, pg, pb)
+  -- set powerbar color
+  local mana = unit.config.defcolor == "0" and unit.config.manacolor or C.unitframes.manacolor
+  local rage = unit.config.defcolor == "0" and unit.config.ragecolor or C.unitframes.ragecolor
+  local energy = unit.config.defcolor == "0" and unit.config.energycolor or C.unitframes.energycolor
+  local focus = unit.config.defcolor == "0" and unit.config.focuscolor or C.unitframes.focuscolor
+
+  local r, g, b, a = .5, .5, .5, 1
+  local utype = UnitPowerType(unitstr)
+  if utype == 0 then
+    r, g, b, a = pfUI.api.strsplit(",", mana)
+  elseif utype == 1 then
+    r, g, b, a = pfUI.api.strsplit(",", rage)
+  elseif utype == 2 then
+    r, g, b, a = pfUI.api.strsplit(",", focus)
+  elseif utype == 3 then
+    r, g, b, a = pfUI.api.strsplit(",", energy)
+  end
+  unit.power.bar:SetStatusBarColor(r, g, b, a)
 
   if UnitName(unitstr) then
     unit.hpLeftText:SetText(pfUI.uf:GetStatusValue(unit, "hpleft"))
@@ -1605,7 +1652,7 @@ function pfUI.uf:AddIcon(frame, pos, icon)
   local iconsize = C.unitframes.indicator_size
   if not frame.hp then return end
   local frame = frame.hp.bar
-  if pos > floor(frame:GetWidth() / iconsize) then return end
+  if pos > ceil(frame:GetWidth() / iconsize) then return end
 
   if not frame.icon then frame.icon = {} end
 

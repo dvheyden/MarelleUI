@@ -7,10 +7,10 @@ pfUI:RegisterModule("castbar", 20400, function ()
     default_border = C.appearance.border.unitframes
   end
 
+  local cbtexture = C.appearance.castbar.texture
+
   local function CreateCastbar(name, parent, unitstr, unitname)
     local cb = CreateFrame("Frame", name, parent or UIParent)
-
-    CreateBackdrop(cb, default_border)
 
     cb:SetHeight(C.global.font_size * 1.5)
     cb:SetFrameStrata("MEDIUM")
@@ -18,15 +18,27 @@ pfUI:RegisterModule("castbar", 20400, function ()
     cb.unitstr = unitstr
     cb.unitname = unitname
 
+    -- icon
+    cb.icon = CreateFrame("Frame", nil, cb)
+    cb.icon:SetPoint("TOPLEFT", 0, 0)
+    cb.icon:SetHeight(16)
+    cb.icon:SetWidth(16)
+
+    cb.icon.texture = cb.icon:CreateTexture(nil, "OVERLAY")
+    cb.icon.texture:SetAllPoints()
+    cb.icon.texture:SetTexCoord(.08, .92, .08, .92)
+    CreateBackdrop(cb.icon, default_border)
+
     -- statusbar
     cb.bar = CreateFrame("StatusBar", nil, cb)
-    cb.bar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    cb.bar:SetStatusBarTexture(cbtexture)
     cb.bar:ClearAllPoints()
     cb.bar:SetAllPoints(cb)
     cb.bar:SetMinMaxValues(0, 100)
     cb.bar:SetValue(20)
     local r,g,b,a = strsplit(",", C.appearance.castbar.castbarcolor)
     cb.bar:SetStatusBarColor(r,g,b,a)
+    CreateBackdrop(cb.bar, default_border)
 
     -- text left
     cb.bar.left = cb.bar:CreateFontString("Status", "DIALOG", "GameFontNormal")
@@ -51,6 +63,11 @@ pfUI:RegisterModule("castbar", 20400, function ()
     cb.bar.right:SetFont(font, font_size, "OUTLINE")
     cb.bar.right:SetText("right")
     cb.bar.right:SetJustifyH("right")
+
+    cb.bar.lag = cb.bar:CreateTexture(nil, "OVERLAY")
+    cb.bar.lag:SetPoint("TOPRIGHT", cb.bar, "TOPRIGHT", 0, 0)
+    cb.bar.lag:SetPoint("BOTTOMRIGHT", cb.bar, "BOTTOMRIGHT", 0, 0)
+    cb.bar.lag:SetTexture(1,.2,.2,.2)
 
     cb:SetScript("OnUpdate", function()
       if this.drag and this.drag:IsShown() then
@@ -93,6 +110,27 @@ pfUI:RegisterModule("castbar", 20400, function ()
           this.bar.left:SetText(cast)
           this.fadeout = nil
           this.endTime = endTime
+
+          -- set texture
+          if texture and this.showicon then
+            local size = this:GetHeight()
+            this.icon:Show()
+            this.icon:SetHeight(size)
+            this.icon:SetWidth(size)
+            this.icon.texture:SetTexture(texture)
+            this.bar:SetPoint("TOPLEFT", this.icon, "TOPRIGHT", 3, 0)
+          else
+            this.bar:SetPoint("TOPLEFT", this, 0, 0)
+            this.icon:Hide()
+          end
+
+          if this.showlag then
+            local _, _, lag = GetNetStats()
+            local width = this:GetWidth() / (duration/1000) * (lag/1000)
+            this.bar.lag:SetWidth(width)
+          else
+            this.bar.lag:Hide()
+          end
         end
 
         if channel then
@@ -154,8 +192,8 @@ pfUI:RegisterModule("castbar", 20400, function ()
   -- [[ pfPlayerCastbar ]] --
   if C.castbar.player.hide_pfui == "0" then
     pfUI.castbar.player = CreateCastbar("pfPlayerCastbar", UIParent, "player")
-
-    local width = C.castbar.player.width ~= "0" and C.castbar.player.width
+    pfUI.castbar.player.showicon = C.castbar.player.showicon == "1" and true or nil
+    pfUI.castbar.player.showlag = C.castbar.player.showlag == "1" and true or nil
 
     if pfUI.uf.player then
       local pspace = tonumber(C.unitframes.player.pspace)
@@ -178,6 +216,8 @@ pfUI:RegisterModule("castbar", 20400, function ()
   -- [[ pfTargetCastbar ]] --
   if C.castbar.target.hide_pfui == "0" then
     pfUI.castbar.target = CreateCastbar("pfTargetCastbar", UIParent, "target")
+    pfUI.castbar.target.showicon = C.castbar.target.showicon == "1" and true or nil
+    pfUI.castbar.target.showlag = C.castbar.target.showlag == "1" and true or nil
 
     if pfUI.uf.target then
       local pspace = tonumber(C.unitframes.target.pspace)
