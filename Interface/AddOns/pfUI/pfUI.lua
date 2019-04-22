@@ -149,11 +149,11 @@ end
 function pfUI:GetEnvironment()
   -- load api into environment
   for m, func in pairs(pfUI.api or {}) do
-    pfUI.env[m] = pfUI.env[m] or func
+    pfUI.env[m] = func
   end
 
-  if not pfUI.env.T and pfUI_config and pfUI_config.global then
-    local lang = pfUI_config.global and pfUI_translation[pfUI_config.global.language] and pfUI_config.global.language or GetLocale()
+  if pfUI_config and pfUI_config.global and pfUI_config.global.language and not pfUI.env.T then
+    local lang = pfUI_config and pfUI_config.global and pfUI_config.global.language and pfUI_translation[pfUI_config.global.language] and pfUI_config.global.language or GetLocale()
     pfUI.env.T = setmetatable(pfUI_translation[lang] or {}, { __index = function(tab,key)
       local value = tostring(key)
       rawset(tab,key,value)
@@ -161,10 +161,9 @@ function pfUI:GetEnvironment()
     end})
   end
 
-  if not pfUI.env.L then pfUI.env.L = (pfUI_locale[GetLocale()] or pfUI_locale["enUS"]) end
-  if not pfUI.env._G then pfUI.env._G = getfenv(0) end
-
+  pfUI.env._G = getfenv(0)
   pfUI.env.C = pfUI_config
+  pfUI.env.L = (pfUI_locale[GetLocale()] or pfUI_locale["enUS"])
 
   return pfUI.env
 end
