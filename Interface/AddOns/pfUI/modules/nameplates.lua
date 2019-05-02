@@ -1,6 +1,9 @@
 pfUI:RegisterModule("nameplates", 20400, function ()
   local font = C.nameplates.use_unitfonts == "1" and pfUI.font_unit or pfUI.font_default
   local font_size = C.nameplates.use_unitfonts == "1" and C.global.font_unit_size or C.global.font_size
+  local inactive_alpha = tonumber(C.nameplates.notargalpha)
+  local glowr, glowg, glowb, glowa = GetStringColor(C.nameplates.glowcolor)
+  local hptexture = C.nameplates.healthtexture
 
   pfUI.nameplates = CreateFrame("Frame", nil, UIParent)
 
@@ -131,7 +134,7 @@ pfUI:RegisterModule("nameplates", 20400, function ()
     this.name:SetPoint("TOP", this.nameplate, "TOP", 0, 0)
 
     -- healthbar
-    this.healthbar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    this.healthbar:SetStatusBarTexture(hptexture)
     this.healthbar:ClearAllPoints()
     this.healthbar:SetPoint("TOP", this.name, "BOTTOM", 0, -3)
     this.healthbar:SetWidth(C.nameplates.width)
@@ -153,6 +156,16 @@ pfUI:RegisterModule("nameplates", 20400, function ()
       this.healthbar.bgtarget:SetPoint("CENTER", this.healthbar, "CENTER", 0, 0)
       this.healthbar.bgtarget:SetWidth(this.healthbar:GetWidth() + 5)
       this.healthbar.bgtarget:SetHeight(this.healthbar:GetHeight() + 5)
+    end
+
+    if not this.healthbar.glowtarget then
+      this.healthbar.glowtarget = this.nameplate:CreateTexture(nil, "BACKGROUND")
+      this.healthbar.glowtarget:SetTexture("Interface\\AddOns\\pfUI\\img\\dot")
+      this.healthbar.glowtarget:ClearAllPoints()
+      this.healthbar.glowtarget:SetPoint("CENTER", this.healthbar, "CENTER", 0, 0)
+      this.healthbar.glowtarget:SetWidth(this.healthbar:GetWidth() + 50)
+      this.healthbar.glowtarget:SetHeight(this.healthbar:GetHeight() + 25)
+      this.healthbar.glowtarget:SetVertexColor(glowr, glowg, glowb, glowa)
     end
 
     this.healthbar.reaction = nil
@@ -331,6 +344,9 @@ pfUI:RegisterModule("nameplates", 20400, function ()
   function pfUI.nameplates:OnUpdate()
     if not this.setup then pfUI.nameplates:OnShow() return end
 
+    -- set nameplate alpha
+    if this:GetAlpha() < inactive_alpha then this:SetAlpha(inactive_alpha) end
+
     local healthbar = this.healthbar
     local border, glow, name, level, levelicon , raidicon, combopoints = this.border, this.glow, this.name, this.level, this.levelicon , this.raidicon, this.combopoints
     local unitname = name:GetText()
@@ -449,6 +465,13 @@ pfUI:RegisterModule("nameplates", 20400, function ()
       healthbar.bgtarget:Show()
     else
       healthbar.bgtarget:Hide()
+    end
+
+    -- glow target indicator
+    if UnitExists("target") and healthbar:GetAlpha() == 1 and C.nameplates.targetglow == "1" then
+      healthbar.glowtarget:Show()
+    else
+      healthbar.glowtarget:Hide()
     end
 
     -- target zoom

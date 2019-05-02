@@ -1243,15 +1243,27 @@ pfUI:RegisterModule("gui", 20400, function ()
       local values = {}
       for name, config in pairs(pfUI_profiles) do table.insert(values, name) end
 
-      local function pfUpdateProfiles()
+      local function ReloadProfiles()
+        local oldval = UIDropDownMenu_GetText(pfUIDropDownMenuProfile)
         local values = {}
-        for name, config in pairs(pfUI_profiles) do table.insert(values, name) end
-        pfUIDropDownMenuProfile.values = values
-        UIDropDownMenu_SetSelectedID(pfUIDropDownMenuProfile, 0, 0)
-        UIDropDownMenu_SetText("", pfUIDropDownMenuProfile)
+        local exists
+
+        for name, config in pairs(pfUI_profiles) do
+          table.insert(values, name)
+          if name == oldval then
+            exists = true
+          end
+        end
+
+        if not exists then
+          UIDropDownMenu_SetText("", pfUIDropDownMenuProfile)
+          UIDropDownMenu_SetSelectedID(pfUIDropDownMenuProfile, 0, 0)
+        end
+
+        return values
       end
 
-      CreateConfig(nil, T["Select profile"], C.global, "profile", "dropdown", values, false, "Profile")
+      CreateConfig(function() return end, T["Select profile"], C.global, "profile", "dropdown", ReloadProfiles, false, "Profile")
 
       -- load profile
       CreateConfig(nil, T["Load profile"], C.global, "profile", "button", function()
@@ -1271,7 +1283,7 @@ pfUI:RegisterModule("gui", 20400, function ()
         if C.global.profile and pfUI_profiles[C.global.profile] then
           CreateQuestionDialog(T["Delete profile"] .. " '|cff33ffcc" .. C.global.profile .. "|r'?", function()
             pfUI_profiles[C.global.profile] = nil
-            pfUpdateProfiles()
+            ReloadProfiles()
             this:GetParent():Hide()
           end)
         end
@@ -1301,8 +1313,8 @@ pfUI:RegisterModule("gui", 20400, function ()
             profile = (string.gsub(profile,"^%s*(.-)%s*$", "%1"))
             if profile and profile ~= "" then
               pfUI_profiles[profile] = CopyTable(C)
-              pfUpdateProfiles()
               this:GetParent():Hide()
+              ReloadProfiles()
             end
           end
         end, false, true)
@@ -1715,8 +1727,24 @@ pfUI:RegisterModule("gui", 20400, function ()
     end)
 
     -- Shared Actionbar Settings
-    local barnames = { {1, "Main Actionbar"}, {6, "Top Actionbar"}, {5, "Left Actionbar"}, {3, "Right Actionbar"}, {4, "Vertical Actionbar"},
-      {11, "Stance/Shapeshift Bar"}, {12, "Pet Actionbar"}, {2, "Paging Actionbar"}, {7, "Stance Bar 1"}, {8, "Stance Bar 2"}, {9, "Stance Bar 3"}, {10, "Stance Bar 4"}
+    local barnames = {
+      -- default
+      {1, T["Main Actionbar"]},
+      {6, T["Top Actionbar"]},
+      {5, T["Left Actionbar"]},
+      {3, T["Right Actionbar"]},
+      {4, T["Vertical Actionbar"]},
+
+      -- special
+      {2, T["Paging Actionbar"]},
+      {7, T["Stance Bar 1"]},
+      {8, T["Stance Bar 2"]},
+      {9, T["Stance Bar 3"]},
+      {10, T["Stance Bar 4"]},
+
+      -- class
+      {11, T["Shapeshift Bar"]},
+      {12, T["Pet Actionbar"]},
     }
 
     for _, data in pairs(barnames) do
@@ -1898,7 +1926,12 @@ pfUI:RegisterModule("gui", 20400, function ()
       CreateConfig(nil, T["Castbar Height"], C.nameplates, "heightcast")
       CreateConfig(nil, T["Enable Combo Point Display"], C.nameplates, "cpdisplay", "checkbox")
       CreateConfig(nil, T["Highlight Target Nameplate"], C.nameplates, "targethighlight", "checkbox")
+      CreateConfig(nil, T["Draw Glow Around Target Nameplate"], C.nameplates, "targetglow", "checkbox")
+      CreateConfig(nil, T["Glow Color Around Target Nameplate"], C.nameplates, "glowcolor", "color")
       CreateConfig(nil, T["Zoom Target Nameplate"], C.nameplates, "targetzoom", "checkbox")
+      CreateConfig(nil, T["Inactive Nameplate Alpha"], C.nameplates, "notargalpha")
+      CreateConfig(nil, T["Healthbar Texture"], C.nameplates, "healthtexture", "dropdown", pfUI.gui.dropdowns.uf_bartexture)
+
     end)
 
     CreateGUIEntry(T["Thirdparty"], T["Integrations"], function()
