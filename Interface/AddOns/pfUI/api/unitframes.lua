@@ -615,7 +615,7 @@ function pfUI.uf.OnEvent()
     pfUI.uf:RefreshUnit(this, "lootIcon")
   elseif event == "PARTY_LEADER_CHANGED" then
     pfUI.uf:RefreshUnit(this, "leaderIcon")
-  elseif event == "UNIT_PET" and this.label == "pet" then
+  elseif ( event == "UNIT_HAPPINESS" or event == "UNIT_PET" ) and this.label == "pet" then
     pfUI.uf:RefreshUnit(this)
 
   -- UNIT_XXX Events
@@ -706,15 +706,7 @@ end
 
 function pfUI.uf.OnClick()
   if not this.label and this.unitname then
-    local player = UnitIsUnit("target", "player")
     TargetByName(this.unitname, true)
-    if strlower(UnitName("target")) ~= strlower(this.unitname) then
-      if player then
-        TargetUnit("player")
-      else
-        TargetLastTarget()
-      end
-    end
   else
     pfUI.uf:ClickAction(arg1)
   end
