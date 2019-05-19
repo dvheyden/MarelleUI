@@ -56,16 +56,9 @@ pfUI:RegisterModule("skin", 20400, function ()
     end)
   end
 
-  local boxes = {
-    "DropDownList1MenuBackdrop",
-    "DropDownList2MenuBackdrop",
-    "DropDownList1Backdrop",
-    "DropDownList2Backdrop",
-  }
-
-  for _, box in pairs(boxes) do
-    local b = _G[box]
-    CreateBackdrop(b, nil, true, .8)
+  for i = 1, UIDROPDOWNMENU_MAXLEVELS do
+    CreateBackdrop(_G["DropDownList"..i.."MenuBackdrop"], nil, true, .8)
+    CreateBackdrop(_G["DropDownList"..i.."Backdrop"], nil, true, .8)
   end
 
   if C.global.errors_limit == "1" then
