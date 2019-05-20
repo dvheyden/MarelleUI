@@ -552,6 +552,7 @@ function pfUI.api.SkinDropDown(frame, cr, cg, cb)
   local funcc = button:GetScript("OnClick")
   button:SetScript("OnClick", function()
     if funcc then funcc() end
+
     local DropDownListWidth = DropDownList1:GetWidth()
     local DropDownFrameWidth = this:GetParent().backdrop:GetWidth()
     if DropDownListWidth < DropDownFrameWidth then
@@ -561,8 +562,6 @@ function pfUI.api.SkinDropDown(frame, cr, cg, cb)
         _G["DropDownList1Button" .. i]:SetWidth(_G["DropDownList1Button" .. i]:GetWidth() + diff)
       end
     end
-
-    CreateBackdrop(DropDownList1Backdrop, nil, true, .8)
   end)
 
   frame.button = button
