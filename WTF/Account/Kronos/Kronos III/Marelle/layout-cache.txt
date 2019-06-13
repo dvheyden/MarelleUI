@@ -76,10 +76,6 @@ Frame: KLHTM_Frame
 FrameLevel: 1
 X: 1713
 Y: -994
-Frame: RABFrame
-FrameLevel: 15
-X: 1986
-Y: -208
 Frame: SW_BarFrame1
 FrameLevel: 22
 X: 1932
