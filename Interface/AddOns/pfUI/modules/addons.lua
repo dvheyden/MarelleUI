@@ -1,4 +1,4 @@
-pfUI:RegisterModule("addons", 20400, function ()
+pfUI:RegisterModule("addons", "vanilla:tbc", function ()
   -- add main menu button
   local pfUIAddonButton = CreateFrame("Button", "GameMenuButtonPFUIAddOns", GameMenuFrame, "GameMenuButtonTemplate")
   pfUIAddonButton:SetPoint("TOP", 0, -32)
@@ -27,6 +27,7 @@ pfUI:RegisterModule("addons", 20400, function ()
   pfUI.addons:Hide()
 
   CreateBackdrop(pfUI.addons, nil, true, .75)
+  CreateBackdropShadow(pfUI.addons)
 
   pfUI.addons:SetScript("OnHide", function()
     UIDropDownMenu_ClearAll(this.profile.dropdown)
@@ -51,7 +52,7 @@ pfUI:RegisterModule("addons", 20400, function ()
   pfUI.addons.close:SetHeight(15)
   pfUI.addons.close:SetWidth(15)
   pfUI.addons.close.texture = pfUI.addons.close:CreateTexture("pfBagClose")
-  pfUI.addons.close.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\close")
+  pfUI.addons.close.texture:SetTexture(pfUI.media["img:close"])
   pfUI.addons.close.texture:ClearAllPoints()
   pfUI.addons.close.texture:SetPoint("TOPLEFT", pfUI.addons.close, "TOPLEFT", 4, -4)
   pfUI.addons.close.texture:SetPoint("BOTTOMRIGHT", pfUI.addons.close, "BOTTOMRIGHT", -4, 4)

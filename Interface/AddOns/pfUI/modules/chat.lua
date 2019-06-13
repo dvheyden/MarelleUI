@@ -1,4 +1,4 @@
-pfUI:RegisterModule("chat", 20400, function ()
+pfUI:RegisterModule("chat", "vanilla:tbc", function ()
   local panelfont = C.panel.use_unitfonts == "1" and pfUI.font_unit or pfUI.font_default
   local panelfont_size = C.panel.use_unitfonts == "1" and C.global.font_unit_size or C.global.font_size
 
@@ -38,6 +38,8 @@ pfUI:RegisterModule("chat", 20400, function ()
   pfUI.chat.left:SetScript("OnShow", function() pfUI.chat:RefreshChat() end)
   UpdateMovable(pfUI.chat.left)
   CreateBackdrop(pfUI.chat.left, default_border, nil, .8)
+  CreateBackdropShadow(pfUI.chat.left)
+
   if C.chat.global.custombg == "1" then
     local r, g, b, a = strsplit(",", C.chat.global.background)
     pfUI.chat.left.backdrop:SetBackdropColor(tonumber(r), tonumber(g), tonumber(b), tonumber(a))
@@ -120,6 +122,19 @@ pfUI:RegisterModule("chat", 20400, function ()
     return " |cffccccff|Hurl:" .. newtext .. "|h[" .. newtext .. "]|h|r "
   end
 
+  function pfUI.chat:HandleLink(text)
+    local URLPattern = pfUI.chat.URLPattern
+    text = string.gsub (text, URLPattern.WWW.rx, pfUI.chat.URLFuncs.WWW)
+    text = string.gsub (text, URLPattern.PROTOCOL.rx, pfUI.chat.URLFuncs.PROTOCOL)
+    text = string.gsub (text, URLPattern.EMAIL.rx, pfUI.chat.URLFuncs.EMAIL)
+    text = string.gsub (text, URLPattern.PORTIP.rx, pfUI.chat.URLFuncs.PORTIP)
+    text = string.gsub (text, URLPattern.IP.rx, pfUI.chat.URLFuncs.IP)
+    text = string.gsub (text, URLPattern.SHORTURL.rx, pfUI.chat.URLFuncs.SHORTURL)
+    text = string.gsub (text, URLPattern.URLIP.rx, pfUI.chat.URLFuncs.URLIP)
+    text = string.gsub (text, URLPattern.URL.rx, pfUI.chat.URLFuncs.URL)
+    return text
+  end
+
   pfUI.chat.urlcopy = CreateFrame("Frame", "pfURLCopy", UIParent)
   pfUI.chat.urlcopy:Hide()
   pfUI.chat.urlcopy:SetWidth(270)
@@ -195,6 +210,7 @@ pfUI:RegisterModule("chat", 20400, function ()
   pfUI.chat.right:SetScript("OnShow", function() pfUI.chat:RefreshChat() end)
   UpdateMovable(pfUI.chat.right)
   CreateBackdrop(pfUI.chat.right, default_border, nil, .8)
+  CreateBackdropShadow(pfUI.chat.right)
   if C.chat.global.custombg == "1" then
     local r, g, b, a = strsplit(",", C.chat.global.background)
     pfUI.chat.right.backdrop:SetBackdropColor(tonumber(r), tonumber(g), tonumber(b), tonumber(a))
@@ -236,7 +252,7 @@ pfUI:RegisterModule("chat", 20400, function ()
   end
 
   function pfUI.chat:RefreshChat()
-    local panelheight = C.global.font_size+default_border*5
+    local panelheight = C.global.font_size*1.5 + default_border*2 + 2
 
     if C.chat.global.sticky == "1" then
       ChatTypeInfo.WHISPER.sticky = 1
@@ -649,15 +665,7 @@ pfUI:RegisterModule("chat", 20400, function ()
 
           -- detect urls
           if C.chat.text.detecturl == "1" then
-            local URLPattern = pfUI.chat.URLPattern
-            text = string.gsub (text, URLPattern.WWW.rx, pfUI.chat.URLFuncs.WWW)
-            text = string.gsub (text, URLPattern.PROTOCOL.rx, pfUI.chat.URLFuncs.PROTOCOL)
-            text = string.gsub (text, URLPattern.EMAIL.rx, pfUI.chat.URLFuncs.EMAIL)
-            text = string.gsub (text, URLPattern.PORTIP.rx, pfUI.chat.URLFuncs.PORTIP)
-            text = string.gsub (text, URLPattern.IP.rx, pfUI.chat.URLFuncs.IP)
-            text = string.gsub (text, URLPattern.SHORTURL.rx, pfUI.chat.URLFuncs.SHORTURL)
-            text = string.gsub (text, URLPattern.URLIP.rx, pfUI.chat.URLFuncs.URLIP)
-            text = string.gsub (text, URLPattern.URL.rx, pfUI.chat.URLFuncs.URL)
+            text = pfUI.chat:HandleLink(text)
           end
 
           -- display class colors if already indexed

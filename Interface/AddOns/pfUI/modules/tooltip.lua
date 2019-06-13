@@ -1,16 +1,40 @@
-pfUI:RegisterModule("tooltip", 20400, function ()
+pfUI:RegisterModule("tooltip", "vanilla:tbc", function ()
+
+  pfUI.tooltip = CreateFrame('Frame', "pfTooltip", GameTooltip)
+  pfUI.tooltip.anchorframe = CreateFrame('Frame', "pfTooltipAnchor", UIParent)
+  pfUI.tooltip.anchorframe:SetWidth(128)
+  pfUI.tooltip.anchorframe:SetHeight(72)
+  pfUI.tooltip.anchorframe:SetPoint("TOP", UIParent, "TOP", 0, -50)
+  pfUI.tooltip.anchorframe:Hide()
+  UpdateMovable(pfUI.tooltip.anchorframe)
+
+  function pfUI.tooltip:GetAnchorPoint()
+    local prefix = "TOP"
+    local suffix = "RIGHT"
+    local px, py = UIParent:GetCenter()
+    local tx, ty = this.anchorframe:GetCenter()
+    if (tx < px) then
+      suffix = "LEFT"
+    end
+    if (ty < py) then
+      prefix = "BOTTOM"
+    end
+    return prefix..suffix
+  end
+
   if C.tooltip.position == "cursor" then
     function _G.GameTooltip_SetDefaultAnchor(tooltip, parent)
       tooltip:SetOwner(parent, "ANCHOR_CURSOR")
       if C.tooltip.cursoralign ~= "native" then
         -- create mouse follow frame
         if not tooltip.cursor then
-          tooltip.cursor = CreateFrame("Frame")
+          tooltip.cursor = CreateFrame("Frame", nil, UIParent)
           tooltip.cursor:SetWidth(tonumber(C.tooltip.cursoroffset) * 2)
           tooltip.cursor:SetHeight(tonumber(C.tooltip.cursoroffset) * 2)
           tooltip.cursor:SetScript("OnUpdate", function()
+            local scale = UIParent:GetScale()
             local x, y = GetCursorPosition()
-            this:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
+            this:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x/scale, y/scale)
             if C.tooltip.cursoralign == "top" then
               tooltip.cursor:SetWidth(tooltip:GetWidth())
             end
@@ -21,16 +45,15 @@ pfUI:RegisterModule("tooltip", 20400, function ()
         if C.tooltip.cursoralign == "top" then
           tooltip:SetPoint("BOTTOMLEFT", tooltip.cursor, "TOPLEFT", 0, 0)
         elseif C.tooltip.cursoralign == "left" then
-          tooltip:SetPoint("BOTTOMRIGHT", tooltip.cursor, "TOPLEFT", 0, 0)
+          tooltip:SetPoint("BOTTOMRIGHT", tooltip.cursor, "LEFT", 0, 0)
         elseif C.tooltip.cursoralign == "right" then
-          tooltip:SetPoint("BOTTOMLEFT", tooltip.cursor, "TOPRIGHT", 0, 0)
+          tooltip:SetPoint("BOTTOMLEFT", tooltip.cursor, "RIGHT", 0, 0)
         end
       end
     end
   end
 
   local units = { "mouseover", "player", "pet", "target", "party", "partypet", "raid", "raidpet" }
-  pfUI.tooltip = CreateFrame('Frame', "pfTooltip", GameTooltip)
   function pfUI.tooltip:GetUnit()
     pfUI.tooltip.unit = "none"
 
@@ -90,6 +113,11 @@ pfUI:RegisterModule("tooltip", 20400, function ()
           else
             GameTooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 5)
           end
+        elseif C.tooltip.position == "free" then
+          local point = this:GetAnchorPoint()
+          if point then
+            GameTooltip:SetPoint(point, this.anchorframe, point, 0, 0)
+          end
         end
       end
     end)
@@ -105,7 +133,7 @@ pfUI:RegisterModule("tooltip", 20400, function ()
         local level = UnitLevel("mouseover") or ""
         local index = name .. ":" .. level
         local ppp = MobHealth_PPP(index)
-        if perc and ppp and ppp > 0 then
+        if perc and ppp and ppp > 0 and not UnitIsUnit("mouseover", "pet") then
           hp = round(perc * ppp)
           hpm = round(100 * ppp)
         end
@@ -125,8 +153,10 @@ pfUI:RegisterModule("tooltip", 20400, function ()
   GameTooltipStatusBar:ClearAllPoints()
   GameTooltipStatusBar:SetPoint("BOTTOMLEFT", GameTooltip, "TOPLEFT", 0, 0)
   GameTooltipStatusBar:SetPoint("BOTTOMRIGHT", GameTooltip, "TOPRIGHT", 0, 0)
-  GameTooltipStatusBar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+  GameTooltipStatusBar:SetStatusBarTexture(pfUI.media["img:bar"])
   CreateBackdrop(GameTooltipStatusBar)
+  CreateBackdropShadow(GameTooltipStatusBar)
+
   GameTooltipStatusBar.SetStatusBarColor_orig = GameTooltipStatusBar.SetStatusBarColor
   GameTooltipStatusBar.SetStatusBarColor = function() return end
 

@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Spellbook", function ()
+pfUI:RegisterSkin("Spellbook", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(SpellBookFrame)
   CreateBackdrop(SpellBookFrame, nil, nil, .75)
+  CreateBackdropShadow(SpellBookFrame)
+
   SpellBookFrame.backdrop:SetPoint("TOPLEFT", 12, -12)
   SpellBookFrame.backdrop:SetPoint("BOTTOMRIGHT", -30, 72)
   SpellBookFrame:SetHitRectInsets(12,30,12,72)

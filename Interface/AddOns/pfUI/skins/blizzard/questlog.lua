@@ -1,4 +1,4 @@
-pfUI:RegisterSkin("Quest Log", function ()
+pfUI:RegisterSkin("Quest Log", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
@@ -17,6 +17,8 @@ pfUI:RegisterSkin("Quest Log", function ()
 
     StripTextures(QuestLogFrame, true)
     CreateBackdrop(QuestLogFrame, nil, nil, .75)
+    CreateBackdropShadow(QuestLogFrame)
+
     EnableMovable(QuestLogFrame)
 
     QuestLogTitleText:ClearAllPoints()

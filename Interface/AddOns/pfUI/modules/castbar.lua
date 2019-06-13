@@ -1,4 +1,4 @@
-pfUI:RegisterModule("castbar", 20400, function ()
+pfUI:RegisterModule("castbar", "vanilla:tbc", function ()
   local font = C.castbar.use_unitfonts == "1" and pfUI.font_unit or pfUI.font_default
   local font_size = C.castbar.use_unitfonts == "1" and C.global.font_unit_size or C.global.font_size
 
@@ -7,7 +7,7 @@ pfUI:RegisterModule("castbar", 20400, function ()
     default_border = C.appearance.border.unitframes
   end
 
-  local cbtexture = C.appearance.castbar.texture
+  local cbtexture = pfUI.media[C.appearance.castbar.texture]
 
   local function CreateCastbar(name, parent, unitstr, unitname)
     local cb = CreateFrame("Frame", name, parent or UIParent)
@@ -28,6 +28,7 @@ pfUI:RegisterModule("castbar", 20400, function ()
     cb.icon.texture:SetAllPoints()
     cb.icon.texture:SetTexCoord(.08, .92, .08, .92)
     CreateBackdrop(cb.icon, default_border)
+    CreateBackdropShadow(cb.icon)
 
     -- statusbar
     cb.bar = CreateFrame("StatusBar", nil, cb)
@@ -39,6 +40,7 @@ pfUI:RegisterModule("castbar", 20400, function ()
     local r,g,b,a = strsplit(",", C.appearance.castbar.castbarcolor)
     cb.bar:SetStatusBarColor(r,g,b,a)
     CreateBackdrop(cb.bar, default_border)
+    CreateBackdropShadow(cb.bar)
 
     -- text left
     cb.bar.left = cb.bar:CreateFontString("Status", "DIALOG", "GameFontNormal")

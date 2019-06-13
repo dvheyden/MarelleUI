@@ -1,4 +1,4 @@
-pfUI:RegisterModule("map", 20400, function ()
+pfUI:RegisterModule("map", "vanilla:tbc", function ()
   table.insert(UISpecialFrames, "WorldMapFrame")
 
   function _G.ToggleWorldMap()
@@ -71,6 +71,7 @@ pfUI:RegisterModule("map", 20400, function ()
     -- skin
     WorldMapFrameCloseButton:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", 0, 0)
     CreateBackdrop(WorldMapFrame)
+    CreateBackdropShadow(WorldMapFrame)
 
     BlackoutWorld:Hide()
     StripTextures(WorldMapFrame)

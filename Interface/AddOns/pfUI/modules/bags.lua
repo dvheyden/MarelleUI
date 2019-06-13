@@ -1,4 +1,4 @@
-pfUI:RegisterModule("bags", 20400, function ()
+pfUI:RegisterModule("bags", "vanilla:tbc", function ()
   local default_border = C.appearance.border.default
   if C.appearance.border.bags ~= "-1" then
     default_border = C.appearance.border.bags
@@ -246,6 +246,7 @@ pfUI:RegisterModule("bags", 20400, function ()
     pfUI.bag:CreateAdditions(frame)
     frame:SetFrameStrata("HIGH")
     CreateBackdrop(frame, default_border)
+    CreateBackdropShadow(frame)
 
     local topspace = pfUI.bag.right.close:GetHeight() + default_border * 2
 
@@ -326,9 +327,9 @@ pfUI:RegisterModule("bags", 20400, function ()
     end
     if pfUI.bag.right and pfUI.bag.right.open then
       if openable.bag and openable.slot then
-        pfUI.bag.right.open.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\full")
+        pfUI.bag.right.open.texture:SetTexture(pfUI.media["img:full"])
       else
-        pfUI.bag.right.open.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\empty")
+        pfUI.bag.right.open.texture:SetTexture(pfUI.media["img:empty"])
       end
     end
   end
@@ -449,6 +450,7 @@ pfUI:RegisterModule("bags", 20400, function ()
 
     frame.bagslots:SetPoint("BOTTOM"..position, frame, "TOP"..position, 0, default_border*3)
     CreateBackdrop(frame.bagslots, default_border)
+    CreateBackdropShadow(frame.bagslots)
 
     local extra = 0
     if frame == pfUI.bag.left and GetNumBankSlots() < 6 then extra = 1 end
@@ -568,15 +570,13 @@ pfUI:RegisterModule("bags", 20400, function ()
 
   function pfUI.bag:RefreshSpells()
     if not (pfUI.bag and pfUI.bag.right) then return end
-    for tabIndex = 1, GetNumSpellTabs() do
-      local _, _, offset, numSpells = GetSpellTabInfo(tabIndex)
-      for spellIndex = offset + 1, offset + numSpells do
-        local spellTexture = GetSpellTexture(spellIndex, BOOKTYPE_SPELL)
-        -- scan for disenchant and pick lock
-        for texture, widget in pairs(knownInventorySpellTextures) do
-          if strfind(spellTexture, texture) and pfUI.bag.right[widget.frame] then
-            pfUI.bag.right[widget.frame]:SetID(spellIndex)
-          end
+    local _, _, offset, numSpells = GetSpellTabInfo(1)
+    for spellIndex = offset + 1, offset + numSpells do
+      local spellTexture = GetSpellTexture(spellIndex, BOOKTYPE_SPELL)
+      -- scan for disenchant and pick lock
+      for texture, widget in pairs(knownInventorySpellTextures) do
+        if strfind(spellTexture, texture) and pfUI.bag.right[widget.frame] then
+          pfUI.bag.right[widget.frame]:SetID(spellIndex)
         end
       end
     end
@@ -594,7 +594,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.close:SetHeight(12)
         frame.close:SetWidth(12)
         frame.close.texture = frame.close:CreateTexture("pfBagClose")
-        frame.close.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\close")
+        frame.close.texture:SetTexture(pfUI.media["img:close"])
         frame.close.texture:ClearAllPoints()
         frame.close.texture:SetPoint("TOPLEFT", frame.close, "TOPLEFT", 2, -2)
         frame.close.texture:SetPoint("BOTTOMRIGHT", frame.close, "BOTTOMRIGHT", -2, 2)
@@ -622,7 +622,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.bags:SetTextColor(1,1,.25,1)
         frame.bags:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
         frame.bags.texture = frame.bags:CreateTexture("pfBagArrowUp")
-        frame.bags.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\up")
+        frame.bags.texture:SetTexture(pfUI.media["img:up"])
         frame.bags.texture:ClearAllPoints()
         frame.bags.texture:SetPoint("TOPLEFT", frame.bags, "TOPLEFT", 3, -1)
         frame.bags.texture:SetPoint("BOTTOMRIGHT", frame.bags, "BOTTOMRIGHT", -3, 1)
@@ -663,7 +663,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.open:SetTextColor(1,1,.25,1)
         frame.open:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
         frame.open.texture = frame.open:CreateTexture("pfBagOpenContainer")
-        frame.open.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\empty")
+        frame.open.texture:SetTexture(pfUI.media["img:empty"])
         frame.open.texture:ClearAllPoints()
         frame.open.texture:SetPoint("TOPLEFT", frame.open, "TOPLEFT", 3, -1)
         frame.open.texture:SetPoint("BOTTOMRIGHT", frame.open, "BOTTOMRIGHT", -3, 1)
@@ -720,7 +720,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.disenchant:SetTextColor(1,1,.25,1)
         frame.disenchant:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
         frame.disenchant.texture = frame.disenchant:CreateTexture("pfBagDisenchant")
-        frame.disenchant.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\disenchant")
+        frame.disenchant.texture:SetTexture(pfUI.media["img:disenchant"])
         frame.disenchant.texture:ClearAllPoints()
         frame.disenchant.texture:SetPoint("TOPLEFT", frame.disenchant, "TOPLEFT", 3, -1)
         frame.disenchant.texture:SetPoint("BOTTOMRIGHT", frame.disenchant, "BOTTOMRIGHT", -3, 1)
@@ -764,7 +764,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.picklock:SetTextColor(1,1,.25,1)
         frame.picklock:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
         frame.picklock.texture = frame.picklock:CreateTexture("pfBagPicklock")
-        frame.picklock.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\picklock")
+        frame.picklock.texture:SetTexture(pfUI.media["img:picklock"])
         frame.picklock.texture:ClearAllPoints()
         frame.picklock.texture:SetPoint("TOPLEFT", frame.picklock, "TOPLEFT", 3, -1)
         frame.picklock.texture:SetPoint("BOTTOMRIGHT", frame.picklock, "BOTTOMRIGHT", -3, 1)
@@ -808,7 +808,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.keys:SetTextColor(1,1,.25,1)
         frame.keys:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
         frame.keys.texture = frame.keys:CreateTexture("pfBagArrowUp")
-        frame.keys.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\key")
+        frame.keys.texture:SetTexture(pfUI.media["img:key"])
         frame.keys.texture:ClearAllPoints()
         frame.keys.texture:SetPoint("TOPLEFT", frame.keys, "TOPLEFT", 3, -1)
         frame.keys.texture:SetPoint("BOTTOMRIGHT", frame.keys, "BOTTOMRIGHT", -3, 1)
@@ -910,7 +910,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.close:SetHeight(12)
         frame.close:SetWidth(12)
         frame.close.texture = frame.close:CreateTexture("pfBagClose")
-        frame.close.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\close")
+        frame.close.texture:SetTexture(pfUI.media["img:close"])
         frame.close.texture:ClearAllPoints()
         frame.close.texture:SetPoint("TOPLEFT", frame.close, "TOPLEFT", 2, -2)
         frame.close.texture:SetPoint("BOTTOMRIGHT", frame.close, "BOTTOMRIGHT", -2, 2)
@@ -938,7 +938,7 @@ pfUI:RegisterModule("bags", 20400, function ()
         frame.bags:SetTextColor(1,1,.25,1)
         frame.bags:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
         frame.bags.texture = frame.bags:CreateTexture("pfBagArrowUp")
-        frame.bags.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\up")
+        frame.bags.texture:SetTexture(pfUI.media["img:up"])
         frame.bags.texture:ClearAllPoints()
         frame.bags.texture:SetPoint("TOPLEFT", frame.bags, "TOPLEFT", 3, -1)
         frame.bags.texture:SetPoint("BOTTOMRIGHT", frame.bags, "BOTTOMRIGHT", -3, 1)

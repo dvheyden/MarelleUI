@@ -1,4 +1,4 @@
-pfUI:RegisterSkin("Profession", function ()
+pfUI:RegisterSkin("Profession", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
@@ -53,6 +53,7 @@ pfUI:RegisterSkin("Profession", function ()
 
       StripTextures(frame)
       CreateBackdrop(frame, nil, nil, .75)
+      CreateBackdropShadow(frame)
 
       frame:SetWidth(676)
       frame:SetHeight(440)
@@ -113,7 +114,7 @@ pfUI:RegisterSkin("Profession", function ()
 
         StripTextures(_G[name.."RankFrameBorder"])
         CreateBackdrop(rankbar, nil, true)
-        rankbar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+        rankbar:SetStatusBarTexture(pfUI.media["img:bar"])
         rankbar:ClearAllPoints()
         rankbar:SetPoint("TOPLEFT", backdrop.backdrop, "TOPLEFT", 0, 25)
         rankbar:SetPoint("BOTTOMRIGHT", backdrop.backdrop, "TOPRIGHT", 0, 6)

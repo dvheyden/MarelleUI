@@ -1,4 +1,4 @@
-pfUI:RegisterModule("roll", 20400, function ()
+pfUI:RegisterModule("roll", "vanilla:tbc", function ()
   pfUI.roll = CreateFrame("Frame", "pfLootRoll", UIParent)
   pfUI.roll.frames = {}
 
@@ -79,6 +79,8 @@ pfUI:RegisterModule("roll", 20400, function ()
     local f = CreateFrame("Frame", "pfLootRollFrame" .. id, UIParent)
 
     CreateBackdrop(f, nil, nil, .8)
+    CreateBackdropShadow(f)
+
     f.backdrop:SetFrameStrata("BACKGROUND")
     f.hasItem = 1
 
@@ -222,7 +224,7 @@ pfUI:RegisterModule("roll", 20400, function ()
     f.time:SetFrameStrata("LOW")
     f.time.bar = CreateFrame("StatusBar", "pfLootRollFrame" .. id .. "TimeBar", f.time)
     f.time.bar:SetAllPoints(f.time)
-    f.time.bar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    f.time.bar:SetStatusBarTexture(pfUI.media["img:bar"])
     f.time.bar:SetMinMaxValues(0, 100)
     local r, g, b, a = strsplit(",", C.appearance.border.color)
     f.time.bar:SetStatusBarColor(r, g, b)

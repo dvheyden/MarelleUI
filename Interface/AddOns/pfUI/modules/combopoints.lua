@@ -1,4 +1,4 @@
-pfUI:RegisterModule("combopoints", function ()
+pfUI:RegisterModule("combopoints", "vanilla", function ()
   -- Hide Blizzard combo point frame and unregister all events to prevent it from popping up again
   ComboFrame:Hide()
   ComboFrame:UnregisterAllEvents()
@@ -23,6 +23,7 @@ pfUI:RegisterModule("combopoints", function ()
             pfUI.combopoints["combopoint" .. point]:SetWidth(combo_size)
             pfUI.combopoints["combopoint" .. point]:SetHeight(combo_size)
             CreateBackdrop(pfUI.combopoints["combopoint" .. point])
+            CreateBackdropShadow(pfUI.combopoints["combopoint" .. point])
 
             if pfUI.uf.target then
               pfUI.combopoints["combopoint" .. point]:SetPoint("TOPLEFT", pfUI.uf.target, "TOPRIGHT", C.appearance.border.default*3, -(point - 1) * (combo_size + C.appearance.border.default*3))

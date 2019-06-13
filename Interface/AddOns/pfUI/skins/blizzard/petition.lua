@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Petition", function ()
+pfUI:RegisterSkin("Petition", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(PetitionFrame)
   CreateBackdrop(PetitionFrame, nil, nil, .75)
+  CreateBackdropShadow(PetitionFrame)
+
   PetitionFrame.backdrop:SetPoint("TOPLEFT", 12, -16)
   PetitionFrame.backdrop:SetPoint("BOTTOMRIGHT", -28, 66)
   PetitionFrame:SetHitRectInsets(12,28,16,66)

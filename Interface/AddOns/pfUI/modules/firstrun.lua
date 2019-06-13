@@ -1,4 +1,4 @@
-pfUI:RegisterModule("firstrun", 20400, function ()
+pfUI:RegisterModule("firstrun", "vanilla:tbc", function ()
   pfUI.firstrun = CreateFrame("Frame", "pfFirstRunWizard", UIParent)
   pfUI.firstrun.steps = {}
 
@@ -66,6 +66,7 @@ pfUI:RegisterModule("firstrun", 20400, function ()
     end)
 
     CreateBackdrop(f, nil, nil, .85)
+    CreateBackdropShadow(f)
 
     -- text
     f.text = f:CreateFontString("Status", "OVERLAY", "GameFontNormal")
@@ -79,7 +80,7 @@ pfUI:RegisterModule("firstrun", 20400, function ()
     f.progress:SetPoint("BOTTOMLEFT", 100, 10)
     f.progress:SetPoint("BOTTOMRIGHT", -100, 10)
     f.progress:SetHeight(12)
-    f.progress:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    f.progress:SetStatusBarTexture(pfUI.media["img:bar"])
     f.progress:SetStatusBarColor(.2,1,.8,1)
     f.progress:SetMinMaxValues(1,9)
     f.progress:SetValue(3)

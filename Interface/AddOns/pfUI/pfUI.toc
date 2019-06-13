@@ -2,150 +2,15 @@
 ## Title: |cff33ffccpf|cffffffffUI
 ## Author: Shagu
 ## Notes: A complete user interface replacement.
-## Version: 4.0.6
+## Version: 4.1.1
 ## SavedVariables: pfUI_profiles, pfUI_addon_profiles, pfUI_cache
 ## SavedVariablesPerCharacter: pfUI_config, pfUI_init, pfUI_playerDB
 
-# main
 pfUI.lua
 
-# locales
-env\locales_enUS.lua
-env\locales_koKR.lua
-env\locales_frFR.lua
-env\locales_deDE.lua
-env\locales_zhCN.lua
-env\locales_esES.lua
-env\locales_ruRU.lua
-
-# translations
-env\translations_enUS.lua
-env\translations_koKR.lua
-env\translations_frFR.lua
-env\translations_deDE.lua
-env\translations_zhCN.lua
-env\translations_zhTW.lua
-env\translations_esES.lua
-env\translations_ruRU.lua
-
-# environment
-env\tables.lua
-env\profiles.lua
-
-# compat
-compat\vanilla.lua
-compat\tbc.lua
-
-# api
-api\api.lua
-api\config.lua
-api\ui-widgets.lua
-api\unitframes.lua
-
-# libs
-libs\libtipscan.lua
-libs\libspell.lua
-libs\libcast.lua
-libs\libdebuff.lua
-libs\librange.lua
-libs\libunitscan.lua
-
-# skins
-skins\blizzard\character.lua
-skins\blizzard\spellbook.lua
-skins\blizzard\friends.lua
-skins\blizzard\talents.lua
-skins\blizzard\inspect.lua
-skins\blizzard\macro.lua
-skins\blizzard\miscellaneous.lua
-skins\blizzard\gossipquest.lua
-skins\blizzard\professions.lua
-skins\blizzard\auction.lua
-skins\blizzard\questlog.lua
-skins\blizzard\mail.lua
-skins\blizzard\readycheck.lua
-skins\blizzard\battlefield_minimap.lua
-skins\blizzard\battlefield_score.lua
-skins\blizzard\survey.lua
-skins\blizzard\keybindings.lua
-skins\blizzard\merchant.lua
-skins\blizzard\popup_dialogs.lua
-skins\blizzard\stable.lua
-skins\blizzard\trade.lua
-skins\blizzard\trainer.lua
-skins\blizzard\battlefield.lua
-skins\blizzard\dressup.lua
-skins\blizzard\game_menu.lua
-skins\blizzard\guild_registrar.lua
-skins\blizzard\help.lua
-skins\blizzard\options-interface.lua
-skins\blizzard\options-sound.lua
-skins\blizzard\options-video.lua
-skins\blizzard\petition.lua
-skins\blizzard\taxi.lua
-skins\blizzard\tooltips.lua
-skins\blizzard\tabard.lua
-skins\blizzard\itemtext.lua
-
-# modules
-modules\gui.lua
-modules\unlock.lua
-modules\hoverbind.lua
-modules\updatenotify.lua
-modules\actionbar.lua
-modules\hunterbar.lua
-modules\chat.lua
-modules\whisperproxy.lua
-modules\chatcopy.lua
-modules\bubbles.lua
-modules\addons.lua
-modules\minimap.lua
-modules\panel.lua
-modules\prediction.lua
-modules\player.lua
-modules\focus.lua
-modules\target.lua
-modules\combopoints.lua
-modules\targettarget.lua
-modules\pet.lua
-modules\group.lua
-modules\raid.lua
-modules\mouseover.lua
-modules\castbar.lua
-modules\skin.lua
-modules\xpbar.lua
-modules\autoshift.lua
-modules\autovendor.lua
-modules\bags.lua
-modules\itemclick.lua
-modules\cooldown.lua
-modules\tooltip.lua
-modules\thirdparty.lua
-modules\buff.lua
-modules\buffwatch.lua
-modules\nameplates.lua
-modules\loot.lua
-modules\roll.lua
-modules\infight.lua
-modules\sellvalue.lua
-modules\eqcompare.lua
-modules\map.lua
-modules\uf_tukui.lua
-modules\custom.lua
-modules\gm.lua
-modules\mirrortimers.lua
-modules\feigndeath.lua
-modules\pixelperfect.lua
-modules\hdgraphic.lua
-modules\share.lua
-modules\tracking.lua
-modules\easteregg.lua
-modules\farmmode.lua
-modules\pettarget.lua
-modules\mapreveal.lua
-modules\unusable.lua
-modules\socialmod.lua
-modules\firstrun.lua
-modules\addonbuttons.lua
-modules\afkcam.lua
-modules\screenshot.lua
+init\env.xml
+init\compat.xml
+init\api.xml
+init\libs.xml
+init\skins.xml
+init\modules.xml

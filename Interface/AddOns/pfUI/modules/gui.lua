@@ -1,4 +1,4 @@
-pfUI:RegisterModule("gui", 20400, function ()
+pfUI:RegisterModule("gui", "vanilla:tbc", function ()
   local Reload, U, PrepareDropDownButton, CreateConfig, CreateTabFrame, CreateArea, CreateGUIEntry, EntryUpdate
 
   -- "searchDB" gets populated when CreateConfig is called. The table holds
@@ -623,6 +623,7 @@ pfUI:RegisterModule("gui", 20400, function ()
     end)
 
     CreateBackdrop(pfUI.gui, nil, true, .85)
+    CreateBackdropShadow(pfUI.gui)
     table.insert(UISpecialFrames, "pfConfigGUI")
 
     -- make some locals available to thirdparty
@@ -636,14 +637,14 @@ pfUI:RegisterModule("gui", 20400, function ()
     pfUI.gui.title:SetFontObject(GameFontWhite)
     pfUI.gui.title:SetPoint("TOPLEFT", pfUI.gui, "TOPLEFT", 8, -8)
     pfUI.gui.title:SetJustifyH("LEFT")
-    pfUI.gui.title:SetFont("Interface\\AddOns\\pfUI\\fonts\\Hooge.ttf", 10)
+    pfUI.gui.title:SetFont(pfUI.media["font:Hooge.ttf"], 10)
     pfUI.gui.title:SetText("|cff33ffccpf|rUI")
 
     pfUI.gui.version = pfUI.gui:CreateFontString("Status", "LOW", "GameFontNormal")
     pfUI.gui.version:SetFontObject(GameFontWhite)
     pfUI.gui.version:SetPoint("LEFT", pfUI.gui.title, "RIGHT", 0, 0)
     pfUI.gui.version:SetJustifyH("LEFT")
-    pfUI.gui.version:SetFont("Interface\\AddOns\\pfUI\\fonts\\Myriad-Pro.ttf", 10)
+    pfUI.gui.version:SetFont(pfUI.media["font:Myriad-Pro.ttf"], 10)
     pfUI.gui.version:SetText("|cff555555[|r" .. pfUI.version.string.. "|cff555555]|r")
 
     pfUI.gui.close = CreateFrame("Button", "pfQuestionDialogClose", pfUI.gui)
@@ -652,7 +653,7 @@ pfUI:RegisterModule("gui", 20400, function ()
     pfUI.gui.close:SetHeight(10)
     pfUI.gui.close:SetWidth(10)
     pfUI.gui.close.texture = pfUI.gui.close:CreateTexture("pfQuestionDialogCloseTex")
-    pfUI.gui.close.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\close")
+    pfUI.gui.close.texture:SetTexture(pfUI.media["img:close"])
     pfUI.gui.close.texture:ClearAllPoints()
     pfUI.gui.close.texture:SetAllPoints(pfUI.gui.close)
     pfUI.gui.close.texture:SetVertexColor(1,.25,.25,1)
@@ -901,6 +902,7 @@ pfUI:RegisterModule("gui", 20400, function ()
         "Interface\\AddOns\\pfUI\\img\\bar:pfUI",
         "Interface\\AddOns\\pfUI\\img\\bar_tukui:TukUI",
         "Interface\\AddOns\\pfUI\\img\\bar_elvui:ElvUI",
+        "Interface\\AddOns\\pfUI\\img\\bar_gradient:Gradient",
         "Interface\\AddOns\\pfUI\\img\\bar_striped:Striped",
         "Interface\\TargetingFrame\\UI-StatusBar:Wow Status",
         "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar:Wow Skill"
@@ -1008,7 +1010,8 @@ pfUI:RegisterModule("gui", 20400, function ()
       ["tooltip_position"] = {
         "bottom:" .. T["Bottom"],
         "chat:" .. T["Dodge"],
-        "cursor:" .. T["Cursor"]
+        "cursor:" .. T["Cursor"],
+        "free:" .. T["Custom"]
       },
       ["tooltip_align"] = {
         "native:" .. T["Native"],
@@ -1532,6 +1535,9 @@ pfUI:RegisterModule("gui", 20400, function ()
           CreateConfig(U[c], T["Show PvP-Flag"], C.unitframes[c], "showPVP", "checkbox")
           CreateConfig(U[c], T["Show Loot Icon"], C.unitframes[c], "looticon", "checkbox")
           CreateConfig(U[c], T["Show Leader Icon"], C.unitframes[c], "leadericon", "checkbox")
+          if c == "pet" then
+            CreateConfig(U[c], T["Show Happiness Icon"], C.unitframes[c], "happinessicon", "checkbox")
+          end
           CreateConfig(U[c], T["Show Raid Mark"], C.unitframes[c], "raidicon", "checkbox")
           CreateConfig(U[c], T["Raid Mark Size"], C.unitframes[c], "raidiconsize")
           CreateConfig(U[c], T["Show Class Buff Indicators"], C.unitframes[c], "buff_indicator", "checkbox")

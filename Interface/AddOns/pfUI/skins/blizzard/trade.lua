@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Trade", function ()
+pfUI:RegisterSkin("Trade", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(TradeFrame)
   CreateBackdrop(TradeFrame, nil, nil, .75)
+  CreateBackdropShadow(TradeFrame)
+
   TradeFrame.backdrop:SetPoint("TOPLEFT", 8, -20)
   TradeFrame.backdrop:SetPoint("BOTTOMRIGHT", -16, 30)
   TradeFrame:SetHitRectInsets(8,16,20,30)

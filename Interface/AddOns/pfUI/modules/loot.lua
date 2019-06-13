@@ -1,4 +1,4 @@
-pfUI:RegisterModule("loot", 20400, function ()
+pfUI:RegisterModule("loot", "vanilla:tbc", function ()
   pfUI.loot = CreateFrame("Frame", "pfLootFrame", UIParent)
   pfUI.loot:Hide()
   pfUI.loot:SetFrameStrata("DIALOG")
@@ -493,8 +493,10 @@ pfUI:RegisterModule("loot", 20400, function ()
       local color = ITEM_QUALITY_COLORS[maxrarity]
       if maxrarity <= 1 then
         CreateBackdrop(pfUI.loot)
+        CreateBackdropShadow(pfUI.loot)
       else
         CreateBackdrop(pfUI.loot)
+        CreateBackdropShadow(pfUI.loot)
         pfUI.loot.backdrop:SetBackdropBorderColor(color.r, color.g, color.b, 1)
       end
       pfUI.loot:SetHeight(math.max((real*22)+4*C.appearance.border.default), 20)
@@ -602,14 +604,14 @@ pfUI:RegisterModule("loot", 20400, function ()
     frame.name:SetFont(pfUI.font_default, C.global.font_size, "OUTLINE")
 
     frame.rarity = frame:CreateTexture(nil, "ARTWORK")
-    frame.rarity:SetTexture"Interface\\AddOns\\pfUI\\img\\bar"
+    frame.rarity:SetTexture(pfUI.media["img:bar"])
     frame.rarity:SetPoint("LEFT", frame.ficon, "RIGHT", 0, 0)
     frame.rarity:SetPoint("RIGHT", frame)
     frame.rarity:SetAlpha(.15)
     frame.rarity:SetAllPoints(frame)
 
     frame.hover = frame:CreateTexture(nil, "ARTWORK")
-    frame.hover:SetTexture"Interface\\AddOns\\pfUI\\img\\bar"
+    frame.hover:SetTexture(pfUI.media["img:bar"])
     frame.hover:SetPoint("LEFT", frame.ficon, "RIGHT", 0, 0)
     frame.hover:SetPoint("RIGHT", frame)
     frame.hover:SetAlpha(.15)

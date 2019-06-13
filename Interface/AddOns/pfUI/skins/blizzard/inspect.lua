@@ -1,4 +1,4 @@
-pfUI:RegisterSkin("Inspect", function ()
+pfUI:RegisterSkin("Inspect", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
@@ -6,6 +6,8 @@ pfUI:RegisterSkin("Inspect", function ()
     local cache = {}
 
     CreateBackdrop(InspectFrame, nil, nil, .75)
+    CreateBackdropShadow(InspectFrame)
+
     InspectFrame.backdrop:SetPoint("TOPLEFT", 10, -10)
     InspectFrame.backdrop:SetPoint("BOTTOMRIGHT", -30, 72)
     InspectFrame:SetHitRectInsets(10,30,10,72)
@@ -163,7 +165,7 @@ pfUI:RegisterSkin("Inspect", function ()
       StripTextures(InspectHonorFrame)
 
       CreateBackdrop(InspectHonorFrameProgressBar)
-      InspectHonorFrameProgressBar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+      InspectHonorFrameProgressBar:SetStatusBarTexture(pfUI.media["img:bar"])
       InspectHonorFrameProgressBar:SetHeight(24)
     end
   end)

@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Friends", function ()
+pfUI:RegisterSkin("Friends", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(FriendsFrame, true)
   CreateBackdrop(FriendsFrame, nil, nil, .75)
+  CreateBackdropShadow(FriendsFrame)
+
   FriendsFrame.backdrop:SetPoint("TOPLEFT", 8, -10)
   FriendsFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 74)
   FriendsFrame:SetHitRectInsets(8,32,10,74)
@@ -150,7 +152,7 @@ pfUI:RegisterSkin("Friends", function ()
       frame.classicon:SetPoint("CENTER", class, "CENTER", -4, 0)
       frame.classicon:SetWidth(15)
       frame.classicon:SetHeight(15)
-      frame.classicon:SetTexture("Interface\\AddOns\\pfUI\\img\\classicons")
+      frame.classicon:SetTexture(pfUI.media["img:classicons"])
       frame.classicon:Hide()
 
       local name = _G["WhoFrameButton"..i.."Name"]
@@ -225,7 +227,7 @@ pfUI:RegisterSkin("Friends", function ()
       frame.classicon:SetPoint("CENTER", class, "CENTER", -4, 0)
       frame.classicon:SetWidth(15)
       frame.classicon:SetHeight(15)
-      frame.classicon:SetTexture("Interface\\AddOns\\pfUI\\img\\classicons")
+      frame.classicon:SetTexture(pfUI.media["img:classicons"])
       frame.classicon:Hide()
 
       local name = _G["GuildFrameButton"..i.."Name"]

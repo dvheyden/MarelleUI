@@ -25,12 +25,12 @@ for i=1,40 do pfValidUnits["raid" .. i .. "target"] = true end
 for i=1,40 do pfValidUnits["raidpet" .. i .. "target"] = true end
 
 local glow = {
-  edgeFile = "Interface\\AddOns\\pfUI\\img\\glow", edgeSize = 8,
+  edgeFile = pfUI.media["img:glow"], edgeSize = 8,
   insets = {left = 0, right = 0, top = 0, bottom = 0},
 }
 
 local glow2 = {
-  edgeFile = "Interface\\AddOns\\pfUI\\img\\glow2", edgeSize = 8,
+  edgeFile = pfUI.media["img:glow2"], edgeSize = 8,
   insets = {left = 0, right = 0, top = 0, bottom = 0},
 }
 
@@ -157,9 +157,9 @@ end
 pfUI.uf.glow = CreateFrame("Frame")
 pfUI.uf.glow:SetScript("OnUpdate", function()
   local fpsmod = GetFramerate() / 30
-  if not this.val or this.val >= .9 then
+  if not this.val or this.val >= .8 then
     this.mod = -0.01 / fpsmod
-  elseif this.val <= .6 then
+  elseif this.val <= .4 then
     this.mod = 0.01  / fpsmod
   end
   this.val = this.val + this.mod
@@ -216,6 +216,14 @@ function pfUI.uf:UpdateConfig()
 
   f:SetFrameStrata("BACKGROUND")
 
+  f.glow:SetFrameStrata("BACKGROUND")
+  f.glow:SetFrameLevel(0)
+  f.glow:SetBackdrop(glow2)
+  f.glow:SetPoint("TOPLEFT", f, "TOPLEFT", -6 - default_border,6 + default_border)
+  f.glow:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 6 + default_border,-6 - default_border)
+  f.glow:SetScript("OnUpdate", pfUI.uf.glow.UpdateGlowAnimation)
+  f.glow:Hide()
+
   f.hp:ClearAllPoints()
   f.hp:SetPoint("TOP", 0, 0)
 
@@ -224,15 +232,7 @@ function pfUI.uf:UpdateConfig()
   if tonumber(f.config.height) < 0 then f.hp:Hide() end
   pfUI.api.CreateBackdrop(f.hp, default_border)
 
-  f.hp.glow:SetFrameStrata("BACKGROUND")
-  f.hp.glow:SetFrameLevel(0)
-  f.hp.glow:SetBackdrop(glow2)
-  f.hp.glow:SetPoint("TOPLEFT", f.hp, "TOPLEFT", -6 - default_border,6 + default_border)
-  f.hp.glow:SetPoint("BOTTOMRIGHT", f.hp, "BOTTOMRIGHT", 6 + default_border,-6 - default_border)
-  f.hp.glow:SetScript("OnUpdate", pfUI.uf.glow.UpdateGlowAnimation)
-  f.hp.glow:Hide()
-
-  f.hp.bar:SetStatusBarTexture(f.config.bartexture)
+  f.hp.bar:SetStatusBarTexture(pfUI.media[f.config.bartexture])
   f.hp.bar:SetAllPoints(f.hp)
   if f.config.verticalbar == "1" then
     f.hp.bar:SetOrientation("VERTICAL")
@@ -258,16 +258,8 @@ function pfUI.uf:UpdateConfig()
   if tonumber(f.config.pheight) < 0 then f.power:Hide() end
 
   pfUI.api.CreateBackdrop(f.power, default_border)
-  f.power.bar:SetStatusBarTexture(f.config.bartexture)
+  f.power.bar:SetStatusBarTexture(pfUI.media[f.config.bartexture])
   f.power.bar:SetAllPoints(f.power)
-
-  f.power.glow:SetFrameStrata("BACKGROUND")
-  f.power.glow:SetFrameLevel(0)
-  f.power.glow:SetBackdrop(glow2)
-  f.power.glow:SetPoint("TOPLEFT", f.power, "TOPLEFT", -6 - default_border,6 + default_border)
-  f.power.glow:SetPoint("BOTTOMRIGHT", f.power, "BOTTOMRIGHT", 6 + default_border,-6 - default_border)
-  f.power.glow:SetScript("OnUpdate", pfUI.uf.glow.UpdateGlowAnimation)
-  f.power.glow:Hide()
 
   f.portrait:SetFrameStrata("LOW")
   f.portrait.tex:SetAllPoints(f.portrait)
@@ -329,7 +321,7 @@ function pfUI.uf:UpdateConfig()
   end
 
   if f.config.hitindicator == "1" then
-    f.feedbackText:SetFont(f.config.hitindicatorfont, f.config.hitindicatorsize, "OUTLINE")
+    f.feedbackText:SetFont(pfUI.media[f.config.hitindicatorfont], f.config.hitindicatorsize, "OUTLINE")
     f.feedbackFontHeight = f.config.hitindicatorsize
     f.feedbackStartTime = GetTime()
     if f.config.portrait == "bar" or f.config.portrait == "off" then
@@ -398,7 +390,7 @@ function pfUI.uf:UpdateConfig()
   f.incHeal:SetFrameLevel(2)
   f.incHeal:SetHeight(f.config.height)
   f.incHeal:SetWidth(f.config.width)
-  f.incHeal:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+  f.incHeal:SetStatusBarTexture(pfUI.media["img:bar"])
   f.incHeal:SetStatusBarColor(0, 1, 0, 0.5)
   f.incHeal:Hide()
 
@@ -420,7 +412,7 @@ function pfUI.uf:UpdateConfig()
   f.ressIcon:SetWidth(32)
   f.ressIcon:SetHeight(32)
   f.ressIcon:SetPoint("CENTER", f, "CENTER", 0, 4)
-  f.ressIcon.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\ress")
+  f.ressIcon.texture:SetTexture(pfUI.media["img:ress"])
   f.ressIcon.texture:SetAllPoints(f.ressIcon)
   f.ressIcon:Hide()
 
@@ -441,7 +433,7 @@ function pfUI.uf:UpdateConfig()
   f.pvpIcon:SetWidth(16)
   f.pvpIcon:SetHeight(16)
   f.pvpIcon:SetPoint("CENTER", 0, 0)
-  f.pvpIcon.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\pvp")
+  f.pvpIcon.texture:SetTexture(pfUI.media["img:pvp"])
   f.pvpIcon.texture:SetAllPoints(f.pvpIcon)
   f.pvpIcon.texture:SetVertexColor(1,1,1,.5)
   f.pvpIcon:Hide()
@@ -449,7 +441,7 @@ function pfUI.uf:UpdateConfig()
   f.raidIcon:SetWidth(f.config.raidiconsize)
   f.raidIcon:SetHeight(f.config.raidiconsize)
   f.raidIcon:SetPoint("TOP", f, "TOP", 0, 6)
-  f.raidIcon.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\raidicons")
+  f.raidIcon.texture:SetTexture(pfUI.media["img:raidicons"])
   f.raidIcon.texture:SetAllPoints(f.raidIcon)
   f.raidIcon:Hide()
 
@@ -460,6 +452,14 @@ function pfUI.uf:UpdateConfig()
   f.restIcon.texture:SetTexCoord(0, .5, 0, .421875)
   f.restIcon.texture:SetAllPoints(f.restIcon)
   f.restIcon:Hide()
+
+  f.happinessIcon:SetWidth(12)
+  f.happinessIcon:SetHeight(12)
+  f.happinessIcon:SetPoint("CENTER", f, "TOPLEFT", default_border, -default_border)
+  f.happinessIcon.texture:SetTexture(pfUI.media["img:neutral"])
+  f.happinessIcon.texture:SetAllPoints(f.happinessIcon)
+  f.happinessIcon.texture:SetVertexColor(1, 1, 0, 1)
+  f.happinessIcon:Hide()
 
   if f.config.buffs == "off" then
     for i=1, 32 do
@@ -676,20 +676,14 @@ function pfUI.uf.OnUpdate()
     pfUI.uf:RefreshIndicators(this)
 
     if this.config.glowaggro == "1" and pfUI.api.UnitHasAggro(this.label .. this.id) > 0 then
-      this.hp.glow:SetBackdropBorderColor(1,.2,0)
-      this.power.glow:SetBackdropBorderColor(1,.2,0)
-      this.hp.glow:Show()
-      this.power.glow:Show()
+      this.glow:SetBackdropBorderColor(1,.2,0)
+      this.glow:Show()
     elseif this.config.glowcombat == "1" and UnitAffectingCombat(this.label .. this.id) then
-      this.hp.glow:SetBackdropBorderColor(1,1,.2)
-      this.power.glow:SetBackdropBorderColor(1,1,.2)
-      this.hp.glow:Show()
-      this.power.glow:Show()
+      this.glow:SetBackdropBorderColor(1,1,.2)
+      this.glow:Show()
     else
-      this.hp.glow:SetBackdropBorderColor(1,1,1)
-      this.power.glow:SetBackdropBorderColor(1,1,1)
-      this.hp.glow:Hide()
-      this.power.glow:Hide()
+      this.glow:SetBackdropBorderColor(1,1,1)
+      this.glow:Hide()
     end
 
     -- update everything on eventless frames (targettarget, etc)
@@ -775,7 +769,7 @@ function pfUI.uf:EnableScripts()
   local f = self
 
   -- handle secure unit button templates (> vanilla)
-  if f.SetAttribute then
+  if f.SetAttribute and RegisterStateDriver then
     f.showmenu = pfUI.uf.RightClickAction
     f:SetAttribute("unit", f.label .. f.id)
     f:SetAttribute("type1", "target")
@@ -837,12 +831,13 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
     f.RegisterEvent = function() return end
   end
 
+  CreateBackdropShadow(f)
+
   f.hp = CreateFrame("Frame",nil, f)
-  f.hp.glow = CreateFrame("Frame", nil, f.hp)
   f.hp.bar = CreateFrame("StatusBar", nil, f.hp)
   f.power = CreateFrame("Frame",nil, f)
-  f.power.glow = CreateFrame("Frame", nil, f.power)
   f.power.bar = CreateFrame("StatusBar", nil, f.power)
+  f.glow = CreateFrame("Frame", nil, f)
 
   f.hpLeftText = f:CreateFontString("Status", "OVERLAY", "GameFontNormalSmall")
   f.hpRightText = f:CreateFontString("Status", "OVERLAY", "GameFontNormalSmall")
@@ -869,6 +864,9 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
 
   f.restIcon = CreateFrame("Frame", nil, f.hp.bar)
   f.restIcon.texture = f.restIcon:CreateTexture(nil, "BACKGROUND")
+
+  f.happinessIcon = CreateFrame("Frame", nil, f.hp.bar)
+  f.happinessIcon.texture = f.happinessIcon:CreateTexture(nil, "BACKGROUND")
 
   f.portrait = CreateFrame("Frame", "pfPortrait" .. f.label .. f.id, f)
   f.portrait.tex = f.portrait:CreateTexture("pfPortraitTexture" .. f.label .. f.id, "OVERLAY")
@@ -1044,6 +1042,29 @@ function pfUI.uf:RefreshIndicators(unit)
     end
   end
 
+  if unit.happinessIcon and unit:GetName() == "pfPet" then -- Happiness Icon
+    if unit.config.happinessicon == "0" then
+      unit.happinessIcon:Hide()
+    else
+      if UnitIsVisible("pet") then
+        local happiness = GetPetHappiness()
+        if happiness == 1 then
+          unit.happinessIcon.texture:SetTexture(pfUI.media["img:sad"])
+          unit.happinessIcon.texture:SetVertexColor(1, 0, 0, 1)
+        elseif happiness == 2 then
+          unit.happinessIcon.texture:SetTexture(pfUI.media["img:neutral"])
+          unit.happinessIcon.texture:SetVertexColor(1, 1, 0, 1)
+        else
+          unit.happinessIcon.texture:SetTexture(pfUI.media["img:happy"])
+          unit.happinessIcon.texture:SetVertexColor(0, 1, 0, 1)
+        end
+        unit.happinessIcon:Show()
+      else
+        unit.happinessIcon:Hide()
+      end
+    end
+  end
+
   if unit.raidIcon then -- Raid Icon
     local raidIcon = UnitName(unitstr) and GetRaidTargetIndex(unitstr)
     if unit.config.raidicon == "1" and raidIcon then
@@ -1169,7 +1190,9 @@ function pfUI.uf:RefreshUnit(unit, component)
        texture, stacks = UnitBuff(unitstr, i)
       end
 
-      pfUI.api.CreateBackdrop(unit.buffs[i], default_border)
+      CreateBackdrop(unit.buffs[i], default_border)
+      CreateBackdropShadow(unit.buffs[i])
+
       unit.buffs[i].texture:SetTexture(texture)
 
       if texture then
@@ -1234,7 +1257,9 @@ function pfUI.uf:RefreshUnit(unit, component)
        texture, stacks, dtype = UnitDebuff(unitstr, i)
      end
 
-      pfUI.api.CreateBackdrop(unit.debuffs[i], default_border)
+      CreateBackdrop(unit.debuffs[i], default_border)
+      CreateBackdropShadow(unit.debuffs[i])
+
       unit.debuffs[i].texture:SetTexture(texture)
 
       local r,g,b = DebuffTypeColor.none.r,DebuffTypeColor.none.g,DebuffTypeColor.none.b
@@ -1310,7 +1335,7 @@ function pfUI.uf:RefreshUnit(unit, component)
 
         if indicator.size ~= indicator[debuff].size or disptype ~= indicator[debuff].disp then
           if disptype == "4" then
-            indicator[debuff].tex:SetTexture("Interface\\AddOns\\pfUI\\img\\debuffs\\" .. debuff)
+            indicator[debuff].tex:SetTexture(pfUI.media["img:"..debuff])
             indicator[debuff].tex:SetVertexColor(unpack(pfDebuffColors[debuff]))
             indicator[debuff].tex:Show()
             indicator[debuff]:ClearAllPoints()

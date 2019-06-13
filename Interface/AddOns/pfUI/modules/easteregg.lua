@@ -1,4 +1,4 @@
-pfUI:RegisterModule("easteregg", 20400, function ()
+pfUI:RegisterModule("easteregg", "vanilla:tbc", function ()
   -- merry x-mas!
   if date("%m%d") == "1224" or date("%m%d") == "1225" then
     local title = (UnitFactionGroup("player") == "Horde") and PVP_RANK_18_0 or PVP_RANK_18_1
@@ -46,7 +46,7 @@ pfUI:RegisterModule("easteregg", 20400, function ()
     fireworks.stext:SetText("|cff33ffccShagu|cffffffff wishes you a")
 
     fireworks.text = fireworks:CreateFontString("Status", "LOW", "GameFontWhite")
-    fireworks.text:SetFont("Interface\\AddOns\\pfUI\\fonts\\BigNoodleTitling.ttf", 38)
+    fireworks.text:SetFont(pfUI.media["font:BigNoodleTitling.ttf"], 38)
     fireworks.text:SetPoint("TOP", 0, -400)
     fireworks.text:SetText("happy new year!")
 

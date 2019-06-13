@@ -1,9 +1,9 @@
-pfUI:RegisterModule("actionbar", 20400, function ()
+pfUI:RegisterModule("actionbar", "vanilla:tbc", function ()
   local _, class = UnitClass("player")
   local color = RAID_CLASS_COLORS[class]
   local cr, cg, cb = color.r , color.g, color.b
 
-  local backdrop_highlight = { edgeFile = "Interface\\AddOns\\pfUI\\img\\glow", edgeSize = 8 }
+  local backdrop_highlight = { edgeFile = pfUI.media["img:glow"], edgeSize = 8 }
   local showgrid = 0
   local showgrid_pet = 0
 
@@ -429,19 +429,19 @@ pfUI:RegisterModule("actionbar", 20400, function ()
     local mouse = arg1 and not keystate
     local keystate = keystate
 
+    -- trigger action animation
     if ( pfUI_config.bars.keydown == "1" and keystate == "down" ) or (pfUI_config.bars.keydown == "0" and keystate == "up" ) or self.bar == 11 or mouse then
-      -- trigger effect
       if self:GetAlpha() > .1  or C.bars.animalways == "1" then
         self.animation.active = 0
         self.animation:Show()
       end
-      -- clear highlight
-      if not MouseIsOver(self) then
-        self.highlight:Hide()
-      end
-    elseif keystate == "down" then
-      -- show highlight
+    end
+
+    -- handle button highlight
+    if keystate == "down" then
       self.highlight:Show()
+    elseif not MouseIsOver(self) then
+      self.highlight:Hide()
     end
   end
 
@@ -512,7 +512,7 @@ pfUI:RegisterModule("actionbar", 20400, function ()
   local function CreateActionButton(parent, bar, button)
     -- load config
     local size = C.bars["bar"..bar].icon_size
-    local font = C.bars.font
+    local font = pfUI.media[C.bars.font]
     local font_offset = tonumber(C.bars.font_offset)
 
     local macro_size = tonumber(C.bars.macro_size)
@@ -885,6 +885,7 @@ pfUI:RegisterModule("actionbar", 20400, function ()
     -- apply backdrop settings
     if background == "1" then
       CreateBackdrop(bars[i], border)
+      CreateBackdropShadow(bars[i])
       bars[i].backdrop:Show()
 
       -- share backdrop of main and top actionbar

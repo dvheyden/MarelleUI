@@ -1,10 +1,12 @@
-pfUI:RegisterSkin("Trainer", function ()
+pfUI:RegisterSkin("Trainer", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   HookAddonOrVariable("Blizzard_TrainerUI", function()
     StripTextures(ClassTrainerFrame)
     CreateBackdrop(ClassTrainerFrame, nil, nil, .75)
+    CreateBackdropShadow(ClassTrainerFrame)
+
     ClassTrainerFrame.backdrop:SetPoint("TOPLEFT", 10, -10)
     ClassTrainerFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 72)
     ClassTrainerFrame:SetHitRectInsets(10,32,10,72)

@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Merchant", function ()
+pfUI:RegisterSkin("Merchant", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(MerchantFrame)
   CreateBackdrop(MerchantFrame, nil, nil, .75)
+  CreateBackdropShadow(MerchantFrame)
+
   MerchantFrame.backdrop:SetPoint("TOPLEFT", 10, -10)
   MerchantFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 58)
   MerchantFrame:SetHitRectInsets(10,32,10,58)

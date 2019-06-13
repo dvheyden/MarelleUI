@@ -47,8 +47,47 @@ pfUI.version = {}
 pfUI.hooks = {}
 pfUI.env = {}
 
+-- detect current addon path
+local tocs = { "", "-master", "-tbc", "-wotlk" }
+for _, name in pairs(tocs) do
+  local current = string.format("pfUI%s", name)
+  local _, title = GetAddOnInfo(current)
+  if title then
+    pfUI.name = current
+    pfUI.path = "Interface\\AddOns\\" .. current
+    break
+  end
+end
+
+-- handle/convert media dir paths
+pfUI.media = setmetatable({}, { __index = function(tab,key)
+  local value = tostring(key)
+  if strfind(value, "img:") then
+    value = string.gsub(value, "img:", pfUI.path .. "\\img\\")
+  elseif strfind(value, "font:") then
+    value = string.gsub(value, "font:", pfUI.path .. "\\fonts\\")
+  else
+    value = string.gsub(value, "Interface\\AddOns\\pfUI\\", pfUI.path .. "\\")
+  end
+  rawset(tab,key,value)
+  return value
+end})
+
+-- cache client version
 local _, _, _, client = GetBuildInfo()
-pfUI.client = client or 11200
+client = client or 11200
+
+-- detect client expansion
+if client >= 20000 and client <= 20400 then
+  pfUI.expansion = "tbc"
+  pfUI.client = client
+elseif client >= 30000 and client <= 30300 then
+  pfUI.expansion = "wotlk"
+  pfUI.client = client
+else
+  pfUI.expansion = "vanilla"
+  pfUI.client = client
+end
 
 -- setup pfUI namespace
 setmetatable(pfUI.env, {__index = getfenv(0)})
@@ -95,9 +134,9 @@ function pfUI:UpdateFonts()
     unit = "Fonts\\2002.TTF"
   else
     -- use default entries
-    default = pfUI_config.global.font_default
-    combat = pfUI_config.global.font_combat
-    unit = pfUI_config.global.font_unit
+    default = pfUI.media[pfUI_config.global.font_default]
+    combat = pfUI.media[pfUI_config.global.font_combat]
+    unit = pfUI.media[pfUI_config.global.font_unit]
   end
 
   -- write setting shortcuts
@@ -169,10 +208,12 @@ function pfUI:GetEnvironment()
 end
 
 function pfUI:RegisterModule(name, a2, a3)
-  local hasv = type(a2) == "number"
-  local func, version = hasv and a3 or a2, hasv and a2 or 11200
-  if pfUI.client > version then return end
   if pfUI.module[name] then return end
+  local hasv = type(a2) == "string"
+  local func, version = hasv and a3 or a2, hasv and a2 or "vanilla:tbc:wotlk"
+
+  -- check for client compatibility
+  if not strfind(version, pfUI.expansion) then return end
 
   pfUI.module[name] = func
   table.insert(pfUI.modules, name)
@@ -182,10 +223,12 @@ function pfUI:RegisterModule(name, a2, a3)
 end
 
 function pfUI:RegisterSkin(name, a2, a3)
-  local hasv = type(a2) == "number"
-  local func, version = hasv and a3 or a2, hasv and a2 or 11200
-  if pfUI.client > version then return end
   if pfUI.skin[name] then return end
+  local hasv = type(a2) == "string"
+  local func, version = hasv and a3 or a2, hasv and a2 or "vanilla:tbc:wotlk"
+
+  -- check for client compatibility
+  if not strfind(version, pfUI.expansion) then return end
 
   pfUI.skin[name] = func
   table.insert(pfUI.skins, name)
@@ -210,7 +253,7 @@ pfUI:SetScript("OnEvent", function()
   pfUI:UpdateFonts()
   pfUI:UpdateColors()
 
-  if arg1 == "pfUI" then
+  if arg1 == pfUI.name then
     -- read pfUI version from .toc file
     local major, minor, fix = pfUI.api.strsplit(".", tostring(GetAddOnMetadata("pfUI", "Version")))
     pfUI.version.major = tonumber(major) or 1
@@ -259,7 +302,7 @@ pfUI.backdrop_hover = {
 }
 
 pfUI.backdrop_shadow = {
-  edgeFile = "Interface\\AddOns\\pfUI\\img\\glow2", edgeSize = 8,
+  edgeFile = pfUI.media["img:glow2"], edgeSize = 8,
   insets = {left = 0, right = 0, top = 0, bottom = 0},
 }
 

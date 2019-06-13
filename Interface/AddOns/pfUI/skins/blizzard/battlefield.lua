@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Battlefield", function ()
+pfUI:RegisterSkin("Battlefield", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(BattlefieldFrame)
   CreateBackdrop(BattlefieldFrame, nil, nil, .75)
+  CreateBackdropShadow(BattlefieldFrame)
+
   BattlefieldFrame.backdrop:SetPoint("TOPLEFT", 10, -10)
   BattlefieldFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 72)
   BattlefieldFrame:SetHitRectInsets(10,32,10,72)

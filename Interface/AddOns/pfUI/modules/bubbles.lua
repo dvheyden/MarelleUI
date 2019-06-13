@@ -1,4 +1,4 @@
-pfUI:RegisterModule("bubbles", 20400, function ()
+pfUI:RegisterModule("bubbles", "vanilla:tbc", function ()
 
   local alpha = tonumber(C.chat.bubbles.alpha)
 
@@ -54,6 +54,7 @@ pfUI:RegisterModule("bubbles", 20400, function ()
           f.frame.text:SetAllPoints(f.frame)
 
           CreateBackdrop(f.frame, nil, nil, alpha)
+          CreateBackdropShadow(f.frame)
           f.frame.backdrop:SetPoint("TOPLEFT", f, "TOPLEFT", -10, -10)
           f.frame.backdrop:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 10, 10)
 

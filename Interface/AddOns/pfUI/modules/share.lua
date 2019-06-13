@@ -1,4 +1,4 @@
-pfUI:RegisterModule("share", 20400, function ()
+pfUI:RegisterModule("share", "vanilla:tbc", function ()
   local function serialize(tbl, comp, name, ignored, spacing)
     local spacing = spacing or ""
     local match = nil
@@ -272,6 +272,7 @@ pfUI:RegisterModule("share", 20400, function ()
     end)
 
     CreateBackdrop(f, nil, true, 0.8)
+    CreateBackdropShadow(f)
     table.insert(UISpecialFrames, "pfShare")
 
     do -- Edit Box
@@ -296,7 +297,7 @@ pfUI:RegisterModule("share", 20400, function ()
       f.scroll.text:SetHeight(400)
       f.scroll.text:SetAllPoints(f.scroll)
       f.scroll.text:SetTextInsets(15,15,15,15)
-      f.scroll.text:SetFont("Interface\\AddOns\\pfUI\\fonts\\RobotoMono.ttf", 9)
+      f.scroll.text:SetFont(pfUI.media["font:RobotoMono.ttf"], 9)
       f.scroll.text:SetAutoFocus(false)
       f.scroll.text:SetJustifyH("LEFT")
       f.scroll.text:SetScript("OnEscapePressed", function() this:ClearFocus() end)
@@ -342,7 +343,7 @@ pfUI:RegisterModule("share", 20400, function ()
       f.closeButton:SetHeight(12)
       f.closeButton:SetWidth(12)
       f.closeButton.texture = f.closeButton:CreateTexture("pfQuestionDialogCloseTex")
-      f.closeButton.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\close")
+      f.closeButton.texture:SetTexture(pfUI.media["img:close"])
       f.closeButton.texture:ClearAllPoints()
       f.closeButton.texture:SetAllPoints(f.closeButton)
       f.closeButton.texture:SetVertexColor(1,.25,.25,1)

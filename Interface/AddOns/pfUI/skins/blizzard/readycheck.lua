@@ -1,7 +1,8 @@
-pfUI:RegisterSkin("Readycheck", function ()
+pfUI:RegisterSkin("Readycheck", "vanilla", function ()
   HookAddonOrVariable("Blizzard_RaidUI", function()
     StripTextures(ReadyCheckFrame, true)
     CreateBackdrop(ReadyCheckFrame, nil, nil, .75)
+    CreateBackdropShadow(ReadyCheckFrame)
 
     SkinButton(ReadyCheckFrameYesButton)
     ReadyCheckFrameYesButton:ClearAllPoints()
@@ -20,7 +21,7 @@ pfUI:RegisterSkin("Readycheck", function ()
     frame:SetHeight(10)
 
     frame.bar = CreateFrame("StatusBar", "ReadyCheckFrameStatusBar", ReadyCheckFrame)
-    frame.bar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    frame.bar:SetStatusBarTexture(pfUI.media["img:bar"])
     frame.bar:SetAllPoints(frame)
 
     frame.bar.text = frame.bar:CreateFontString("Status", "DIALOG", "GameFontNormal")

@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Battlefield Score", function ()
+pfUI:RegisterSkin("Battlefield Score", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(WorldStateScoreFrame)
   CreateBackdrop(WorldStateScoreFrame, nil, nil, .75)
+  CreateBackdropShadow(WorldStateScoreFrame)
+
   WorldStateScoreFrame.backdrop:SetPoint("TOPLEFT", 10, -14)
   WorldStateScoreFrame.backdrop:SetPoint("BOTTOMRIGHT", -112, 68)
   WorldStateScoreFrame:SetHitRectInsets(10,112,14,68)

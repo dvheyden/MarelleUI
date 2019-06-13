@@ -1,8 +1,10 @@
-pfUI:RegisterSkin("Options - Video", function ()
+pfUI:RegisterSkin("Options - Video", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   CreateBackdrop(OptionsFrame, nil, nil, .75)
+  CreateBackdropShadow(OptionsFrame)
+
   EnableMovable(OptionsFrame)
 
   HookScript(OptionsFrame, "OnShow", function()

@@ -1,9 +1,11 @@
-pfUI:RegisterSkin("Guild Tabard", function ()
+pfUI:RegisterSkin("Guild Tabard", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   StripTextures(TabardFrame)
   CreateBackdrop(TabardFrame, nil, nil, .75)
+  CreateBackdropShadow(TabardFrame)
+
   TabardFrame.backdrop:SetPoint("TOPLEFT", 10, -10)
   TabardFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 72)
   TabardFrame:SetHitRectInsets(10,32,10,72)

@@ -1,4 +1,4 @@
-pfUI:RegisterModule("mirrortimers", function ()
+pfUI:RegisterModule("mirrortimers", "vanilla", function ()
   for i = 1, MIRRORTIMER_NUMTIMERS do
     local mirrorTimer = _G["MirrorTimer"..i]
     local statusBar = _G["MirrorTimer"..i.."StatusBar"]
@@ -13,11 +13,12 @@ pfUI:RegisterModule("mirrortimers", function ()
     mirrorTimer.scale = 1
     mirrorTimer.value = 0
 
-    statusBar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    statusBar:SetStatusBarTexture(pfUI.media["img:bar"])
     statusBar:SetWidth(222)
     statusBar:SetHeight(18)
     statusBar:SetPoint("TOP", 0, 0)
     CreateBackdrop(statusBar)
+    CreateBackdropShadow(statusBar)
 
     mirrorTimer:SetWidth(statusBar:GetWidth())
     mirrorTimer:SetHeight(statusBar:GetHeight())

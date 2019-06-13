@@ -1,4 +1,4 @@
-pfUI:RegisterModule("screenshot", function ()
+pfUI:RegisterModule("screenshot", "vanilla", function ()
   if C.screenshot.interval == "0"
     and C.screenshot.levelup == "0"
     and C.screenshot.pvprank == "0"
@@ -22,7 +22,7 @@ pfUI:RegisterModule("screenshot", function ()
   pfUI.screenshot.caption:SetWidth(400)
   pfUI.screenshot.caption:SetHeight(200)
   pfUI.screenshot.caption.text = pfUI.screenshot.caption:CreateFontString("Label", "OVERLAY")
-  pfUI.screenshot.caption.text:SetFont(C.screenshot.caption_font, C.screenshot.caption_size, "THICKOUTLINE")
+  pfUI.screenshot.caption.text:SetFont(pfUI.media[C.screenshot.caption_font], C.screenshot.caption_size, "THICKOUTLINE")
   pfUI.screenshot.caption.text:SetAllPoints(pfUI.screenshot.caption)
   pfUI.screenshot.caption.text:SetJustifyH("CENTER")
   pfUI.screenshot.caption.text:SetJustifyV("TOP")

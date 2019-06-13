@@ -1,4 +1,4 @@
-pfUI:RegisterModule("panel", 20400, function()
+pfUI:RegisterModule("panel", "vanilla:tbc", function()
   -- initialize gold cache if not yet happened
   pfUI_cache["gold"] = pfUI_cache["gold"] or {}
 
@@ -535,9 +535,10 @@ pfUI:RegisterModule("panel", 20400, function()
   end
 
   pfUI.panel.left:SetFrameStrata("DIALOG")
-  pfUI.panel.left:SetHeight(C.global.font_size+default_border*2)
+  pfUI.panel.left:SetHeight(C.global.font_size*1.5)
 
   CreateBackdrop(pfUI.panel.left, default_border, nil)
+  CreateBackdropShadow(pfUI.panel.left)
   UpdateMovable(pfUI.panel.left)
 
   pfUI.panel.left.hide = CreateFrame("Button", nil, pfUI.panel.left)
@@ -548,7 +549,7 @@ pfUI:RegisterModule("panel", 20400, function()
   pfUI.panel.left.hide:SetPoint("LEFT", 0, 0)
   CreateBackdrop(pfUI.panel.left.hide, default_border)
   pfUI.panel.left.hide.texture = pfUI.panel.left.hide:CreateTexture("pfPanelLeftHide")
-  pfUI.panel.left.hide.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\left")
+  pfUI.panel.left.hide.texture:SetTexture(pfUI.media["img:left"])
   pfUI.panel.left.hide.texture:ClearAllPoints()
   pfUI.panel.left.hide.texture:SetPoint("TOPLEFT", pfUI.panel.left.hide, "TOPLEFT", 2, -4)
   pfUI.panel.left.hide.texture:SetPoint("BOTTOMRIGHT", pfUI.panel.left.hide, "BOTTOMRIGHT", -2, 4)
@@ -615,9 +616,10 @@ pfUI:RegisterModule("panel", 20400, function()
   end
 
   pfUI.panel.right:SetFrameStrata("DIALOG")
-  pfUI.panel.right:SetHeight(C.global.font_size+default_border*2)
+  pfUI.panel.right:SetHeight(C.global.font_size*1.5)
 
   CreateBackdrop(pfUI.panel.right, default_border, nil)
+  CreateBackdropShadow(pfUI.panel.right)
   UpdateMovable(pfUI.panel.right)
 
   pfUI.panel.right.hide = CreateFrame("Button", nil, pfUI.panel.right)
@@ -628,7 +630,7 @@ pfUI:RegisterModule("panel", 20400, function()
   pfUI.panel.right.hide:SetPoint("RIGHT", 0, 0)
   CreateBackdrop(pfUI.panel.right.hide, default_border)
   pfUI.panel.right.hide.texture = pfUI.panel.right.hide:CreateTexture("pfPanelRightHide")
-  pfUI.panel.right.hide.texture:SetTexture("Interface\\AddOns\\pfUI\\img\\right")
+  pfUI.panel.right.hide.texture:SetTexture(pfUI.media["img:right"])
   pfUI.panel.right.hide.texture:ClearAllPoints()
   pfUI.panel.right.hide.texture:SetPoint("TOPLEFT", pfUI.panel.right.hide, "TOPLEFT", 2, -4)
   pfUI.panel.right.hide.texture:SetPoint("BOTTOMRIGHT", pfUI.panel.right.hide, "BOTTOMRIGHT", -2, 4)
@@ -691,10 +693,11 @@ pfUI:RegisterModule("panel", 20400, function()
     pfUI.panel.minimap:SetPoint("TOP", UIParent, "TOP", 0, -5)
   end
 
-  pfUI.panel.minimap:SetHeight(C.global.font_size+default_border*2)
+  pfUI.panel.minimap:SetHeight(C.global.font_size*1.5)
   pfUI.panel.minimap:SetFrameStrata("MEDIUM")
 
   CreateBackdrop(pfUI.panel.minimap, default_border)
+  CreateBackdropShadow(pfUI.panel.minimap)
   UpdateMovable(pfUI.panel.minimap)
 
   pfUI.panel.minimap.text = pfUI.panel.minimap:CreateFontString("MinimapZoneText", "LOW", "GameFontNormal")

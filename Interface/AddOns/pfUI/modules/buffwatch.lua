@@ -1,4 +1,4 @@
-pfUI:RegisterModule("buffwatch", function ()
+pfUI:RegisterModule("buffwatch", "vanilla", function ()
   local border = C.appearance.border.default
   local scanner = libtipscan:GetScanner("buffwatch")
 
@@ -44,7 +44,7 @@ pfUI:RegisterModule("buffwatch", function ()
   end
 
   -- iterate over given tables and return the first frame that is shown
-  local function FirstOneShown(anchors, v)
+  local function FirstOneShown(anchors)
     for _, tbl in pairs(anchors) do
       for i=32, 1, -1 do
         if tbl and tbl[i] and tbl[i]:IsShown() and tbl[i]:IsVisible() then
@@ -154,7 +154,7 @@ pfUI:RegisterModule("buffwatch", function ()
     frame.bar = CreateFrame("StatusBar", "pfBuffBar" .. bar, frame)
     frame.bar:SetPoint("TOPLEFT", frame, "TOPLEFT", height+1, 0)
     frame.bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
-    frame.bar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+    frame.bar:SetStatusBarTexture(pfUI.media["img:bar"])
     frame.bar:SetStatusBarColor(color.r, color.g, color.b, color.a)
 
     frame.text = frame.bar:CreateFontString("Status", "DIALOG", "GameFontNormal")
@@ -200,6 +200,7 @@ pfUI:RegisterModule("buffwatch", function ()
     frame:SetScript("OnLeave", StatusBarOnLeave)
 
     CreateBackdrop(frame)
+    CreateBackdropShadow(frame)
     if bordercolor.r ~= "0" and bordercolor.g ~= "0" and bordercolor.b ~= "0" and bordercolor.a ~= "0" then
       frame.backdrop:SetBackdropBorderColor(bordercolor.r,bordercolor.g,bordercolor.b,1)
     end
@@ -346,7 +347,7 @@ pfUI:RegisterModule("buffwatch", function ()
     if pfUI.unlock and pfUI.unlock:IsShown() then return end
 
     if not pfUI_config["position"][self:GetName()] then
-      local anchor = FirstOneShown(self.anchors, ( self.unit == "target"))
+      local anchor = FirstOneShown(self.anchors)
 
       if not self.lastanchor or self.lastanchor ~= anchor then
         self:ClearAllPoints()

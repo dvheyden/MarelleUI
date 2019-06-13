@@ -1,10 +1,12 @@
-pfUI:RegisterSkin("Macro", function ()
+pfUI:RegisterSkin("Macro", "vanilla", function ()
   local border = tonumber(pfUI_config.appearance.border.default)
   local bpad = border > 1 and border - 1 or 1
 
   HookAddonOrVariable("Blizzard_MacroUI", function()
     StripTextures(MacroFrame)
     CreateBackdrop(MacroFrame, nil, nil, .75)
+    CreateBackdropShadow(MacroFrame)
+
     MacroFrame.backdrop:SetPoint("TOPLEFT", 10, -10)
     MacroFrame.backdrop:SetPoint("BOTTOMRIGHT", -32, 72)
     MacroFrame:SetHitRectInsets(10,32,10,72)

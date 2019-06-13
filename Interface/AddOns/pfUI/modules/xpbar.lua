@@ -1,4 +1,4 @@
-pfUI:RegisterModule("xpbar", 20400, function ()
+pfUI:RegisterModule("xpbar", "vanilla:tbc", function ()
 
   local xp_timeout = tonumber(C.panel.xp.xp_timeout)
   local xp_width = C.panel.xp.xp_width
@@ -23,6 +23,7 @@ pfUI:RegisterModule("xpbar", 20400, function ()
   end
   pfUI.xp:SetFrameStrata("BACKGROUND")
   CreateBackdrop(pfUI.xp)
+  CreateBackdropShadow(pfUI.xp)
   UpdateMovable(pfUI.xp)
 
   pfUI.xp:RegisterEvent("PLAYER_LEVEL_UP")
@@ -112,7 +113,7 @@ pfUI:RegisterModule("xpbar", 20400, function ()
     end)
 
   pfUI.xp.bar = CreateFrame("StatusBar", nil, pfUI.xp)
-  pfUI.xp.bar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+  pfUI.xp.bar:SetStatusBarTexture(pfUI.media["img:bar"])
   pfUI.xp.bar:ClearAllPoints()
   pfUI.xp.bar:SetAllPoints(pfUI.xp)
   pfUI.xp.bar:SetFrameStrata("LOW")
@@ -122,7 +123,7 @@ pfUI:RegisterModule("xpbar", 20400, function ()
   pfUI.xp.bar:SetValue(59)
 
   pfUI.xp.restedbar = CreateFrame("StatusBar", nil, pfUI.xp)
-  pfUI.xp.restedbar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+  pfUI.xp.restedbar:SetStatusBarTexture(pfUI.media["img:bar"])
   pfUI.xp.restedbar:ClearAllPoints()
   pfUI.xp.restedbar:SetAllPoints(pfUI.xp)
   pfUI.xp.restedbar:SetFrameStrata("MEDIUM")
@@ -142,10 +143,11 @@ pfUI:RegisterModule("xpbar", 20400, function ()
   end
   pfUI.rep:SetFrameStrata("BACKGROUND")
   CreateBackdrop(pfUI.rep)
+  CreateBackdropShadow(pfUI.rep)
   UpdateMovable(pfUI.rep)
 
   pfUI.rep.bar = CreateFrame("StatusBar", nil, pfUI.rep)
-  pfUI.rep.bar:SetStatusBarTexture("Interface\\AddOns\\pfUI\\img\\bar")
+  pfUI.rep.bar:SetStatusBarTexture(pfUI.media["img:bar"])
   pfUI.rep.bar:ClearAllPoints()
   pfUI.rep.bar:SetAllPoints(pfUI.rep)
   pfUI.rep.bar:SetMinMaxValues(0, 100)
