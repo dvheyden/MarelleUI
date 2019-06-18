@@ -1504,11 +1504,7 @@ QuestieEvents = {
       [1] = {16.0, 0.433, 0.4582, 100.0},
       [2] = {11.0, 0.4196, 0.6081, 9.0}
     },
-    ["locationCount"] = 2,
-    ["locations_rr"] = {
-      [1] = 8,
-      [2] = 32
-    }
+    ["locationCount"] = 2
   },
   ["Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear."] = {
     ["locations"] = {
