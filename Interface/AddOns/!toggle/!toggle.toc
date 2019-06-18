@@ -1,5 +1,0 @@
-## Interface: 11200
-## Author: shirsig
-## Title: !toggle
-## Notes: Removes toggling behavior from Attack, Auto Shot and Shoot
-!toggle.lua
