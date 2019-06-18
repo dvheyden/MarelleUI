@@ -5,6 +5,7 @@ if pfUI.expansion ~= "vanilla" then return end
 -- [[ Constants ]]--
 CASTBAR_EVENT_CAST_DELAY = "SPELLCAST_DELAYED"
 CASTBAR_EVENT_CHANNEL_DELAY = "SPELLCAST_CHANNEL_UPDATE"
+EVENTS_MINIMAP_ZONE_UPDATE = {"PLAYER_ENTERING_WORLD", "MINIMAP_ZONE_CHANGED"}
 
 MICRO_BUTTONS = {
   'CharacterMicroButton', 'SpellbookMicroButton', 'TalentMicroButton',
@@ -17,7 +18,6 @@ NAMEPLATE_OBJECTORDER = { "border", "glow", "name", "level", "levelicon", "raidi
 NAMEPLATE_FRAMETYPE = "Button"
 
 MINIMAP_TRACKING_FRAME = _G.MiniMapTrackingFrame
-UI_OPTIONS_FRAME = _G.UIOptionsFrame
 
 FRIENDS_NAME_LOCATION = "ButtonTextNameLocation"
 
