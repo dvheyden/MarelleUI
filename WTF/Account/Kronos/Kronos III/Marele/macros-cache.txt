@@ -1,8 +1,0 @@
-MACRO 16777218 "Charge" Ability_Warrior_Charge
-/cast Charge(Rank 1)
-/script if not IsCurrentAction(61) then UseAction(61) end
-END
-MACRO 16777217 "HS" Ability_Rogue_Ambush
-/cast Heroic Strike(Rank 1)
-/script if not IsCurrentAction(61) then UseAction(61) end;
-END
