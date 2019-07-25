@@ -205,7 +205,7 @@ pfUI:RegisterModule("actionbar", "vanilla:tbc", function ()
   local function SwitchBar(bar)
     if _G.CURRENT_ACTIONBAR_PAGE ~= bar then
       _G.CURRENT_ACTIONBAR_PAGE = bar
-      ChangeActionBarPage()
+      ChangeActionBarPage(bar)
     end
   end
 
@@ -260,7 +260,7 @@ pfUI:RegisterModule("actionbar", "vanilla:tbc", function ()
     if event == "ACTIONBAR_UPDATE_STATE" then return end
 
     -- handle secure action button templates (tbc+)
-    if self.SetAttribute then
+    if self.SetAttribute and InCombatLockdown and not InCombatLockdown() then
       if self.bar == 11 then
         self:SetAttribute("type", "spell")
         self:SetAttribute('spell', select(2, GetShapeshiftFormInfo(id)))
@@ -1135,6 +1135,10 @@ pfUI:RegisterModule("actionbar", "vanilla:tbc", function ()
 
     -- update to the current page
     bars[1]:SetAttribute("state", bars[1]:GetAttribute("state-page"))
+
+    -- set state driver for pet bars
+    bars[12]:SetAttribute("unit", "pet")
+    RegisterStateDriver(bars[12], 'visibility', "[pet] show; hide")
   end
 
   -- handle drag-drop grid
